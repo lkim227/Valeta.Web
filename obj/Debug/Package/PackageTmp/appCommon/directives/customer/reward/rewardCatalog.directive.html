@@ -1,0 +1,91 @@
+﻿<div class="row rewards">
+    <div class="row fullrow">
+        <div class="order-points col-sm-3 col-md-2">
+            <div class="point-tracker point-tracker--small">
+                <div class="point-tracker_remaining">{{pointBalance}}</div>
+                <div class="point-tracker_remaining-title">Points can spend</div>
+            </div>
+        </div>
+
+        <div class="col-sm-9 col-md-10" ng-show="pointsSpentOnOrder === 0" id="shopMessage">
+            <h4>{{orderMessage}}</h4>
+        </div>
+
+        <div class="col-sm-9 col-md-10" ng-hide="pointsSpentOnOrder === 0" id="shoppingCart">
+            <div class="fullrow">
+                <h4>List of items to order today:</h4>
+            </div>
+
+            <div class="fullrow rewards-item" ng-repeat="(reward, object) in availableRewards">
+                <div class="row top-buffer15" ng-show="object.inShoppingCart === true">
+                    <div class="col-sm-3 col-md-3 text-wrapper">
+                        <b>{{object.Name}}</b>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-inline">
+                            <label>Quantity: </label>
+                            <input type="number"
+                                   class="form-control quantity-input"
+                                   min="1"
+                                   ng-model="availableRewards[reward].newOrderQty"
+                                   ng-change="updateOrderQty(reward)"
+                                   id="newOrderQtyInput"
+                                   name="newOrderQtyInput" />
+                            <button class="btn btn-cancel btn-icon-only"
+                                    id="removeRewardFromCartButton"
+                                    name="removeRewardFromCartButton"
+                                    ng-click="removeRewardFromCart(reward)">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-3 text-wrapper">
+                        <span class="left-buffer15">{{object.Points*availableRewards[reward].orderQty}} points</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fullrow">
+                <input type="button" class="btn btn-primary" ng-click="placeOrder();" value="Place an order" />
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="rewards-list">
+        <div class="row fullrow rewards-item" id="inventory" ng-repeat="(reward, object) in availableRewards">
+            <div ng-show="showRewardInCatalog(reward) === true">
+                <div class="col-sm-6 col-md-7 rewards-item_details">
+                    <div class="col-md-3 text-wrapper">
+                        <b>{{object.Name}}</b>
+                    </div>
+                    <div class="col-md-5 text-wrapper">
+                        <span ng-show="object.Description.length>0">{{object.Description}}</span>
+                    </div>
+                    <div class="col-md-3 text-wrapper">
+                        <em>{{object.Points}} points</em>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-5 form-inline rewards-item_controls" ng-show="showCatalogActionForReward(reward) === true">
+                    <input type="button"
+                           class="btn btn-primary"
+                           ng-hide="object.AppliesTo === rewardAppliesToGiftEnumValue"
+                           ng-click="goToReservation()"
+                           id="makeReservationButton"
+                           name="makeReservationButton"
+                           value="Make a reservation" />
+                    <div class="form-inline" ng-show="object.AppliesTo === rewardAppliesToGiftEnumValue">
+                        <input type="button"
+                               class="btn btn-primary"
+                               ng-click="addRewardToCart(reward)"
+                               id="addRewardToCart"
+                               name="addRewardToCart"
+                               value="Add to order" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

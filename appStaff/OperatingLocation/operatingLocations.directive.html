@@ -1,0 +1,88 @@
+﻿<div cg-busy="loadingPromise">
+    <div class="page-controls-wrapper">
+        <a ng-show="canCreate" class="btn btn-primary" title="Add Operating Location" href="/appStaff/#/single-operatinglocation/">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New operating location
+        </a>
+    </div>
+
+    <div class="fullrow">
+        <kendo-list-view id="listView" class="noborder operating-locations"
+                         k-data-source="dataSource"
+                         k-selectable="false"
+                         k-on-change="onChange(dataItem)"
+                         ng-show="!windowZonesvisible">
+            <div k-template class="operating-location">
+                <div class="operating-location_title">
+                    {{dataItem.Name}}
+                </div>
+                <div class="operating-location_controls">
+                    <a ng-show="canUpdate" class="btn btn-primary"
+                       href="/appStaff/\\#/single-operatinglocation/#=ID#" title="Edit Operating Location">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <button ng-show="canDelete" class="btn btn-cancel k-delete-button" title="Delete Operating Location">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                </div>
+                <div class="operating-location_choices" ng-show="canUpdate">
+                    <a class="btn btn-primary" href="/appStaff/\\#/setup-entrance/#=ID#" target="_self">
+                        <span class="btn-text">Entrances</span>
+                    </a>
+                    <a class="btn btn-primary btn-sm" href="/appStaff/\\#/setup-entrance-meet-location-zone-mapping/#=ID#" target="_self">
+                        <span class="btn-icon glyphicon glyphicon-arrow-left"></span>
+                        <span class="btn-text">Entrance/Zone Mapping</span>
+                        <span class="btn-icon btn-icon--right glyphicon glyphicon-arrow-right"></span>
+                    </a>
+                    <a class="btn btn-primary" href="/appStaff/\\#/setup-zone/#=ID#" target="_self">
+                        <span class="btn-text">Zones</span>
+                    </a>
+                    <a class="btn btn-primary btn-sm" href="/appStaff/\\#/setup-zone-lots/#=ID#" target="_self">
+                        <span class="btn-icon glyphicon glyphicon-arrow-left"></span>
+                        <span class="btn-text">Zone/Lot Mapping</span>
+                        <span class="btn-icon btn-icon--right glyphicon glyphicon-arrow-right"></span>
+                    </a>
+                    <a class="btn btn-primary" href="/appStaff/\\#/setup-lot/#=ID#" target="_self">
+                        <span class="btn-text">Lots / Slots</span>
+                    </a>
+                </div>
+            </div>
+        </kendo-list-view>
+    </div>
+</div>
+
+<script>
+    $(document)
+        .ready(function () {
+            $("#tabstrip")
+                .kendoTabStrip({
+                    animation: {
+                        open: {
+                            effects: "fadeIn"
+                        }
+                    }
+                });
+        });
+
+    $("#windowSlots")
+        .kendoWindow({
+            width: "100%",
+            height: "100%",
+            minWidth: "100%",
+            minHeight: "100%",
+            position: {
+                top: 0,
+                left: 0
+            }
+        });
+    $("#windowZones")
+        .kendoWindow({
+            width: "100%",
+            height: "100%",
+            minWidth: "100%",
+            minHeight: "100%",
+            position: {
+                top: 0,
+                left: 0
+            }
+        });
+</script>

@@ -1,0 +1,155 @@
+﻿<div ng-show="makeReservationVm.isContinuingPreviousIncompleteReservation">
+    <a class="link right-buffer15" ng-click="makeReservationVm.startOver()">Start a new reservation?</a>
+    <h4>or Continue where you left off... for Reservation #{{makeReservationVm.reservation.ReservationNumber}}</h4>
+</div>
+
+<div class="reservation top-buffer15">
+    <div class="form-group row">
+        <label class="form-col-withlabel-label no-top-padding control-label">Which location?</label>
+        <div class="form-col-withlabel-input">
+            <operating-location-dropdown
+                operating-location-changed-callback="makeReservationVm.updateOperatingLocation(newOperatingLocation)"
+                initial-operating-location-identifier="makeReservationVm.reservation.OperatingLocationID">
+            </operating-location-dropdown>
+        </div>
+    </div>
+
+    <div ng-show="makeReservationVm.HasSelectedLocation">
+
+        <!--todo: coming soon
+        <div ng-show="makeReservationVm.customerHasPaymentMethods">
+        You do not have payment methods yet. Please set them up first.
+        <button aria-hidden="true"
+                analytics-category="MakeReservation"
+                analytics-event="MakeReservation-1-Details"
+                analytics-on="click"
+                class="btn btn-primary"
+                ng-click="makeReservationVm.goToPaymentMethods();"
+                type="button">
+            Please set up payment methods
+        </button>
+    </div>-->
+
+        <flight-lookup flight-specifications="makeReservationVm.reservation.ReservedAirportMeet.IntakeSpecifications"
+                       flight-schedule="makeReservationVm.reservation.ReservedAirportMeet.IntakeSchedule">
+        </flight-lookup>
+
+        <div class="form-group row">
+            <defined-list-dropdown list-type="MeetTime"
+                                   required
+                                   list-label="Meet time?"
+                                   selected-defined-list-value="makeReservationVm.reservation.ReservedAirportMeet.IntakeOffsetFromScheduledDateTimeInMinutes">
+            </defined-list-dropdown>
+        </div>
+
+        <div class="form-group row">
+            <defined-list-dropdown list-type="MeetLocationIntake"
+                                   required
+                                   list-label="Meet where?"
+                                   selected-defined-list-value="makeReservationVm.reservation.ReservedAirportMeet.IntakeRelativeMeetLocation">
+            </defined-list-dropdown>
+        </div>
+
+        <flight-lookup flight-specifications="makeReservationVm.reservation.ReservedAirportMeet.GiveBackSpecifications"
+                       flight-schedule="makeReservationVm.reservation.ReservedAirportMeet.GiveBackSchedule">
+        </flight-lookup>
+
+        <div class="form-group row">
+            <div class="form-item_no-label">
+                <airport-meet-validation departure-specifications="makeReservationVm.reservation.ReservedAirportMeet.IntakeSpecifications"
+                                         departure-schedule="makeReservationVm.reservation.ReservedAirportMeet.IntakeSchedule"
+                                         return-specifications="makeReservationVm.reservation.ReservedAirportMeet.GiveBackSpecifications"
+                                         return-schedule="makeReservationVm.reservation.ReservedAirportMeet.GiveBackSchedule">
+                </airport-meet-validation>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="form-col-withlabel-label control-label" for="isCheckingBagsButtons">
+                Checking bags?
+            </label>
+            <div class="btn-group" id="isCheckingBagsButtons" name="isCheckingBagsButtons">
+                <label class="btn" ng-model="makeReservationVm.reservation.ReservedAirportMeet.GiveBackIsCheckingBags" ng-value="true" uib-btn-radio="true" id="isCheckingBagsYes" name="checkingBagsYes">Yes</label>
+                <label class="btn" ng-model="makeReservationVm.reservation.ReservedAirportMeet.GiveBackIsCheckingBags" ng-value="false" uib-btn-radio="false" id="isCheckingBagsNo" name="checkingBagsNo">No</label>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="form-group row">
+            <label class="form-col-withlabel-label control-label">
+                Which vehicle would you be using?
+            </label>
+            <div class="form-col-withlabel-input">
+                <account-vehicles can-create
+                                  can-select
+                                  select-label="Select Vehicle"
+                                  selected-vehicle="makeReservationVm.reservation.Vehicle">
+                </account-vehicles>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="form-col-withlabel-label control-label" for="useTollTagButtons">Use TollTag when entering and exiting airport?</label>
+            <div class="btn-group" id="useTollTagButtons" name="useTollTagButtons">
+                <label class="btn" ng-model="makeReservationVm.reservation.Vehicle.UseTollTag" ng-value="true" uib-btn-radio="true" id="tollTagYes" name="tollTagYes">Yes</label>
+                <label class="btn" ng-model="makeReservationVm.reservation.Vehicle.UseTollTag" ng-value="false" uib-btn-radio="false" id="tollTagNo" name="tollTagNo">No</label>
+            </div>
+        </div>
+
+        <hr />
+
+        <!--<div ng-hide="!makeReservationVm.hasVehicleAndFlights()">-->
+        <div class="form-group row">
+            <label class="form-col-withlabel-label control-label" for="note">
+                Note to valet
+            </label>
+            <div class="form-col-withlabel-input">
+                <textarea class="form-control min-control-width"
+                          id="note"
+                          name="note"
+                          maxlength="128"
+                          ng-model="makeReservationVm.reservation.Note">
+                    </textarea>
+                <span class="pull-right" ng-show="makeReservationVm.reservation.Note.length > 128/3">
+                    {{128 - makeReservationVm.reservation.Note.length}} {{makeReservationVm.formMessages.Textarea_Characters_Remaining}}
+                </span>
+            </div>
+        </div>
+
+        <div id="ccEmails" class="form-group row">
+            <label class="form-col-withlabel-label control-label" for="ccEmails">Also email to:</label>
+            <div class="form-col-withlabel-input">
+                <input class="form-control width-full" type="text" placeholder="{{makeReservationVm.formMessages.Placeholder_CCEmails}}" name="ccEmails" ng-model="makeReservationVm.reservation.CCEmails" />
+                <!--ng-pattern="/^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+)*$/"-->
+                <!--<div class="error-messages" ng-messages="{'pattern': !makeReservationVm.isCCEmailsValid}">
+                <div ng-message="pattern">{{makeReservationVm.formMessages.Placeholder_CCEmails}}</div>
+            </div>-->
+            </div>
+        </div>
+
+        <!--</div>-->
+    </div>
+
+    <!-- wizard navigation -->
+    <div id="wizardNav" class="reservation-nav row top-buffer-relative5 clearfix">
+        <div class="reservation-nav_prev">&nbsp;</div>
+
+        <div class="reservation-nav_page">
+            <strong ng-bind-template="{{$getActiveIndex()}} / {{$getSteps().length}}"></strong>
+        </div>
+
+        <div class="reservation-nav_next">
+            <button aria-hidden="true"
+                    analytics-category="MakeReservation"
+                    analytics-event="MakeReservation-2-Services"
+                    analytics-on="click"
+                    class="text-right btn btn-primary--mainaction"
+                    ng-click="makeReservationVm.initializeStep2(); $nextStep()"
+                    ng-disabled="!makeReservationVm.HasSelectedLocation || !makeReservationVm.hasVehicleAndFlights()"
+                    type="button">
+                Services and Rewards
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </button>
+        </div>
+    </div>
+</div>

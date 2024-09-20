@@ -1,0 +1,10 @@
+﻿<div class="fullrow" cg-busy="{promise:loadingPromise,message:'Loading...'}">
+    <button class="btn btn-primary right-buffer15" ng-click="startClock()" ng-hide="isShiftInProgress">Start Shift</button>
+
+    <div ng-show="isShiftInProgress">
+        Time clock started at {{shiftStartDateTime | date : 'short'}} <br />
+        {{totalHoursMinutesMessage}} <br />
+
+        <button class="btn btn-primary right-buffer15" ng-click="endClock()">End Shift</button>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+.flight {
+  .form-col-withlabel-input {
+    padding-right: 0;
+  }
+
+  &-airline,
+  .flight-number,
+  &-date {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 8px;
+
+    &-label {
+      width: 55px;
+      float: left;
+      padding-top: 8px;
+    }
+    input.form-control,
+    .k-datepicker {
+      float: left;
+      width: calc(~"100% - 55px");
+    }
+  }
+
+  .xs({
+    .flight-number,
+    &-date {
+      float: left;
+      width: 50%;
+    }
+
+    &-date {
+      &-label {
+        padding-left: 26px;
+      }
+    }
+  });
+
+  .sm({
+    &-airline {
+      float: left;
+      width: auto;
+    }
+
+    .flight-number {
+      float: left;
+      width: auto;
+
+      &-label {
+        width: auto;
+        padding-left: 6px;
+        padding-right: 8px;
+      }
+
+      input.form-control {
+        width: 80px;
+      }
+    }
+
+    &-date {
+      float: left;
+      width: auto;
+
+      &-label {
+        width: auto;
+        padding-left: 18px;
+        padding-right: 8px;
+      }
+
+      .k-datepicker {
+        width: 150px;
+      }
+    }
+  });
+
+  .error-messages {
+    clear: both;
+
+    .alert {
+      padding: .3em;
+      margin: .5em 0;
+    }
+  }
+}

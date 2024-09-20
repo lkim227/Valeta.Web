@@ -1,0 +1,126 @@
+.splitpayment-wrapper {
+  .clearfix();
+
+  .sm({
+    display: flex;
+  });
+}
+
+.splitpaymentbox {
+    border: 1px solid @form-fields-border-color;
+    padding: 1em;
+    margin-bottom: 1em;
+
+    .k-dropdown {
+        width: 100%;
+    }
+
+    &.last {
+        margin: 0;
+    }
+
+    .split-section {
+        .clearfix();
+        margin-bottom: 15px;
+
+        &.no-margin {
+            margin-bottom: 0;
+        }
+    }
+
+    .split-item-row {
+        float: left;
+        width: 100%;
+        margin-bottom: .5em;
+
+        .split-item-name {
+            float: left;
+            padding-top: .7em;
+        }
+
+        .split-item-button {
+            float: right;
+        }
+
+        &:last-of-type {
+            margin-bottom: 15px;
+        }
+    }
+
+    .checkbox {
+        margin-top: 0;
+        margin-bottom: .5em;
+        margin-right: 0;
+        width: 100%;
+    }
+
+    .tip-form {
+        .tip-input {
+            width: 100%;
+        }
+
+        .tip-group {
+            width: 100%;
+        }
+    }
+
+    .sm( {
+        float: left;
+        width: 48%;
+        margin-right: 2%;
+        margin-bottom: 0;
+
+        &.last {
+            margin-right: 0;
+        }
+
+        .limit-row {
+            .clearfix();
+        }
+
+        .limit-label {
+            display: inline-block;
+            float: left;
+            padding-top: .7em;
+            padding-right: .7em;
+        }
+
+        .limit-input {
+            float: left;
+            width: 150px;
+        }
+
+        .limit-button {
+            float: left;
+        }
+    }
+
+    );
+}
+
+
+.tip-form {
+  .tip-group {
+    padding: 0 .5em;
+
+    .sm({
+      display: inline-block;
+    });
+  }
+
+  .checkbox {
+    .xs-max({
+      margin-top: 0;
+      margin-bottom: .5em;
+    });
+    .sm({
+      margin-right: .5em;
+    });
+  }
+
+  .tip-input {
+    .sm({
+      width: 120px;
+    });
+  }
+}

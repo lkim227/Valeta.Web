@@ -1,0 +1,169 @@
+﻿<div class="container-fluid ticket-details" ng-controller="CustomerSingleTicketController as vm">
+    
+    <div class="page-controls-wrapper">
+        <a class="btn link" ng-click="vm.goBack()">Back</a>
+    </div>
+
+    <div ng-if="!!vm.ticket.ID">
+        <div class="ticket-details_content">
+            <h3>#{{vm.ticket.TicketNumber}}</h3>
+
+            <div class="row" ng-show="!!vm.ticket.NoteToCustomer && vm.ticket.NoteToCustomer.length > 0">
+                <label class="form-col-withlabel-label no-top-padding">Note from the office</label>
+                <div class="form-col-withlabel-input">
+                    {{vm.ticket.NoteToCustomer}}
+                </div>
+            </div>
+
+            <div class="row row--highlight">
+                <extended-flight-data can-update reload-on-save is-ticket-active="vm.isTicketActive && vm.ticket.CanEdit"
+                                      ticket-identifier="vm.ticket.ID"
+                                      flight-specifications="vm.ticket.ActiveAirportMeet.IntakeSpecifications"
+                                      flight-schedule="vm.ticket.ActiveAirportMeet.IntakeSchedule"
+                                      flight-status="vm.ticket.ActiveAirportMeet.IntakeStatus"
+                                      notify-billing-summary="vm.notifyBillingSummary"
+                                      is-accessed-by-office="false">
+                </extended-flight-data>
+            </div>
+
+            <div class="clearfix"></div>
+            <!--todo: can-update-->
+            <meet-date-time-update is-ticket-active="vm.isTicketActive && vm.ticket.CanEdit"
+                                   travel-direction="vm.travelFromCustomer"
+                                   ticket-identifier="vm.ticket.ID"
+                                   date-time-data="vm.ticket.ActiveAirportMeet.IntakeDateTimeCustomerMeetsValet"
+                                   warning-message="vm.ticket.ActiveAirportMeet.IntakeMeetTimeWarningMessage">
+            </meet-date-time-update>
+            
+            <meet-location-update can-update is-ticket-active="vm.isTicketActive && vm.ticket.CanEdit"
+                                  travel-direction="vm.travelFromCustomer"
+                                  ticket-identifier="vm.ticket.ID"
+                                  text-data="vm.ticket.ActiveAirportMeet.IntakeRelativeMeetLocation">
+            </meet-location-update>
+
+            <div class="clearfix"></div>
+
+            <div class="row row--highlight">
+                <extended-flight-data can-update reload-on-save is-ticket-active="vm.isTicketActive && vm.ticket.CanEdit"
+                                      ticket-identifier="vm.ticket.ID"
+                                      flight-specifications="vm.ticket.ActiveAirportMeet.GiveBackSpecifications"
+                                      flight-schedule="vm.ticket.ActiveAirportMeet.GiveBackSchedule"
+                                      flight-status="vm.ticket.ActiveAirportMeet.GiveBackStatus"
+                                      return-is-checking-bags="vm.ticket.ActiveAirportMeet.GiveBackIsCheckingBags"
+                                      notify-billing-summary="vm.notifyBillingSummary"
+                                      is-accessed-by-office="false">
+                </extended-flight-data>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!--todo: can-update-->
+            <meet-date-time-update is-ticket-active="vm.isTicketActive && vm.ticket.CanEdit"
+                                   travel-direction="vm.travelToCustomer"
+                                   ticket-identifier="vm.ticket.ID"
+                                   date-time-data="vm.ticket.ActiveAirportMeet.GiveBackDateTimeCustomerMeetsValet"
+                                   warning-message="vm.ticket.ActiveAirportMeet.GiveBackMeetTimeWarningMessage">
+            </meet-date-time-update>
+
+
+            <airport-meet-validation departure-specifications="vm.ticket.ActiveAirportMeet.IntakeSpecifications"
+                                     departure-schedule="vm.ticket.ActiveAirportMeet.IntakeSchedule"
+                                     return-specifications="vm.ticket.ActiveAirportMeet.GiveBackSpecifications"
+                                     return-schedule="vm.ticket.ActiveAirportMeet.GiveBackSchedule"></airport-meet-validation>
+
+            <div class="clearfix"></div>
+
+            <number-of-people-returning-info can-update is-ticket-active="vm.isTicketActive && vm.ticket.CanEdit"
+                                             ticket-identifier="vm.ticket.ID"
+                                             info-model="vm.ticket.NumberOfPeopleReturning">
+            </number-of-people-returning-info>
+
+            <mobile-phone-update can-update
+                                 identifier="vm.ticket.ID"
+                                 context="vm.currentCommunicationContext"
+                                 text-data="vm.ticket.Customer.MobilePhone.Number"
+                                 customer-name="vm.ticket.Customer.Name.FriendlyName"
+                                 can-contact="false">
+            </mobile-phone-update>
+
+            <email-address-update can-update
+                                  ticket-identifier="vm.ticket.ID"
+                                  text-data="vm.ticket.Customer.Email.EmailAddress"
+                                  can-contact="false">
+            </email-address-update>
+
+            <cc-emails-update can-update
+                              ticket-identifier="vm.ticket.ID"
+                              text-data="vm.ticket.CCEmails">
+            </cc-emails-update>
+
+            <vehicle-info can-update is-ticket-active="vm.isTicketActive && vm.ticket.CanEdit"
+                          ticket-identifier="vm.ticket.ID"
+                          vehicle="vm.ticket.Vehicle">
+            </vehicle-info>
+
+            <use-toll-tag-info can-update is-ticket-active="vm.isTicketActive && vm.ticket.CanEdit"
+                               ticket-identifier="vm.ticket.ID"
+                               use-toll-tag="vm.ticket.Vehicle.UseTollTag">
+            </use-toll-tag-info>
+
+            <reservation-note-update can-update is-ticket-active="vm.isTicketActive && vm.ticket.CanEdit"
+                                     ticket-identifier="vm.ticket.ID"
+                                     text-data="vm.ticket.ReservationNote">
+            </reservation-note-update>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+                <label class="form-col-withlabel-label no-top-padding">Services</label>
+                <div class="form-col-withlabel-input">
+                    <span>you can change services during vehicle drop off, or contact our office <a href="tel:972-313-2500">972-313-2500</a></span>
+                    <service-tasks-for-ticket selected-ticket="vm.ticket"></service-tasks-for-ticket>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div ng-hide="vm.isTicketClosed">
+                <payment-method-update can-update
+                                       ticket-identifier="vm.billing.ID"
+                                       is-ticket-active="vm.isTicketActive && vm.ticket.CanEdit"
+                                       account-identifier="vm.ticket.Customer.AccountID"
+                                       selected-payment-method-identifier="vm.billing.ReservationCatchAllOrder.PaymentMethodID"
+                                       is-catch-all-order="true"/>
+            </div>
+            <div ng-show="vm.isTicketClosed && vm.billing.ReservationCatchAllOrder.IsPaymentCharged">
+                {{vm.billing.ReservationCatchAllOrder.ChargedAmount | currency}} charged on {{vm.billing.ReservationCatchAllOrder.PaymentMethodFriendlyName}}
+            </div>
+            <div ng-hide="vm.isTicketClosed">
+                <payment-method-update can-update
+                                       ticket-identifier="vm.billing.ID"
+                                       is-ticket-active="vm.isTicketActive && vm.ticket.CanEdit"
+                                       account-identifier="vm.ticket.Customer.AccountID"
+                                       selected-payment-method-identifier="vm.billing.ReservationAllowanceOrder.PaymentMethodID"
+                                       is-catch-all-order="false"/>
+            </div>
+            <div ng-show="vm.isTicketClosed && !!vm.billing.ReservationAllowanceOrder && vm.billing.ReservationAllowanceOrder.IsPaymentCharged">
+                {{vm.billing.ReservationAllowanceOrder.ChargedAmount | currency}} charged on {{vm.billing.ReservationAllowanceOrder.PaymentMethodFriendlyName}}
+            </div>
+
+            <div class="row">
+                <label class="form-col-withlabel-label no-top-padding">Billing</label>
+                <div class="form-col-withlabel-input no-top-padding">
+                    <billing-summary ticket-identifier="vm.ticket.ID" 
+                                     ticket-status="vm.ticket.TicketStatus" 
+                                     notify-billing-summary="vm.notifyBillingSummary"></billing-summary>
+                </div>
+            </div>
+
+            <!--<div class="clearfix"></div>
+
+            <span class="row">
+                <label class="form-col-withlabel-label no-top-padding">Communication</label>
+                <span class="form-col-withlabel-input">
+                    <sent-messages context="vm.currentCommunicationContext" identifier="vm.ticket.ID"></sent-messages>
+                </span>
+            </span>-->
+        </div>
+    </div>
+</div>

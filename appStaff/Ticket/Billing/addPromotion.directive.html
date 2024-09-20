@@ -1,0 +1,28 @@
+﻿<div ng-show="directiveInitialized">
+    <div ng-show="!!isInEditMode">
+        <hr />
+        <h4>
+            Promotion
+            <span class="error-messages ng-active" ng-show="isCheckPromotionAttempted && !checkPromotionResult.WillBeApplied">'{{promotionCodeInput | uppercase}}' {{checkPromotionResult.Message | uppercase}}</span>
+        </h4>
+        <div class="form-group row">
+                <input class="form-control pull-left width300"
+                       id="promotionCode"
+                       name="promotionCode"
+                       min-length="1"
+                       type="text"
+                       ng-model="promotionCodeInput"
+                       placeholder="Enter promotion code..."
+                       style="text-transform: uppercase" />
+        </div>
+
+        <div class="form-group row">
+            <div>
+                <button class="btn btn-primary" ng-click="addPromotionDiscount()">Apply</button>
+                <button class="btn btn-cancel" ng-click="onCancel()">Cancel</button>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <hr />
+    </div>
+</div>

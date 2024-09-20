@@ -1,0 +1,67 @@
+﻿<span ng-show="directiveInitialized">
+    <label class="form-col-withlabel-label" ng-class="{'no-top-padding': !isInEditMode}">{{flightUtils.flightDirectionToString(flightSpecifications.FlightDirection)}} Flight</label>
+    <div ng-show="!isInEditMode" class="form-col-withlabel-input">
+        <button ng-show="canUpdate" class="btn k-edit-button btn-primary btn-icon-only btn--edit" ng-click="onEdit()">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+        <span>
+            <div>
+                {{flightSpecifications.AirlineCode}} #{{flightSpecifications.FlightNumber}}
+            </div>
+            <div>
+                <em>Scheduled {{flightUtils.flightDirectionToString(flightSpecifications.FlightDirection)}}:</em>&nbsp;
+                <span ng-show="!!flightSchedule.ScheduleDateTime">{{flightSchedule.ScheduleDateTime | date : 'short'}}</span>
+                <span ng-hide="!!flightSchedule.ScheduleDateTime">{{flightSpecifications.DateUsedToCalculateMeetTime | date : 'shortDate'}}</span>
+            </div>
+        </span>
+        <div ng-show="!!flightStatus">
+            <div>
+                <em>Status:</em>&nbsp;{{flightUtils.flightStatusCodeToTitle(flightStatus.StatusCode)}}
+            </div>
+            <div>
+                <em>{{flightUtils.flightTimeSourceToFriendly(flightStatus.FlightTimeSource, flightSpecifications.FlightDirection)}}:</em>&nbsp;{{flightStatus.FlightTime | date : 'short'}}
+            </div>
+            <div>
+                <em>Gate:</em>&nbsp;{{flightStatus.TerminalGate}}
+                <span ng-show="isReturn">
+                    <span ng-show="returnIsCheckingBags" class="glyphicon glyphicon-briefcase left-buffer15 right-buffer5"></span>
+                    <em>Baggage Claim:</em>&nbsp;{{flightStatus.BaggageClaim}}
+                </span>
+            </div>
+        </div>
+        <label class="alert alert-warning" ng-show="showPageReloadWarning === true">Page will reload when save is completed</label>
+    </div>
+    <div ng-if="!!isInEditMode" class="form-col-withlabel-input edit-wrapper">
+        <!--Must be ng-if, not ng-show. Otherwise, flightLookup will change the schedule and status even if not in edit mode.-->
+        <flight-lookup flight-specifications="$parent.flightSpecifications" flight-schedule="$parent.flightSchedule"></flight-lookup>
+
+        <div ng-show="isAccessedByOffice">
+            <div class="flight-number">
+                <span class="flight-number-label">Gate</span>
+                <input class="form-control"
+                       id="gate-{{flightSpecifications.FlightDirection}}"
+                       name="flightnumber"
+                       ng-model-options="{ debounce: 1000 }"
+                       ng-model="flightStatus.TerminalGate"
+                       required
+                       type="text" />
+            </div>
+            <div class="flight-number" ng-show="isReturn">
+                <span class="flight-number-label">Baggage Claim</span>
+                <input class="form-control"
+                       id="baggage-{{flightSpecifications.FlightDirection}}"
+                       name="flightnumber"
+                       ng-model-options="{ debounce: 1000 }"
+                       ng-model="flightStatus.BaggageClaim"
+                       required
+                       type="text" />
+            </div>
+        </div>
+
+        <span class="form_single-input-buttons">
+            <button class="btn btn-primary" ng-disabled="!isValidFlight()" ng-click="onUpdate()">Save</button>
+            <button class="btn btn-cancel" ng-click="onCancel()">Cancel</button>
+            <label class="alert alert-info" ng-show="reloadOnSave === true">Save will reload the page</label>
+        </span>
+    </div>
+</span>

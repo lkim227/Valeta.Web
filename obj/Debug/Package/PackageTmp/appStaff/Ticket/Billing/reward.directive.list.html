@@ -1,0 +1,15 @@
+﻿<div class="top-buffer15" ng-show="directiveInitialized">
+    <div class="row bottom-buffer15">
+        <label>Rewards:</label>
+        <div class="text-center" ng-repeat="reward in rewards">
+            <div class="row row--editable">
+                <div class="pull-left top-padding8">
+                    {{reward.QuantityReserved}} {{reward.Name}} - {{reward.Points}} points
+                </div>
+                <!--<div class="pull-right">
+                    <button class="btn btn-cancel btn-sm" ng-click="onDelete(reward)" ng-show="isTicketActive"><span class="glyphicon glyphicon-trash"></span></button>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>

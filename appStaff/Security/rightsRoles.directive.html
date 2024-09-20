@@ -1,0 +1,85 @@
+﻿<div class="page-controls-wrapper">
+    Role:<br/>
+    <select class="form-control" id="ol" ng-model="selectedRole" required="required"
+            ng-change="roleChanged()"
+            data-ng-options="r for r in roles">
+        <option value="">Select Role</option>
+    </select>
+
+    <div class="btn-wrapper" ng-show="!!selectedRole && selectedRoleIsEditable">
+        <button class="btn btn-default" ng-show="canDelete && hasEditAccess" ng-click="openDeleteRole()"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete</button>
+        <button class="btn btn-primary" ng-show="canUpdate && hasEditAccess" ng-click="openEditRole()"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</button>
+    </div>
+    <div class="btn-wrapper" ng-show="!!selectedRole && !selectedRoleIsEditable">
+        <span>This is a special role. Name change is not allowed.</span>
+    </div>
+
+    <button class="btn btn-primary" ng-show="canCreate && hasEditAccess" ng-click="openNewRole()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Role</button>
+</div>
+
+<script type="text/ng-template" id="deleteRoleModalContent">
+    <div class="modal-header">
+        <button type="button"
+            class="close"
+            aria-label="Close"
+            ng-click="cancelDeleteRole()"
+        >
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Delete Role</h4>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal kendo-form" id="deleteRoleForm" name="deleteRoleForm" novalidate>
+            <div id="deleteRoleRow" class="form-group">
+                <label for="rolename">
+                    Deleting roles and its right is irreversible. <br />
+                    Please enter role's name (<code>{{selectedRole}}</code>) below to confirm you want to permanently delete it:
+                </label>
+                <div class="form-col-withlabel-input">
+                    <input type="text" class="form-control width-full" id="rolename" name="rolename" ng-model="role.title" required autofocus autocomplete="off" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" ng-disabled="deleteRoleForm.$invalid || role.title !== selectedRole" ng-click="deleteRole()">Delete</button>
+        <button type="button" class="btn btn-cancel" ng-click="cancelDeleteRole()">Cancel</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="addEditRoleModalContent">
+    <div class="modal-header">
+        <button type="button"
+            class="close"
+            aria-label="Close"
+            ng-click="cancelNewRole();"
+        >
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">{{role.isEdit ? 'Edit Role' : 'Add New Role'}}</h4>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal kendo-form" id="addEditRoleForm" name="addEditRoleForm" ng-submit="saveRole()">
+            <div id="newRoleRow" class="form-group">
+                <label class="form-col-withlabel-label" for="role">Role</label>
+                <div class="form-col-withlabel-input">
+                    <input type="text" class="form-control" id="role" name="role" ng-model="role.title" />
+                    <div class="error-messages" ng-messages="addEditRoleForm.role.$error" ng-if="addEditRoleForm.newRole.$touched || addEditRoleForm.$submitted">
+                        <div ng-message="required">Required</div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-disabled="!addEditRoleForm.$valid" ng-click="saveRole()">{{role.isEdit ? 'Save' : 'Add Role'}}</button>
+        <button type="button" class="btn btn-cancel" ng-click="cancelNewRole();">Cancel</button>
+    </div>
+</script>
+
+<div class="clearfix"></div>
+
+<div class="myGrid" ng-show="!!selectedRole">
+    Rights:<br/>
+    <kendo-grid options="gridOptions" id="gridRightsRoles"></kendo-grid>
+</div>

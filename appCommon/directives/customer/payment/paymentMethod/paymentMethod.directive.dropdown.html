@@ -1,0 +1,36 @@
+﻿<script id="paymentMethodKendoTemplate" type="text/x-kendo-template">
+    <span class="right-buffer15">
+        <img ng-src='/appCommon/resources/CardIcon-#: Type #.png' width="40" class="right-buffer5" />
+        #: FriendlyName #
+    </span>
+    <span>
+        # if(PaymentGatewayPaymentID < 1) { #
+        <span class="alert-info">MUST BE UPDATED</span>
+        # } #
+
+        # if(PaymentGatewayPaymentID > 0) { #
+        <span>
+            # if(!IsExpired) { #
+            <span ng-hide="dataItem.IsExpired">Expires #: PaymentGatewayFields.ExpirationMonth # / #: PaymentGatewayFields.ExpirationYear #</span>
+            # } #
+
+            # if(IsExpired) { #
+            <span class="alert-danger">EXPIRED #: PaymentGatewayFields.ExpirationMonth # / #: PaymentGatewayFields.ExpirationYear #</span>
+            # } #
+        </span>
+        # } #
+    </span>
+</script>
+
+<select kendo-drop-down-list id="dropDown"
+        placeholder=""
+        k-data-source="dataSource"
+        ng-show="canSelect"
+        ng-model="selectedPaymentMethodId"
+        k-ng-delay="selectedPaymentMethodId"
+        k-on-select="onSelect(kendoEvent)"
+        k-auto-bind="true"
+        k-data-text-field="'FriendlyName'"
+        k-data-value-field="'ID'"
+        k-template="paymentMethodKendoTemplate"
+        required="required"></select>

@@ -1,0 +1,74 @@
+﻿<div class="k-loading" ng-hide="makeReservationVm.haveUpdatedBilling">Loading payment methods ...</div>
+<div ng-if="makeReservationVm.haveUpdatedBilling">
+
+    <div ng-hide="makeReservationVm.showSplitPayment">
+        <div class="form-group row">
+            <label class="form-col-withlabel-label control-label">
+                Select payment below <span>OR</span>
+            </label>
+            <div class="form-col-withlabel-input">
+                <a class="btn btn-primary" ng-click="makeReservationVm.splitPayment()">Split Payment</a>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <span>List of your cards: (make sure you have at least one card on file to continue)</span>
+            <payment-method can-select
+                                fetch-payment-methods="false"
+                                payment-methods="makeReservationVm.paymentMethods"
+                                selected-payment-method-id="makeReservationVm.billing.ReservationCatchAllOrder.PaymentMethodID"
+                                selected-payment-method-friendly-name="makeReservationVm.billing.ReservationCatchAllOrder.PaymentMethodFriendlyName"
+                                selected-payment-method-is-authorized="makeReservationVm.billing.ReservationCatchAllOrder.IsPaymentAuthorized"
+                                template="/appCommon/directives/customer/payment/paymentMethod/paymentMethod.directive.list.html"></payment-method>
+        </div>
+        <div class="top-buffer15">
+            <hr />
+            <set-tip tip="makeReservationVm.billing.ReservationCatchAllOrder.TipBreakdown[0]" identifier="ReservationCatchAllOrder"></set-tip>
+        </div>
+    </div>
+
+    <div ng-show="makeReservationVm.showSplitPayment">
+        <split-payment show-split-payment="makeReservationVm.showSplitPayment"
+                           is-valid="makeReservationVm.splitPaymentFormIsValid"
+                           billing="makeReservationVm.billing" 
+                           reservation="makeReservationVm.reservation"
+                           initial-max-daily-rate="makeReservationVm.initialMaxDailyRate"
+                           payment-methods="makeReservationVm.paymentMethods"
+                           available-services="makeReservationVm.availableServices"></split-payment>
+    </div>
+</div>
+
+<!-- wizard navigation -->
+<div id="wizardNav" class="reservation-nav row top-buffer-relative5 clearfix">
+    <div class="reservation-nav_prev">
+        <button aria-hidden="true"
+                analytics-category="MakeReservation"
+                analytics-event="MakeReservation-2-Services"
+                analytics-on="click"
+                class="btn btn-cancel"
+                ng-click="makeReservationVm.saveReservationFromStep3(); $previousStep()"
+                type="button">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            Change Services and Rewards
+        </button>
+    </div>
+
+    <div class="reservation-nav_page">
+        <strong ng-bind-template="{{$getActiveIndex()}} / {{$getSteps().length}}"></strong>
+    </div>
+
+    <div class="reservation-nav_next">
+        <button aria-hidden="true"
+                analytics-category="MakeReservation"
+                analytics-event="MakeReservation-4-Review"
+                analytics-on="click"
+                class="text-right btn btn-primary--mainaction"
+                ng-click="makeReservationVm.saveReservationFromStep3(); $nextStep()"
+                ng-disabled="!makeReservationVm.billing.ReservationCatchAllOrder.PaymentMethodID
+                        || (makeReservationVm.showSplitPayment && !makeReservationVm.splitPaymentFormIsValid)"
+                type="button">
+            Review Estimate
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </button>
+    </div>
+</div>

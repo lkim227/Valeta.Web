@@ -1,0 +1,40 @@
+.account-vehicles {
+  .form-col-withlabel-label,
+  .form-col-withlabel-input {
+    box-sizing: border-box;
+  }
+
+  .form-col-withlabel-input {
+    padding-left: 0;
+  }
+
+  .k-edit-item {
+    background-color: @white;
+  }
+
+  .k-listview {
+    padding-left: 0;
+  }
+
+  input.form-control {
+    box-sizing: border-box;
+    width: auto;
+    border-color: @form-fields-border-color;
+    box-shadow: none;
+    height: 37px;
+
+    .xs-max({
+      width: 100% !important;
+    });
+    .sm({
+      width: 300px;
+    });
+  }
+
+  .k-combobox,
+  .k-dropdown {
+    .sm({
+      width: 300px;
+    });
+  }
+}

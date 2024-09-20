@@ -1,0 +1,29 @@
+﻿<span ng-show="directiveInitialized" class="row row--editable">
+    <label class="form-col-withlabel-label" ng-class="{'no-top-padding': !isInEditMode}">{{meetTimeLabel}} Meet Time</label>
+    <span ng-show="!isInEditMode" class="form-col-withlabel-input">
+        <span>
+            {{dateTimeData | date:'M/d/yy h:mm a'}}
+            <span class="row">               
+                <span class="icon glyphicon glyphicon-exclamation-sign alert-info"
+                      ng-style="(warningMessage.length > 0 ? {'display': 'inline-block'} : {'display' : 'none'})">
+                </span>
+                {{warningMessage}}
+            </span>
+        </span>
+        <button ng-show="canUpdate" class="btn btn-primary btn-icon-only btn--edit" ng-click="onEdit()">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+    </span>
+    <span ng-show="!!isInEditMode" class="form-col-withlabel-input">
+        <span style="display: inline-block;">
+            <!-- DateTimePicker is configured in controller. -->
+            <input id="meetdatetime-{{travelDirection}}"
+                   name="meetdatetime-{{travelDirection}}">
+        </span>
+
+        <div class="form_single-input-buttons">
+            <button class="btn btn-primary" ng-click="onUpdate()">Save</button>
+            <button class="btn btn-cancel" ng-click="onCancel()">Cancel</button>
+        </div>
+    </span>
+</span>

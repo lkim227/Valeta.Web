@@ -1,0 +1,76 @@
+// The reservation table is using kendo-list-view, which is setup to output a ul. Since the data
+// is tabular, we're using table styles at larger screens
+.reservation-table-wrapper {
+  font-size: .95em;
+
+  .reservation-table-header {
+    display: table;
+    width: 100%;
+    background-color: @brand-content-background-color2;
+    text-align: left;
+    vertical-align: bottom;
+    border: 1px solid @gray-light;
+    border-bottom: 0;
+  }
+
+  .reservation-table {
+    display: table;
+    width: 100%;
+    border: 1px solid @gray-light;
+    padding-left: 0;
+    box-sizing: border-box;
+  }
+
+  .tbody {
+    padding-left: 0;
+    border: 0;
+    margin-bottom: 0;
+    box-sizing: border-box;
+  }
+
+  .tr {
+    display: table-row;
+    box-sizing: border-box;
+
+    &:last-of-type {
+      .td,
+      .th {
+        border-bottom: 0;
+      }
+    }
+  }
+
+  .td,
+  .th {
+    display: table-cell;
+    border-left: 1px solid @gray-light;/*  inner column border */
+    border-bottom: 1px solid @gray-light;
+    border-width: 0 0 1px 1px;
+    font-size: inherit;
+    vertical-align: middle;
+    margin: 0;
+    overflow: visible; /*to make ths where the title is really long work*/
+    padding: 0.5em 0.4em 0.5em 1em; /* cell padding */
+    box-sizing: border-box;
+
+    &:nth-of-type(1) {
+      width: 12% !important;
+      border-left: 0;
+    }
+    &:nth-of-type(2) {
+      width: 14% !important;
+    }
+    &:nth-of-type(3) {
+      width: 14% !important;
+    }
+    &:nth-of-type(4) {
+      width: 21% !important;
+    }
+    &:nth-of-type(5) {
+      width: 21% !important;
+    }
+    &:nth-of-type(6) {
+      width: 18% !important;
+    }
+  }
+}

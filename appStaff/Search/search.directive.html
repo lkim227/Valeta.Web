@@ -1,0 +1,9 @@
+﻿<form ng-submit="search()">
+    <span class="input-group searchbar-group">
+        <input type="text" class="form-control" id="searchParameters" ng-model="searchParameters" placeholder="Search..." />
+        <span class="input-group-btn">
+            <button ng-if="!embed" type="submit" class="btn" style="height: 40px;"><span class="glyphicon glyphicon-search"></span></button>
+            <button ng-if="embed"  type="button" class="btn" ng-click="search()" style="height: 40px;"><span class="glyphicon glyphicon-search"></span></button>
+        </span>
+    </span>
+</form>

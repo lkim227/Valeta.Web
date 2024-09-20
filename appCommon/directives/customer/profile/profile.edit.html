@@ -1,0 +1,225 @@
+﻿<div ng-controller="ProfileController as vm" class="profile-edit">
+    <form id="editAccountForm" name="editAccountForm" novalidate>
+
+        <div class="form-horizontal">
+            <div cg-busy="vm.loadingPromise">
+                <div id="nameRow" class="input-group input-group--multi">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    </span>
+
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <defined-list-dropdown list-type="Prefix" list-label="{{vm.formMessages.Label_Prefix}}" selected-defined-list-value="vm.account.ContactInformation.Name.Prefix"></defined-list-dropdown>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-col-withlabel-label control-label" for="firstName">{{vm.formMessages.Label_Name_First}}</label>
+                            <div class="form-col-withlabel-input">
+                                <input class="form-control clearfix" type="text" id="firstName" name="firstName" required ng-model="vm.account.ContactInformation.Name.First" />
+
+                                <div class="error-messages" ng-messages="editAccountForm.firstName.$error" ng-if="editAccountForm.firstName.$touched || editAccountForm.$submitted">
+                                    <div ng-message="required">{{vm.formMessages.Required_Name_First}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-col-withlabel-label control-label" for="middleName">{{vm.formMessages.Label_Name_Middle}}</label>
+                            <div class="form-col-withlabel-input">
+                                <input class="form-control" type="text" id="middleName" name="middleName" ng-model="vm.account.ContactInformation.Name.Middle" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-col-withlabel-label control-label" for="lastName">{{vm.formMessages.Label_Name_Last}}</label>
+                            <div class="form-col-withlabel-input">
+                                <input class="form-control clearfix" type="text" id="lastName" name="lastName" required ng-model="vm.account.ContactInformation.Name.Last" />
+
+                                <div class="error-messages" ng-messages="editAccountForm.lastName.$error" ng-if="editAccountForm.lastName.$touched || editAccountForm.$submitted">
+                                    <div ng-message="required">{{vm.formMessages.Required_Name_Last}}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group last">
+                            <defined-list-dropdown list-type="Suffix" list-label="{{vm.formMessages.Label_Suffix}}" selected-defined-list-value="vm.account.ContactInformation.Name.Suffix"></defined-list-dropdown>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="emailRow" class="form-row">
+                    <label>Email to login to your account</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                        </span>
+                        <input class="form-control" type="email" required placeholder="{{vm.formMessages.Placeholder_Email}}" id="emailInput" name="emailInput" ng-model="vm.account.ContactInformation.Email.EmailAddress" />
+                    </div>
+                    <div class="error-messages" ng-messages="editAccountForm.emailInput.$error" ng-if="editAccountForm.emailInput.$touched || editAccountForm.$submitted">
+                        <div ng-message="required">{{vm.formMessages.Required_Email}}</div>
+                        <div ng-message="email">{{vm.formMessages.Format_Email}}</div>
+                    </div>
+                </div>
+
+                <div id="phoneRow" class="form-row">
+                    <label>Mobile phone to call / send text during reservation</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+                        </span>
+                        <input class="form-control" type="tel" required placeholder="{{vm.formMessages.Placeholder_MobilePhone}}" id="phoneInput" name="phoneInput"
+                               ng-model="vm.account.ContactInformation.MobilePhone.Number"
+                               ng-pattern="/^\(?\d{3}\)?-? *\d{3}-? *-?\d{4}/" mask="(999) 999-9999" />
+                    </div>
+                    <div class="error-messages" ng-messages="editAccountForm.phoneInput.$error" ng-if="editAccountForm.phoneInput.$touched || editAccountForm.$submitted">
+                        <div ng-message="required">{{vm.formMessages.Required_MobilePhone}}</div>
+                        <div ng-message="pattern">{{vm.formMessages.Format_Phone}}</div>
+                    </div>
+                </div>
+
+
+                <div id="otherEmails" class="form-row">
+                    <label>Emails to contact during reservation. Use ; or , to separate multiple emails.</label>
+                    <input class="form-control" type="text" placeholder="{{vm.formMessages.Placeholder_CCEmails}}" id="ccEmailInput" name="ccEmailInput" ng-model="vm.account.CCEmails"
+                           ng-pattern="/^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+)*$/" />
+                    <div class="error-messages" ng-messages="editAccountForm.ccEmailInput.$error" ng-if="editAccountForm.ccEmailInput.$touched || editAccountForm.$submitted">
+                        <div ng-message="pattern">{{vm.formMessages.Placeholder_CCEmails}}</div>
+                    </div>
+                </div>
+
+                <div id="otherPhonesRow" class="form-row">
+                    <label>Other phones</label>
+                    <div class="input-group input-group--multi phone_other-wrapper">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span>
+                        </span>
+
+                        <div class="form-horizontal">
+                            <div class="form-group" ng-repeat="phone in vm.account.ContactInformation.MorePhones">
+                                <div class="form-group phone_group" style="margin: 0">
+                                    <div class="phone_number">
+                                        <input type="tel" class="form-control" id="phoneInput{{$index}}" name="phoneInput{{$index}}" placeholder="{{vm.formMessages.Placeholder_Phone}}" ng-model="phone.Number"
+                                               ng-pattern="/^\(?\d{3}\)?-? *\d{3}-? *-?\d{4}/" mask="(999) 999-9999" />
+                                    </div>
+                                    <div class="phone_descr">
+                                        <input type="text" class="form-control" placeholder="{{vm.formMessages.Placeholder_Note}}" ng-model="phone.Note" />
+                                    </div>
+                                    <div class="phone_delete">
+                                        <button type="button"
+                                                class="btn btn-cancel btn-icon-only"
+                                                title="Delete Phone"
+                                                ng-click="vm.removePhone($index)"
+                                                confirm="Are you sure you want to delete {{phone.Number}}?">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="error-messages" ng-messages="editAccountForm['phoneInput' + $index].$error" ng-if="editAccountForm['phoneInput' + $index].$touched || editAccountForm.$submitted">
+                                    <div ng-message="pattern">{{vm.formMessages.Format_Phone}}</div>
+                                </div>
+                            </div>
+                            <button type="button" class="phone_add-btn btn btn-primary" title="Add Phone" ng-click="vm.addPhone()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add phone</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="addressRow" class="input-group input-group--multi form-row">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                    </span>
+
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="form-col-withlabel-label control-label" for="addressLine1">{{vm.formMessages.Label_Address_1}}</label>
+                            <div class="form-col-withlabel-input">
+                                <input class="form-control" type="text" id="addressLine1" name="addressLine1" ng-model="vm.account.ContactInformation.MailingAddress.Line1" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-col-withlabel-label control-label" for="addressLine2">{{vm.formMessages.Label_Address_2}}</label>
+                            <div class="form-col-withlabel-input">
+                                <input class="form-control" type="text" id="addressLine2" name="addressLine2" ng-model="vm.account.ContactInformation.MailingAddress.Line2" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-col-withlabel-label control-label" for="city">{{vm.formMessages.Label_City}}</label>
+                            <div class="form-col-withlabel-input">
+                                <input class="form-control" type="text" id="city" name="city" ng-model="vm.account.ContactInformation.MailingAddress.City" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <defined-list-dropdown list-type="State" list-label="{{vm.formMessages.Label_State}}" selected-defined-list-value="vm.account.ContactInformation.MailingAddress.State"></defined-list-dropdown>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-col-withlabel-label control-label" for="zip">{{vm.formMessages.Label_Zip}}</label>
+                            <div class="form-col-withlabel-input">
+                                <input class="form-control" type="text" id="zip" name="zip" ng-model="vm.account.ContactInformation.MailingAddress.PostalCode" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="defaultMeetLocationIntake" class="form-row">
+                    <div class="form-group">
+                        <defined-list-dropdown list-type="MeetLocationIntake" list-label="Meet Location on Intake" selected-defined-list-value="vm.account.DefaultMeetLocationIntake"></defined-list-dropdown>
+                    </div>
+                </div>
+
+                <div id="noteToValetsRow" class="form-row">
+                    <div class="form-group">
+                        <label class="form-col-withlabel-label control-label" for="noteToValets">Note To Valets:</label>
+                        <div class="form-col-withlabel-input">
+                            <textarea class="form-control min-control-width"
+                                      id="noteToValets"
+                                      name="noteToValets"
+                                      ng-model="vm.account.NoteToValets">
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="officeNoteRow" class="form-row">
+                    <div class="form-group">
+                        <label class="form-col-withlabel-label control-label" for="officeNote">Office Note:</label>
+                        <div class="form-col-withlabel-input">
+                            <textarea class="form-control min-control-width"
+                                      id="officeNote"
+                                      name="officeNote"
+                                      ng-model="vm.account.OfficeNote">
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="accessedByStaffRow" class="form-row" ng-show="vm.isAccessedByStaff">
+                    <div class="form-group">
+                        <label for="isAccessedByStaffButtons">Is this a sales tax exempt account?</label>
+                        <div class="btn-group" id="isAccessedByStaffButtons" name="isAccessedByStaffButtons">
+                            <label class="btn" ng-model="vm.account.IsSalesTaxExempt" ng-value="true" uib-btn-radio="true" id="isSalesTaxExemptYes" name="isSalesTaxExemptYes">Yes</label>
+                            <label class="btn" ng-model="vm.account.IsSalesTaxExempt" ng-value="false" uib-btn-radio="false" id="isSalesTaxExemptNo" name="isSalesTaxExemptNo">No</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-col-withlabel-label control-label" for="defaultPromoCode">Corporate Promo Code:</label>
+                        <div class="form-col-withlabel-input">
+                            <input class="form-control" type="text" id="defaultPromoCode" name="defaultPromoCode" ng-model="vm.account.DefaultPromoCode" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form_buttons-wrapper">
+            <button type="button" ng-click="vm.updateProfile()" class="btn btn-primary" ng-disabled="!editAccountForm.$valid || !editAccountForm.$dirty">
+                {{vm.formMessages.Label_Button_Save}}
+            </button>
+            <button class="btn btn-cancel" title="Cancel" ng-click="vm.cancel()">
+                {{vm.formMessages.Label_Button_Cancel}}
+            </button>
+        </div>
+    </form>
+</div>

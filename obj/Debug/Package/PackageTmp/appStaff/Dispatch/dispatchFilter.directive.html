@@ -1,0 +1,20 @@
+﻿<style>
+    .dispatchFilterButton {
+        
+    }
+</style>
+<div class="pull-left" ng-show="vm.selectedOperatingLocation">
+    <button class="btn right-buffer15" ng-click="vm.connection.stop(); $state.go('timeline-view', null, {'reload':true})" Title="Show tickets that will be dropped off and picked up by customer">Current</button>
+</div>
+<div class="pull-left" ng-show="vm.selectedOperatingLocation">
+    <button class="btn right-buffer15" ng-click="vm.connection.stop(); $state.go('timeline-captured', null, {'reload':true})" Title="Show tickets captured by greeter, but not parked">Captured</button>
+</div>
+<div class="pull-left" ng-show="vm.selectedOperatingLocation">
+    <button class="btn right-buffer15" ng-click="vm.connection.stop(); $state.go('timeline-all', null, {'reload':true})" Title="Show all tickets, regardless of status">All</button>
+</div>
+<div class="pull-left" ng-show="vm.selectedOperatingLocation">
+    <button class="btn right-buffer15" ng-click="vm.connection.stop(); $state.go('keys-slots', null, {'reload':true})" Title="Show slots and tickets assigned to them">Keys/Slots</button>
+</div>
+<div class="pull-left" ng-show="vm.selectedOperatingLocation">
+    <button class="btn right-buffer15" ng-click="vm.connection.stop(); $state.go('timeline-closed', null, {'reload':true})" Title="Show closed tickets">Closed</button>
+</div>

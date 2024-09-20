@@ -1,0 +1,11 @@
+﻿<div style="min-height: 400px;" 
+     ng-if="!!makeReservationVm.accountID && !!makeReservationVm.reservation && !!makeReservationVm.multiStepFormSteps"
+     cg-busy="{promise:loadingPromise,message:'Loading...'}">
+    <div class="panel centered">
+        <div class="panel-body container-fluid" style="position: relative;">
+            <multi-step-container steps="makeReservationVm.multiStepFormSteps" class="simple-prev-next">
+                <main step-container></main>
+            </multi-step-container>
+        </div>
+    </div>
+</div>

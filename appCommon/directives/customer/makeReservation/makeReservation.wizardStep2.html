@@ -1,0 +1,108 @@
+﻿<div class="reservation">
+
+    <div class="k-loading" ng-hide="makeReservationVm.haveUpdatedBilling">Loading promotions ...</div>
+    <div ng-if="makeReservationVm.haveUpdatedBilling">
+        <set-promotion ticket-identifier="makeReservationVm.billing.ID"
+                       reserved-promotion-discounts="makeReservationVm.billing.ReservedPromotionDiscounts"
+                       ticket-number="makeReservationVm.billing.TicketNumber"
+                       default-promo-code="makeReservationVm.account.DefaultPromoCode"></set-promotion>
+    </div>
+
+    <hr/>
+
+    <div class="form-group row" id="additionalServices">
+        <div>
+            <label class="form-col-withlabel-label control-label hidden-sm hidden-xs">Additional services available during your parking days</label>
+            <div class="form-col-withlabel-input">
+                <div>
+                    <span class="k-loading" ng-show="!makeReservationVm.showAdditionalServices">Loading services ...</span>
+
+                    <span ng-show="makeReservationVm.showAdditionalServices && !(makeReservationVm.availableServicesForThisReservation && makeReservationVm.availableServicesForThisReservation.length > 0)">
+                        No services available
+                    </span>
+
+                    <div ng-show="makeReservationVm.showAdditionalServices && makeReservationVm.availableServicesForThisReservation && makeReservationVm.availableServicesForThisReservation.length > 0">
+                        <div ng-repeat="service in makeReservationVm.availableServicesForThisReservation">
+                            <label ng-if="service.Category != makeReservationVm.availableServicesForThisReservation[$index - 1].Category">{{service.Category}}</label>
+                            <label class="checkbox checkbox--wide" ng-class="{'checkbox--disabled':!service.IsActive}">
+                                <input id="{{service.ID}}"
+                                       name="{{service.ID}}"
+                                       type="checkbox"
+                                       ng-click="makeReservationVm.availableServiceChecked(service)"
+                                       ng-model="service.userSelectedThis">
+                                <div class="checkbox_label" for="{{service.ID}}">
+                                    <span class="check-wrapper">
+                                        <span class="glyphicon check"></span>
+                                    </span>
+                                    <div class="checkbox_text-wrapper--wizard">
+                                        <div class="checkbox_header">
+                                            {{service.ServiceName}}
+                                            <span ng-show="service.ServiceFee > 0">{{service.ServiceFee | currency }}</span> 
+                                            <span ng-show="service.ProviderCharge > 0">
+                                                <span ng-show="service.ServiceFee > 0"> + </span> 
+                                                {{service.ProviderCharge | currency }}
+                                            </span>
+                                        </div>
+                                        <div class="checkbox_sub-header" ng-show="service.Description.length>0">{{service.Description}}</div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="form-group row" id="rewards">
+        <div>
+            <label class="form-col-withlabel-label control-label hidden-sm hidden-xs">Rewards</label>
+            <div class="form-col-withlabel-input">
+                <a class="btn btn-primary" ng-hide="makeReservationVm.showRewards" ng-click="makeReservationVm.showRewards=true">View Available Rewards</a>
+                <!-- Only need loading indicator until billing is updated; reward directive should have its own loading indicator -->
+                <span class="k-loading" ng-show="makeReservationVm.showRewards && !makeReservationVm.haveUpdatedBilling">Loading rewards ...</span>
+                <!-- Use ng-if to keep reward directive from initializing until after billing is updated -->
+                <div ng-if="makeReservationVm.haveUpdatedBilling">
+                    <div ng-show="makeReservationVm.showRewards">
+                        <reward-available reserved-rewards="makeReservationVm.billing.CartOfRewards"></reward-available>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- wizard navigation -->
+    <div id="wizardNav" class="reservation-nav row top-buffer-relative5 clearfix">
+        <div class="reservation-nav_prev">
+            <button aria-hidden="true"
+                    analytics-category="MakeReservation"
+                    analytics-event="MakeReservation-1-Details"
+                    analytics-on="click"
+                    class="btn btn-cancel"
+                    ng-click="makeReservationVm.saveReservationFromStep2(); $previousStep()"
+                    type="button">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                Change Reservation Details
+            </button>
+        </div>
+
+        <div class="reservation-nav_page">
+            <strong ng-bind-template="{{$getActiveIndex()}} / {{$getSteps().length}}"></strong>
+        </div>
+        <div class="reservation-nav_next">
+            <button aria-hidden="true"
+                    analytics-category="MakeReservation"
+                    analytics-event="MakeReservation-3-Payment"
+                    analytics-on="click"
+                    class="text-right btn btn-primary--mainaction"
+                    ng-click="makeReservationVm.saveReservationFromStep2(); $nextStep()"
+                    type="button">
+                Payment
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+﻿<span>
+    <span class="row font-larger" style="height: 38px; margin-top: 8px;">
+        <a class="link" ng-click="viewOriginalBillingDocument()">View Original:</a>
+        {{originalTotalSummary.Total | currency}}
+    </span>
+
+        <span class="row">Parking Days: {{originalTotalSummary.ParkingDays}}</span>
+        <span class="row">Total Parking: {{originalTotalSummary.TotalParking | currency }}</span>
+
+        <span class="row" ng-repeat="lineItem in originalTotalSummary.AdditionalServiceLineItems">
+            <span>{{lineItem.Description}}: {{lineItem.LineTotalBeforeTaxAndFee | currency }}</span>
+        </span>
+
+        <!--<span class="row">Total Additional Service: {{originalTotalSummary.TotalAdditionalService | currency}}</span>-->
+        <span class="row">
+            <span ng-hide="originalTotalSummary.PromotionCodesUsed.length > 0">Promotion Codes Used: none</span>
+            <span ng-show="originalTotalSummary.PromotionCodesUsed.length > 0">Promotion Codes Used: {{originalTotalSummary.PromotionCodesUsed}}</span>
+        </span>
+
+        <span class="row">Subtotal: {{originalTotalSummary.TotalPreTax | currency}}</span>
+        <span class="row">Tax: {{originalTotalSummary.TaxOnly | currency}}</span>
+        <span class="row">Fee: {{originalTotalSummary.FeeOnly | currency}}</span>
+        <span class="row">Tip: {{originalTotalSummary.Tip | currency}}</span>
+
+</span>

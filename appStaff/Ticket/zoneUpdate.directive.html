@@ -1,0 +1,23 @@
+﻿<span ng-show="directiveInitialized" class="row row--editable">
+    <label class="form-col-withlabel-label" ng-class="{'no-top-padding': !isInEditMode}">{{flightUtils.flightDirectionToString(flightDirection)}} Zone</label>
+    <span ng-show="!isInEditMode" class="form-col-withlabel-input">
+        <span>{{selectedZone.Code}}</span>
+        <button ng-show="canUpdate && !savingInProgress" class="btn btn-primary btn-icon-only btn--edit" ng-click="onEdit()">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+
+        <span class="alert-warning">{{zoneWarningMessage}}</span>
+        <button class="btn btn-primary left-buffer15" ng-show="!!zoneWarningMessage" ng-click="onClearZoneWarningMessage()">Clear warning</button>
+    </span>
+
+    <span ng-show="!!isInEditMode" class="form-col-withlabel-input">
+        <select class="form-control" name="zones-{{flightDirection}}" id="zones-{{flightDirection}}" ng-model="selectedZone"
+                data-ng-options="z as z.Code for z in zoneList">
+            <option value="">-- Select Zone --</option>
+        </select>
+        <div class="form_single-input-buttons">
+            <button class="btn btn-primary" ng-click="onUpdate()">Save</button>
+            <button class="btn btn-cancel" ng-click="onCancel()">Cancel</button>
+        </div>
+    </span>
+</span>

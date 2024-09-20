@@ -1,0 +1,9 @@
+﻿<div class="form-group" ng-controller="PaymentReservationCtrl as payVm">
+    <label class="form-col-withlabel-label control-label">Select Payment</label>
+    <div class="form-col-withlabel-input">
+
+        <payment-method-list account-id="{{payVm.accountID}}" template="/app/Domain/AccountContext/Payment/Directives/PaymentMethodSelect.html"></payment-method-list>
+        
+        <button class="link-color btn btn-link top-buffer-relative5 left-buffer-relative5" title="Add payment" ng-click="payVm.addPayment()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add payment</button>
+    </div>
+</div>

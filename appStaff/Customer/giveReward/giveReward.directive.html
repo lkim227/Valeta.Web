@@ -1,0 +1,78 @@
+﻿<form class="small-form" id="addRewardsForm" name="addRewardsForm" novalidate>
+
+    <div class="form-horizontal">
+
+        <div class="form-group row">
+            <label class="form-col-withlabel-label control-label" for="customer">Select Customer</label>
+            <div class="form-col-withlabel-input">
+                <select class="width-full"
+                        kendo-drop-down-list id="customer"
+                        k-min-length="2"
+                        k-ng-model="selectedCustomer"
+                        k-filter="'contains'"
+                        k-data-source="customerAccounts"
+                        k-auto-bind="true"
+                        k-data-text-field="'FriendlyName'"
+                        k-data-value-field="'ID'"
+                        k-suggest="true"
+                        k-on-change="selectedUserChanged()"
+                        required="required"></select>
+            </div>
+        </div>
+
+        <div class="form-group row" ng-show="availablePoints != null">
+            <label class="form-col-withlabel-label control-label" for="customer">Customer's Points Balance</label>
+            <div class="form-col-withlabel-input">
+                <span class="form-control noborder" style="color: green"> {{availablePoints}} </span>
+            </div>
+        </div>
+
+        <div id="customRewardButtonSelected">
+
+            <div class="form-group row">
+                <label class="form-col-withlabel-label control-label" for="customGift">Description</label>
+                <div class="form-col-withlabel-input">
+                    <input class="form-control" required="required" type="text" id="customGift" name="customGift" ng-disabled="formIsDisabled" ng-model="customManagementReward.Name"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="form-col-withlabel-label control-label" for="quantity">Quantity</label>
+                <div class="form-col-withlabel-input">
+                    <input class="form-control" type="number" min="1" id="quantity" name="quantity" ng-disabled="formIsDisabled" ng-model="pointsToAdd.RewardQuantity" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="form-col-withlabel-label control-label" for="points">Total Points to deduct</label>
+                <div class="form-col-withlabel-input">
+                    <input class="form-control" type="number" min="0" id="points" name="points" ng-disabled="formIsDisabled" ng-model="customManagementReward.Points"/>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+            <label class="form-col-withlabel-label control-label" for="customerNote">Note to Customer</label>
+            <div class="form-col-withlabel-input">
+                <input class="form-control" type="text" id="customerNote" name="customerNote" ng-disabled="formIsDisabled" ng-model="pointsToAdd.NoteToCustomer"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="form-col-withlabel-label control-label" for="officeNote">Office Note</label>
+            <div class="form-col-withlabel-input">
+                <input class="form-control" type="text" id="officeNote" name="officeNote" ng-disabled="formIsDisabled" ng-model="pointsToAdd.OfficeNote"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="form-item_no-label">
+                <input type="button" ng-click="addReward()" class="btn btn-primary" ng-show="canAdd" ng-disabled="formIsDisabled || !addRewardsForm.$valid" value="Add Reward"/>
+            </div>
+        </div>
+    </div>
+
+
+</form>
+<span ng-show="formMessages"><br />{{formMessages}}</span>

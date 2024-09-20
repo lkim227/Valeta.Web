@@ -1,0 +1,63 @@
+.nav-pills {
+  @nav-font-size: .9em;
+
+  position: relative;
+  padding: 40px 20px;
+  background-color: @brand-content-background-color2;
+
+  > li {
+    > a {
+      cursor: pointer;
+      padding: 5px 15px 5px 25px;
+      font-size: @nav-font-size;
+      color: @font-color;
+      border-bottom: 0;
+    }
+
+    &:hover,
+    &:focus {
+      a {
+        font-size: @nav-font-size;
+        color: @font-color;
+        background-color: darken(@brand-content-background-color2, 3%);
+      }
+    }
+
+    &.active {
+      > a {
+        color: @font-color;
+        font-size: @nav-font-size;
+        background-color: @brand-content-background-color2;
+
+        &:hover {
+          background-color: darken(@brand-content-background-color2, 3%);
+          color: @font-color;
+        }
+
+        &:before {
+          content: "\e258";
+          display: inline-block;
+          font-family: 'Glyphicons Halflings';
+          font-size: 1.3em;
+          position: absolute;
+          left: .1em;
+          top: 50%;
+          margin-top: -.65em;
+          color: @brand-primary;
+        }
+      }
+    }
+  }
+
+  // use the before pseudo to make the inner box
+  &:before {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 12px;
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    border: 1px solid @gray-medium;
+  }
+}

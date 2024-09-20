@@ -1,0 +1,29 @@
+﻿<div class="page-controls-wrapper">
+    <select class="form-control" id="ol" ng-model="selectedValet" required="required" ng-show="hasViewAccess"
+            ng-change="selectedValetChanged()"
+            data-ng-options="v as v.ContactInformation.Name.LastThenFirst for v in valetList | orderBy:'ContactInformation.Name.LastThenFirst'">
+        <option value="">-- Select --</option>
+        <!--<option value="0">All</option>-->
+    </select>
+
+    <div class="btn-wrapper">
+        <div class="date-picker-wrapper" id="dateFilter" ng-show="hasViewAccess && selectedValet">
+            <date-from-to from-date-time="filterFromDateTime" to-date-time="filterToDateTime"></date-from-to>
+            <button class="btn btn-default" ng-click="applyDateFilter()">Get Events</button>
+        </div>
+    </div>
+</div>
+
+<div class="events" ng-show="gotEvents">
+    <div ng-show="!currentObjectEvents.length">No events</div>
+    <div class="events-event" ng-repeat="currentEvent in currentObjectEvents">
+        <div class="events-circle">
+            <span class="glyphicon glyphicon-calendar"></span>
+        </div>
+        <button class="btn btn-sm pull-right" ng-click="toggleInfo($index)" style="margin-left: 3%;">
+            <i class="glyphicon glyphicon-minus" ng-if="currentEvent.display == true"></i>
+            <i class="glyphicon glyphicon-plus" ng-if="currentEvent.display == false"></i>
+        </button>
+        <div ng-bind-html="currentEvent.content"></div>
+    </div>
+</div>

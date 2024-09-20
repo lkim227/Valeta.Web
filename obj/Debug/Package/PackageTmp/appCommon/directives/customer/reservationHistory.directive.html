@@ -1,0 +1,74 @@
+﻿
+<div class="page-controls-wrapper">
+    <button class="btn btn-primary" ng-click="newReservation()">Make a Reservation</button>
+    <button class="btn btn-default pull-right" ng-hide="cancelled" ng-click="showCancelled()">Show Cancelled</button>
+    <button class="btn btn-default pull-right" ng-show="cancelled" ng-click="hideCancelled()">Hide Cancelled</button>
+</div>
+
+<div class="row reservation-table-wrapper">
+    <div class="reservation-table-header">
+        <div class="tr">
+            <div class="th sortable-column" ng-click="sortOnField('TicketNumber')">
+                Number<span id="TicketNumber-sort-indicator"></span>
+            </div>
+            <div class="th sortable-column" ng-click="sortOnField('StatusDisplay')">
+                Status<span id="StatusDisplay-sort-indicator"></span>
+            </div>
+            <div class="th sortable-column" ng-click="sortOnField('IntakeDate')">
+                Departure<span id="IntakeDate-sort-indicator"></span>
+            </div>
+            <div class="th sortable-column" ng-click="sortOnField('GiveBackDate')">
+                Return<span id="GiveBackDate-sort-indicator"></span>
+            </div>
+            <div class="th">
+                Actions
+            </div>
+        </div>
+    </div>
+    <kendo-list-view id="listView"
+                     class="reservation-table"
+                     k-auto-bind="false"
+                     k-selectable="false"
+                     k-on-change="onChange(dataItem)"
+                     k-on-cancel="onCancel(kendoEvent)">
+        <div k-template class="tr">
+            <div class="td">
+                <a class="link" ng-click="viewEditable(dataItem)">\#{{dataItem.TicketNumber}}</a>
+            </div>
+            <div class="td">
+                <span class="right-buffer5">{{dataItem.StatusDisplay}}</span>
+                <br />
+                <a class="link" ng-href="{{dataItem.ReceiptHTMLURL}}" ng-show="billingTotalSummary.ReceiptHTMLURL.length > 0">{{dataItem.BillingDocumentName}}</a>
+                <a class="link" ng-click="viewBillingDocument(dataItem)" ng-hide="dataItem.StatusDisplay === 'Unfinished' || billingTotalSummary.ReceiptHTMLURL.length > 0">{{dataItem.BillingDocumentName}}</a>
+            </div>
+            <div class="td">
+                {{dataItem.IntakeDate | date:'short' }}
+                {{dataItem.IntakeSpecifications.AirlineCode}} {{dataItem.IntakeSpecifications.FlightNumber}}
+            </div>
+            <div class="td">
+                {{dataItem.GiveBackDate | date:'short'}}
+                {{dataItem.GiveBackSpecifications.AirlineCode}} {{dataItem.GiveBackSpecifications.FlightNumber}}
+            </div>
+            <div class="td">
+                <div>
+                    <button class="btn btn-primary bottom-buffer15" ng-show="dataItem.CanEdit" title="Edit Reservation" ng-click="viewEditable(dataItem)">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </button>
+                    <button class="btn btn-default bottom-buffer15" ng-show="dataItem.CanCancel" title="Cancel Reservation" ng-click="deleteReservation(dataItem)">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                    <p ng-show="dataItem.NeedToCallToCancel">
+                        <i>To make changes, please contact us.</i>
+                    </p>
+                </div>
+            </div>
+
+            <!--<div class="row top-buffer15">
+                <button class="btn" ng-click="getSlotToParkVehicle(dataItem.OperatingLocationID, dataItem.DepartureInformation, 'Departure', dataItem.VehicleID)">[Get Slot to Park]</button>
+                <button class="btn" ng-click="markComplete(dataItem.ID)">[Mark Complete]</button>
+            </div>-->
+
+        </div>
+    </kendo-list-view>
+    <div id="progress"></div>
+</div>

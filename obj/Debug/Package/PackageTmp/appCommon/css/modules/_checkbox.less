@@ -1,0 +1,206 @@
+.checkbox {
+    @checkmark: "\e013";
+
+    .clearfix();
+    position: relative;
+    margin-left: 0;
+    margin-bottom: .4em;
+    margin-top: 0;
+
+    &--small {
+        font-size: 12px;
+    }
+
+    &.k-state-selected,
+    .is-active & {
+        .check-wrapper {
+            background-color: @brand-primary;
+        }
+
+        .check {
+            &:before {
+                content: @checkmark;
+            }
+        }
+    }
+
+    input {
+        display: none;
+    }
+
+    &_text {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    &_text-img {
+        float: left;
+        padding-top: .5em;
+        padding-right: .5em;
+    }
+
+    .checkbox_label {
+        float: left;
+        color: @gray-dark;
+        cursor: pointer;
+        padding: .5em .5em .5em 3.3em !important;
+        width: 100%;
+        box-sizing: border-box;
+
+        &:hover {
+            background-color: @brand-content-background-color2;
+        }
+
+        .sm( {
+            padding-left: 4.7em !important;
+
+            .check {
+                font-size: 1.2em;
+            }
+        }
+
+        );
+
+        .checkbox_text-wrapper {
+            display: inline-block;
+            min-height: 2.8em;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            .checkbox_header {
+                font-family: @brand-font-family-bold;
+                font-size: 1.05em;
+            }
+
+            .checkbox_sub-header {
+                font-size: .9em;
+                margin-top: .3em;
+                font-family: @brand-font-family;
+            }
+
+            &--wizard {
+                .checkbox_header {
+                    font-family: @brand-font-family-bold;
+                    font-size: 1.05em;
+                }
+
+                .checkbox_sub-header {
+                    font-size: .9em;
+                    margin-top: .3em;
+                    font-family: @brand-font-family;
+
+                    .md( {
+                        width: 650px;
+                    }
+
+                    );
+                }
+            }
+        }
+    }
+
+    .check-wrapper {
+        position: absolute;
+        width: 2.5em;
+        height: 100%;
+        left: 0;
+        top: 0;
+
+        .sm( {
+            width: 3.7em;
+        }
+
+        );
+    }
+
+    input:checked + .checkbox_label {
+        background-color: @brand-content-background-color2;
+
+        .check-wrapper {
+            background-color: @brand-primary;
+        }
+
+        .check {
+            &:before {
+                content: @checkmark;
+            }
+        }
+    }
+
+    .check {
+        position: absolute;
+        top: 50%;
+        margin-top: -.5em;
+        left: 50%;
+        margin-left: -.5em;
+
+        &:before {
+            content: "\e157";
+        }
+
+        .xs( {
+            top: 50%;
+        }
+
+        );
+    }
+
+    .checkbox_buttons-wrapper {
+        float: right;
+        position: relative;
+        z-index: 1;
+        margin-top: .8em;
+
+        .xs( {
+            margin-top: 0;
+        }
+
+        );
+    }
+
+    &--disabled {
+
+        &:hover {
+            background-color: transparent;
+        }
+
+        &.k-state-selected,
+        .checkbox_label {
+            cursor: default !important;
+            background-color: transparent !important;
+            color: @gray-medium !important;
+        }
+
+        .check-wrapper {
+            color: @gray-light !important;
+        }
+    }
+    /* 
+    Directives which use this class sometime display the list as just a regular list 
+    without checkbox selection.
+*/
+    &--no-checkbox {
+        padding: .5em;
+        cursor: default;
+
+        &:hover {
+            background-color: transparent;
+        }
+
+        &.k-state-selected,
+        .checkbox_label {
+            background-color: transparent !important;
+            color: @gray-dark !important;
+            padding-left: .5em !important;
+
+            .check-wrapper {
+                display: none;
+            }
+        }
+
+        .checkbox_label {
+            width: auto;
+        }
+    }
+}

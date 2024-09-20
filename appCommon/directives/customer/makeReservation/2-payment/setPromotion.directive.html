@@ -1,0 +1,37 @@
+﻿<ng-form name="promotionForm">
+    <div class="form-group row">
+        <label class="form-col-withlabel-label control-label" for="promotionCode">Promotion</label>
+        <div class="form-col-withlabel-input">
+
+            <div class="form-group bottom-buffer15" ng-show="reservedPromotionCodes.length > 0">
+                <h5>Applied to this reservation <span class="italic left-buffer5">(discounts will be calculated on Estimate)</span></h5>
+                <div ng-repeat="code in reservedPromotionCodes">
+                    <span class="bottom-buffer5">{{code}}</span>
+                </div>
+            </div>
+            <div class="form-group promotion-wrapper">
+                <input class="form-control right-buffer15"
+                        id="promotionCode"
+                        name="promotionCode"
+                        min-length="1"
+                        type="text"
+                        ng-model="promotionCodeInput"
+                        placeholder="Enter promotion code..."
+                        style="text-transform: uppercase"/>
+                <button aria-hidden="true"
+                        analytics-category="MakeReservationPromotion"
+                        analytics-event="MakeReservation-2-payment"
+                        analytics-on="click"
+                        class="btn btn-primary btn-form-inline"
+                        ng-click="checkPromotion(promotionCodeInput, true)"
+                        type="button"
+                        ng-disabled="promotionCodeInput.length == 0">
+                    Apply
+                </button>
+            </div>
+            <div ng-show="isCheckPromotionAttempted && !checkPromotionResult.WillBeApplied">
+                <span class="error-messages ng-active">'{{enteredPromotionCode | uppercase}}' {{checkPromotionResult.Message | uppercase}}</span>
+            </div>
+        </div>
+    </div>
+</ng-form>

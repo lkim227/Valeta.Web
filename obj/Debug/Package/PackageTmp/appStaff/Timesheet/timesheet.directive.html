@@ -1,0 +1,13 @@
+﻿<div ng-show="canCreate">
+    <div class="page-controls-wrapper">
+        <operating-location-dropdown operating-location-changed-callback="onChangeOperatingLocation(newOperatingLocation)"></operating-location-dropdown>
+        <div class="date-picker-wrapper">
+            <date-from-to from-date-time="filterFromDateTime" to-date-time="filterToDateTime"></date-from-to>
+            <button class="btn btn-primary" ng-click="onSearch()"><span class="glyphicon glyphicon-filter" title="Filter on timesheet"></span> Search</button>
+        </div>
+    </div>
+
+    <div class="myGrid">
+        <kendo-grid options="gridOptions" id="timesheetTable"></kendo-grid>
+    </div>
+</div>

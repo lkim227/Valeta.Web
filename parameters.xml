@@ -1,0 +1,13 @@
+﻿<!--?xml version="1.0" encoding="utf-8" ?-->
+<parameters>
+  <parameter name="APIHOST" description="" defaultvalue="#(APIHOST)#" tags="">
+    <parameterentry kind="TextFile" scope="\\deployment\\release.ts$" match="__APIHOST__"></parameterentry>
+    <parameterentry kind="TextFile" scope="\\deployment\\release.js$" match="__APIHOST__"></parameterentry>
+    <parameterentry kind="TextFile" scope="\\valeta-app.js$" match="__APIHOST__"></parameterentry>
+  </parameter>
+  <parameter name="BLOBURL" description="" defaultvalue="#(BLOBURL)#" tags="">
+    <parameterentry kind="TextFile" scope="\\deployment\\release.ts$" match="__BLOBURL__"></parameterentry>
+    <parameterentry kind="TextFile" scope="\\deployment\\release.js$" match="__BLOBURL__"></parameterentry>
+    <parameterentry kind="TextFile" scope="\\valeta-app.js$" match="__BLOBURL__"></parameterentry>
+  </parameter>
+</parameters>

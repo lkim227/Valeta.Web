@@ -1,0 +1,32 @@
+﻿<span ng-show="directiveInitialized" class="row row--editable">
+    <label class="form-col-withlabel-label" ng-class="{'no-top-padding': !isInEditMode}" ng-hide="isAccessedByStaff">Vehicle</label>
+    <span class="form-col-withlabel-label" ng-class="{'no-top-padding': !isInEditMode}" ng-show="isAccessedByStaff">
+        <label>Vehicle</label> <a class="link left-buffer15" ui-sref="account-vehicles({ customerIdentifier: '{{accountIdentifier}}'})">Customer vehicles</a>
+    </span>
+
+    <span ng-show="!isInEditMode" class="form-col-withlabel-input">
+        <span ng-class="vehicle.LicensePlate.length > 0 || vehicle.Attributes.length > 0 ? 'right-buffer15' : ''">
+            {{vehicle.FriendlyName}}
+        </span>
+        <span ng-show="vehicle.LicensePlate.length > 0"
+              ng-class="vehicle.Attributes.length > 0 ? 'right-buffer15' : ''">
+            License:&nbsp;{{vehicle.LicensePlate}}
+        </span>
+        <span ng-show="vehicle.Attributes.length > 0">Attributes:&nbsp;{{vehicle.Attributes}}</span>
+
+        <button ng-show="canUpdate" class="btn btn-primary btn-icon-only btn--edit" ng-click="onEdit()">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+    </span>
+    <span ng-show="!!isInEditMode" ng-form="vehicleForm" class="form-col-withlabel-input">
+        <account-vehicles can-select
+                          select-label="Select Vehicle"
+                          selected-vehicle="vehicle">
+        </account-vehicles>
+        <div class="form_single-input-buttons">
+            <button class="btn btn-primary" ng-click="onUpdate()">Save</button>
+            <button class="btn btn-cancel" ng-click="onCancel()">Cancel</button>
+        </div>
+    </span>
+</span>
+

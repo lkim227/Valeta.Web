@@ -1,0 +1,8 @@
+﻿<div class="operating-location-wrapper">
+    <select class="form-control" id="ol" ng-model="operatingLocation" required="required"
+            ng-change="operatingLocationChanged()"
+            data-ng-options="ol as ol.Name for ol in operatingLocationChoices">
+        <option value="">-- Select Operating Location --</option>
+        <!--<option value="0">All</option>-->
+    </select>
+</div>

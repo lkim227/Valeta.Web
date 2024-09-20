@@ -1,0 +1,83 @@
+﻿<div class="page-controls-wrapper">
+    <select class="form-control" id="ol" ng-model="selectedOperatingLocation" required="required"
+            ng-change="operatingLocationChanged()"
+            data-ng-options="ol as ol.Name for ol in operatingLocationChoices track by ol.ID"></select>
+
+    <button ng-show="canCreate" class="btn btn-primary left-buffer15" ng-click="openAddTemplateName()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Template</button>
+
+    <span ng-show="selectedOperatingLocation" class="left-buffer15">Note: messages will not be sent, if a template has no content.</span>
+</div>
+
+<div class="myGrid" ng-show="selectedOperatingLocation">
+    <kendo-grid options="gridOptions" id="gridMessageTemplates"></kendo-grid>
+</div>
+
+
+<!-- Update Template Content -->
+<script type="text/ng-template" id="updateTemplateModalContent">
+    <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" ng-click="cancelUpdateTemplate()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Edit Template</h4>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal kendo-form" id="editorForm" name="editorForm" ng-show="!!currentTemplate">
+            <div class="form-group">
+                <label class="left-buffer15 right-buffer15">Template</label>{{currentTemplate.Template.TemplateName}}
+                <label class="left-buffer15 right-buffer15">Type</label>{{utils.camelToTitle(enumUtils.getNameForValueMessageType(currentTemplate.Template.MessageType))}}
+            </div>
+
+            <div id="subjectRow" class="form-group" ng-show="currentTemplate.Template.MessageType===messageTypeEmail">
+                <label class="form-col-withlabel-label" for="subject">Subject</label>
+                <div class="form-col-withlabel-input">
+                    <input class="form-control k-input width-full" type="text" id="subject" name="subject" ng-model="currentTemplate.TemplateContent.Subject" />
+                </div>
+            </div>
+
+            <div id="contentEditorRow" class="form-group">
+                <label class="form-col-withlabel-label" for="contentEditor">Content</label>
+                <div>
+                    <textarea kendo-editor k-encoded="false" ng-model="currentTemplate.TemplateContent.Content" id="contentEditor" name="contentEditor"></textarea>
+                    <span class="font-smaller pull-right" ng-hide="currentTemplate.Template.MessageType===messageTypeEmail">{{currentTemplate.TemplateContent.Content.length}} characters</span>
+                </div>
+            </div>
+
+            <div class="text-center top-buffer15">
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button ng-click="updateTemplate();" class="btn btn-primary" ng-disabled="!editorForm.$valid">Update</button>
+        <button class="btn btn-cancel" ng-click="cancelUpdateTemplate();">Cancel</button>
+    </div>
+</script>
+
+<!-- Add Template Name Content -->
+<script type="text/ng-template" id="addTemplateNameModalContent">
+    <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" ng-click="cancelAddTemplateName()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Add Template to Operating Location</h4>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal kendo-form" id="addForm" name="addForm">
+            <div id="templateNameRow" class="form-group">
+                <label class="form-col-withlabel-label" for="templateName">Template</label>
+                <div class="form-col-withlabel-input">
+                    <select class="form-control" ng-model="selectedTemplate"
+                            data-ng-options="t as t.TemplateName for t in templateNames track by t.ID"></select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button ng-click="addTemplateName(selectedTemplate)" class="btn btn-primary">Add</button>
+        <button class="btn btn-cancel" ng-click="cancelAddTemplateName();">Cancel</button>
+
+        <div class="row top-buffer15">
+            After clicking <em>Add</em>, find template in the list to edit content.
+        </div>
+    </div>
+</script>

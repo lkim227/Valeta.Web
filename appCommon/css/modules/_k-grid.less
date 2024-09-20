@@ -1,0 +1,136 @@
+.k-grid {
+    overflow-x: auto;
+    background-color: @brand-accent;
+    font-size: .95em;
+
+    table,
+    .k-grid-content {
+        background-color: @white;
+    }
+
+    &-header {
+        background-color: @brand-content-background-color2;
+        border: 1px solid @gray-light;
+        border-bottom: 0;
+
+        .k-link {
+            .k-icon {
+                display: inline-block;
+                margin-left: 5px;
+            }
+        }
+    }
+
+    .k-header > .k-grid-filter,
+    .k-header > .k-header-column-menu {
+        margin-top: -.7em;
+    }
+
+    &-toolbar {
+        background-color: @brand-accent;
+
+        &:first-child {
+            border: 0;
+        }
+    }
+
+    .k-grid-toolbar {
+        .k-button, {
+            border: 0;
+
+            &:hover,
+            &:focus,
+            &:active,
+            &:active:hover {
+                border: 0;
+            }
+        }
+    }
+
+    .k-button {
+        .btn-default();
+        font-family: @brand-font-family-bold;
+        white-space: nowrap;
+
+        .k-icon {
+            opacity: .6;
+            transition: opacity .3s;
+        }
+
+        &:hover {
+            .k-icon {
+                opacity: .4;
+            }
+
+            .k-i-pdf {
+                background-position: -64px -80px;
+            }
+
+            .k-i-excel {
+                background-position: -64px -96px;
+            }
+
+            .k-i-cancel {
+                background-position: -32px -48px;
+            }
+
+            .k-i-update {
+                background-position: -32px -32px;
+            }
+
+            .k-i-delete {
+                background-position: -32px -16px;
+            }
+        }
+    }
+
+    td,
+    th {
+        display: table-cell;
+        border-left: 1px solid @gray-light; /*  inner column border */
+        border-bottom: 1px solid @gray-light;
+        border-width: 0 0 1px 1px;
+        font-size: inherit;
+        vertical-align: middle;
+        margin: 0;
+        overflow: visible; /*to make ths where the title is really long work*/
+        box-sizing: border-box;
+    }
+
+    tr {
+        &:hover {
+            background-color: @brand-content-background-color2;
+        }
+
+        td, th {
+            border-left-color: @gray-light;
+        }
+
+        &:last-of-type {
+            td {
+                border-bottom: 0;
+            }
+        }
+    }
+
+    .employee-img-preview {
+        position: relative;
+        width: 3.5em;
+        margin: auto;
+
+        label {
+            &:hover {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .employee-img-input::-webkit-file-upload-button {
+        visibility: hidden;
+    }
+
+    .employee-img-input {
+        display: none;
+    }
+}

@@ -1,0 +1,149 @@
+
+
+.reservation {
+    .form-col-withlabel-label,
+    .form-col-withlabel-input {
+        box-sizing: border-box;
+    }
+
+    .form-col-withlabel-input {
+        padding-left: 0;
+    }
+
+    .form-col-withlabel-label {
+        .xs-max({
+            padding-left: 0;
+        });
+    }
+
+    input.form-control {
+        box-sizing: border-box;
+        display: inline-block;
+        box-shadow: none;
+        height: 37px;
+        .sm({
+            width: 300px;
+        });
+    }
+
+    .operating-location-wrapper {
+        select {
+            padding: 10px;
+        }
+        .sm({
+            float: left;
+            width: 186px;
+        });
+    }
+
+    .xs-max({
+        .k-combobox,
+        .k-dropdown {
+            display: inline-block;
+            width: 100%;
+        }
+
+        .row {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .form-col-withlabel-input {
+            padding-right: 0;
+        }
+
+        .promotion-wrapper {
+            display: flex;
+            input.form-control {
+                width: 100%;
+            }
+        }
+    });
+
+    .checkbox {
+        .sm({
+            width: 300px;
+
+            &.checkbox--wide {
+                width: 450px;
+            }
+        });
+    }
+}
+
+.reservation-nav {
+
+    padding-bottom: 20px;
+
+    .md({
+        padding-bottom: 0;
+    });
+
+    &_prev {
+        float: left;
+        width: 50%;
+        padding-right: 5px;
+        text-align: left;
+    }
+
+    &_page {
+        position: absolute;
+        bottom: 5px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    &_next {
+        float: right;
+        width: 50%;
+        padding-left: 5px;
+        text-align: right;
+    }
+
+    .xs-max({
+        .btn-primary {
+            position: relative;
+            font-size: .9em;
+            white-space: initial;
+            max-width: 100%;
+            padding: 8px 24px 8px 18px;
+            text-align: left;
+
+            .glyphicon {
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                margin-top: -0.5em;
+            }
+        }
+
+        .btn-cancel {
+            position: relative;
+            font-size: .9em;
+            white-space: initial;
+            text-align: right;
+            padding: 8px 18px 8px 24px;
+            max-width: 100%;
+
+            .glyphicon {
+                position: absolute;
+                left: 10px;
+                top: 50%;
+                margin-top: -0.5em;
+            }
+        }
+    });
+
+    &_prev,
+    &_page,
+    &_next {
+        .md({
+            position: relative;
+            float: left;
+            width: 33.33333333%;
+        });
+    }
+}
+

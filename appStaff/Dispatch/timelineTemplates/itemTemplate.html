@@ -1,0 +1,117 @@
+<div id="currentTicket"
+     class="timeline-item"
+     ng-class="{'IsReturn': isReturn, 'IsDeparture': isDeparture}"
+     ng-init="isDeparture = dataItem.TravelDirection == 0; isReturn = dataItem.TravelDirection == 1;">
+
+    <div class="row-1-wrapper">
+        <span class="item item--lg-margin">
+            {{dataItem.DateTimeCustomerMeetsValet | date:'h:mm a'}}
+        </span>
+        <span class="item item--md-margin">
+            <span title="Last Updated On: {{dataItem.FlightStatus.UpdatedOn}}&#10;&#10;{{dataItem.FlightSpecifications.AirlineCode}} {{dataItem.FlightSpecifications.FlightNumber}} Status: {{vm.flightUtils.flightStatusCodeToTitle(dataItem.FlightStatus.StatusCode)}}&#10; - {{dataItem.Schedule.ScheduleDateTime | date : 'short'}} Scheduled {{vm.flightUtils.flightDirectionToString(dataItem.FlightSpecifications.FlightDirection)}}&#10; - {{dataItem.FlightStatus.FlightTime | date : 'short'}} {{vm.flightUtils.flightTimeSourceToFriendly(dataItem.FlightStatus.FlightTimeSource, dataItem.FlightSpecifications.FlightDirection)}}"
+                  ng-class="(vm.flightUtils.flightStatusCodeToTitle(dataItem.FlightStatus.StatusCode) === 'Landed' ? 'icon glyphicon glyphicon-plane green-txt' : 'icon glyphicon glyphicon-plane')">
+            </span>
+            <span>{{dataItem.FlightStatus.TerminalGate}}</span>
+            <span ng-show="isDeparture" class="italic">
+                {{dataItem.RelativeMeetLocation}}
+            </span>
+            <span class="item glyphicon glyphicon-briefcase"
+                  ng-style="isReturn && dataItem.GiveBackIsCheckingBags? {'display': 'inline-block'} : {'display' : 'none'}"
+                  title="{{dataItem.FlightStatus.BaggageClaim}}">
+            </span>
+        </span>
+        <!--<span ng-style="(isDeparture ? {'display': 'inline-block'} : {'display' : 'none'})">{{dataItem.RelativeMeetLocation}}</span>-->
+        <span class="item item--md-margin truncate">{{dataItem.ZoneCode}}</span>
+        <span class="item item--md-margin icon glyphicon glyphicon-download alert-danger"
+              ng-style="(dataItem.ZoneWarningMessage.length > 0 ? {'display': 'inline-block'} : {'display' : 'none'})"
+              title="{{dataItem.ZoneWarningMessage}}">
+        </span>
+        <span class="item item--md-margin alert-success truncate"
+              ng-style="(isReturn && vm.flightStatusCodeToTitle(dataItem.FlightStatus.StatusCode)==='Landed' ? {'display': 'inline-block'} : {'display' : 'none'})">
+            {{vm.flightStatusCodeToTitle(dataItem.FlightStatus.StatusCode)}}
+        </span>
+        <span class="item item--md-margin icon glyphicon glyphicon-exclamation-sign alert-info"
+              ng-style="(dataItem.MeetTimeWarningMessage.length > 0 ? {'display': 'inline-block'} : {'display' : 'none'})"
+              title="{{dataItem.MeetTimeWarningMessage}}">
+        </span>
+        <span class="item item--md-margin icon glyphicon glyphicon-exclamation-sign alert-info"
+              ng-style="(dataItem.GeneralWarningMessage.length > 0 ? {'display': 'inline-block'} : {'display' : 'none'})"
+              title="{{dataItem.GeneralWarningMessage}}">
+        </span>
+
+        <!--Use ng-if so tooltip doesn't render before its value is set-->
+        <span class="item item--lg-margin" ng-if="isReturn && !!vm.ticketServicesTooltip[dataItem.TicketNumber]">
+            <span kendo-tooltip k-content="vm.ticketServicesTooltip[dataItem.TicketNumber]" class="k-group">
+                <img ng-src="/appCommon/resources/services-red-icon.png" ng-show="!!vm.ticketWarningServices[dataItem.TicketNumber]" width="18" style="margin-top: -10px"/>
+                <img ng-src="/appCommon/resources/services-green-icon.png" ng-hide="!!vm.ticketWarningServices[dataItem.TicketNumber]" width="18" style="margin-top: -10px"/>
+            </span>
+        </span>
+
+        <!--Use ng-if so tooltip doesn't render before its value is set-->
+        <span class="item item--lg-margin red-txt" ng-if="!!vm.ticketPendingIssues[dataItem.TicketNumber]">
+            <span kendo-tooltip k-content="vm.ticketPendingIssues[dataItem.TicketNumber]" class="k-group">
+                <img ng-src="/appCommon/resources/openissues-red-icon.png" width="18" style="margin-top: -10px"/>
+            </span>
+        </span>
+
+        <span ng-show="dataItem.NeedsManagerAttention" class="icon glyphicon glyphicon-flash alert-info"
+              title="Needs Manager Attention: {{dataItem.ReasonForManagerAttention}}">
+        </span>
+
+        <div class="greeter-wrapper" ng-show="dataItem.ShowAssignGreeter">
+            <button ng-hide="dataItem.hideGreeter" ng-click="vm.showGreeterSelect(dataItem)" class="btn btn-sm btn-primary" ng-class="{'btn-danger': dataItem.GreeterSagaEmployeeFriendlyID=='Greeter?'}">
+                <span>{{dataItem.GreeterSagaEmployeeFriendlyID}}</span>
+            </button>
+            <button ng-hide="dataItem.GreeterSagaEmployeeFriendlyID==='Greeter?'" ng-click="vm.removeGreeter(dataItem)" class="btn btn-sm btn-cancel">
+                <span class="glyphicon glyphicon-trash" title="Remove specifically assigned greeter. There might be a default greeter in the zone whose name will be shown."></span>
+            </button>
+            <span ng-hide="dataItem.hideGreeterCombo">
+                <span id="greeter{{dataItem.TicketNumber}}"></span>
+            </span>
+        </div>
+    </div>
+    <div class="row-2-wrapper">
+        <span class="item item--lg-margin">
+            <a class="link" ng-href="/appStaff/#/ticket/{{dataItem.TicketNumber}}" target="_self">#{{dataItem.TicketNumber}}</a>
+            <span class="item glyphicon glyphicon-file"
+                  ng-style="dataItem.ReservationNote.length > 0? {'display': 'inline-block'} : {'display' : 'none'}"
+                  title="{{dataItem.ReservationNote}}"></span>
+            <span class="item glyphicon glyphicon-file alert-info"
+                  ng-style="dataItem.OfficeNote.length > 0? {'display': 'inline-block'} : {'display' : 'none'}"
+                  title="{{dataItem.OfficeNote}}"></span>
+            <span class="item glyphicon glyphicon-dashboard" title="{{dataItem.Vehicle.FriendlyName}}&#10;{{dataItem.Vehicle.Attributes}}"></span>
+            <span ng-if="!!dataItem.KeyTag" class="text-nowrap left-buffer5">Tag: {{dataItem.KeyTag}}</span>
+            <span ng-if="!!dataItem.SlotCode" class="text-nowrap left-buffer5">Slot: {{dataItem.SlotCode}}</span>
+        </span>
+        <div class="runner-wrapper" ng-show="dataItem.ShowAssignRunner">
+            <button ng-hide="dataItem.hideRunner" ng-click="vm.showRunnerSelect(dataItem)" class="btn btn-sm btn-primary" ng-class="{'btn-danger': dataItem.RunnerSagaEmployeeFriendlyID=='Runner?'}">
+                <span>{{dataItem.RunnerSagaEmployeeFriendlyID}}</span>
+                <span ng-show="isReturn && !!dataItem.RunnerSagaStatus" 
+                      class="truncate" style="width: 100px;">
+                    <em>{{vm.ticketUtils.runnerSagaStatusToTitle(dataItem.RunnerSagaStatus)}}</em>
+                </span>
+            </button>
+            <button ng-hide="dataItem.RunnerSagaEmployeeFriendlyID==='Runner?'" ng-click="vm.removeRunner(dataItem)" class="btn btn-sm btn-cancel">
+                <span class="glyphicon glyphicon-trash" title="Remove assigned runner"></span>
+            </button>
+            <span ng-hide="dataItem.hideRunnerCombo">
+                <span id="runner{{dataItem.TicketNumber}}"></span>
+            </span>
+        </div>
+    </div>
+    <div>
+        <span class="item item--lg-margin">
+            <span>{{dataItem.MobilePhone | tel}}</span>
+            <a class="link" ng-href="{{vm.adHocCommunicationUrl}}/{{dataItem.ID}}/{{dataItem.MobilePhone}}/{{dataItem.CustomerName}}" target="_self">SMS</a>
+        </span>
+        <span class="item">{{dataItem.CustomerName}}</span>
+        <span ng-show="!!dataItem.SmsSentMessage" class="green-txt left-buffer5">{{dataItem.SmsSentMessage}}</span>
+    </div>
+
+    <!--FUTURE PHASE <div class="pull-right showBookmark right-buffer5">
+        <button class="btn btn-link">add attention</button>
+    </div>-->
+    <div id="alerts">
+        <span class="ticketlistview-warning"></span>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+C:\Projects\TAV\UI-Web\Source\Valeta.Web\bin\Valeta.Web.dll.config
+C:\Projects\TAV\UI-Web\Source\Valeta.Web\bin\Valeta.Web.dll
+C:\Projects\TAV\UI-Web\Source\Valeta.Web\bin\Valeta.Web.pdb
+C:\Projects\TAV\UI-Web\Source\Valeta.Web\obj\Debug\Valeta.Web.csproj.AssemblyReference.cache
+C:\Projects\TAV\UI-Web\Source\Valeta.Web\obj\Debug\Valeta.Web.csproj.CoreCompileInputs.cache
+C:\Projects\TAV\UI-Web\Source\Valeta.Web\obj\Debug\Valeta.Web.dll
+C:\Projects\TAV\UI-Web\Source\Valeta.Web\obj\Debug\Valeta.Web.pdb

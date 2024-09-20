@@ -1,0 +1,82 @@
+﻿.ticket-details {
+    &_content {
+        max-width: 960px;
+        margin: 0 auto 2em auto;
+    }
+
+    .alert {
+        display: inline-block;
+    }
+
+    .edit-wrapper {
+        .alert {
+            display: block;
+        }
+
+        .form-col-withlabel-label {
+            display: none;
+        }
+
+        .form-col-withlabel-input {
+            width: 100%;
+        }
+    }
+
+    .btn-inline,
+    .inline-descr {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 1em;
+
+        .btn {
+            font-size: .9em;
+        }
+    }
+
+    .form-col-withlabel-label {
+        margin-bottom: 0;
+    }
+
+    .form-col-withlabel-input {
+        padding-right: 4em;
+
+        .btn--edit {
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: .9em;
+        }
+    }
+
+    .flight .form-col-withlabel-input {
+        padding-right: 1em;
+    }
+
+    .row {
+        float: left;
+        width: 100%;
+        padding: .4em 0;
+    }
+
+    .row--editable {
+        min-height: 2.8em;
+
+        &:hover,
+        &:focus,
+        &:active:hover,
+        &:active {
+            background-color: @brand-hover-highlight-background;
+            border: 1px solid darken(@brand-hover-highlight-background, 15%);
+        }
+    }
+
+    .row--highlight {
+        &:hover,
+        &:focus,
+        &:active:hover,
+        &:active {
+            background-color: @brand-hover-highlight-background;
+            border: 1px solid darken(@brand-hover-highlight-background, 15%);
+        }
+    }
+}

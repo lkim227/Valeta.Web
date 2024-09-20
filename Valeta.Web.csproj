@@ -1,0 +1,843 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{923FE23D-A570-4829-94C9-52DFA3243B9E}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Valeta.Web</RootNamespace>
+    <AssemblyName>Valeta.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include=".gitignore" />
+    <Content Include="appCommon\base\kendoGridHierarchy.html" />
+    <Content Include="appCommon\css\readme.txt" />
+    <Content Include="appCommon\css\site.css">
+      <DependentUpon>site.less</DependentUpon>
+    </Content>
+    <Content Include="appCommon\css\site.min.css">
+      <DependentUpon>site.css</DependentUpon>
+    </Content>
+    <Content Include="appCommon\directives\agent\customerList.directive.html" />
+    <Content Include="appCommon\directives\customer\accountVehicleImages.directive.html" />
+    <Content Include="appCommon\directives\customer\makeReservation\2-payment\splitPayment.ReservedParkingDays.directive.html" />
+    <Content Include="appCommon\directives\customer\makeReservation\makeReservation.wizardStep3.html" />
+    <Content Include="appCommon\directives\customer\profile\profile.unavailable.html" />
+    <Content Include="appCommon\directives\customer\reward\pointsEarnedHistory.directive.html" />
+    <Content Include="appCommon\directives\imagePreview.modal.html" />
+    <Content Include="appCommon\directives\profileImage\profileImageCropper.modal.html" />
+    <Content Include="appCommon\directives\dateFromTo.directive.html" />
+    <Content Include="appCommon\directives\operatingLocationDropdown.directive.html" />
+    <Content Include="appCommon\directives\ticket\billingOriginalDocument.html" />
+    <Content Include="appCommon\directives\ticket\billingRefundDocument.html" />
+    <Content Include="appCommon\directives\ticket\keyTagUpdate.directive.html" />
+    <Content Include="appCommon\directives\ticket\ccEmailsUpdate.directive.html" />
+    <Content Include="appCommon\directives\ticket\emailAddressUpdate.directive.html" />
+    <Content Include="appCommon\directives\ticket\numberOfPeopleReturningInfo.directive.html" />
+    <Content Include="appCommon\directives\ticket\returnIsCheckingBagsInfo.directive.html" />
+    <Content Include="appCommon\directives\ticket\useTollTagInfo.directive.html" />
+    <Content Include="appCommon\directives\ticket\billingSummary.directive.html" />
+    <Content Include="appCommon\directives\ticket\vehicleInfo.directive.html" />
+    <Content Include="appCommon\directives\ticket\mobilePhoneUpdate.directive.html" />
+    <Content Include="appCommon\directives\ticket\paymentMethodUpdate.directive.html" />
+    <Content Include="appCommon\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="appCommon\login\migrated.html" />
+    <Content Include="appCommon\login\resetpassword.html" />
+    <Content Include="appCommon\resources\LinkedIn-Icon-circle-sm.png" />
+    <Content Include="appCommon\resources\openissues-red-icon.png" />
+    <Content Include="appCommon\resources\profile-icon.png" />
+    <Content Include="appCommon\resources\services-green-icon.png" />
+    <Content Include="appCommon\resources\services-red-icon.png" />
+    <Content Include="appCommon\resources\VehicleDamage-Diagram.png" />
+    <Content Include="appCommon\resources\x.png" />
+    <Content Include="appCommon\signup\activate.html" />
+    <Content Include="appCommon\signup\newAccountFields.html" />
+    <Content Include="appCommon\signup\createNew.html" />
+    <Content Include="appCommon\theme\images\favicon.ico" />
+    <Content Include="appCommon\theme\images\logo-full.svg" />
+    <Content Include="appCustomer\Agent\agentView.html" />
+    <Content Include="appCustomer\Agent\Session\agentSession.html" />
+    <Content Include="appCustomer\Dashboard\customerHome.html" />
+    <Content Include="appCustomer\Reservation\makeReservation.html" />
+    <Content Include="appCustomer\shell.html" />
+    <Content Include="appCustomer\Ticket\serviceTasksForTicket.directive.html" />
+    <Content Include="appStaff\Customer\Session\resetPasswordTo.html" />
+    <Content Include="appStaff\Customer\Session\agentView.html" />
+    <Content Include="appStaff\Developer\debugEmployeeCommands.directive.html" />
+    <Content Include="appStaff\Dispatch\cancelled.html" />
+    <Content Include="appStaff\Dispatch\cancelled.directive.html" />
+    <Content Include="appStaff\Dispatch\keysAndSlots.html" />
+    <Content Include="appStaff\Dispatch\notClosed.directive.html" />
+    <Content Include="appStaff\Dispatch\timelineAll.html" />
+    <Content Include="appStaff\Dispatch\timelineTemplates\itemTemplate.html" />
+    <Content Include="appStaff\Employee\valetTips.html" />
+    <Content Include="appStaff\Employee\valetTips.directive.html" />
+    <Content Include="appStaff\Employee\valetLog.directive.html" />
+    <Content Include="appStaff\Employee\valetLog.html" />
+    <Content Include="appStaff\PersonalManagement\changeStaffPassword.directive.html" />
+    <Content Include="appStaff\PersonalManagement\changeStaffPassword.html" />
+    <Content Include="appStaff\PersonalManagement\myValetLog.html" />
+    <Content Include="appStaff\PersonalManagement\myValetTips.html" />
+    <Content Include="appStaff\Reward\promotions.directive.html" />
+    <Content Include="appCommon\directives\ticket\serviceTaskStatus.directive.html" />
+    <Content Include="appStaff\ServiceTask\serviceTaskLastMonth.html" />
+    <Content Include="appStaff\ServiceTask\serviceTaskThisMonth.html" />
+    <Content Include="appStaff\ServiceTask\singleServiceTask.html" />
+    <Content Include="appStaff\Customer\Session\accountPaymentMethods.html" />
+    <Content Include="appStaff\Customer\Session\communication.html" />
+    <Content Include="appStaff\Customer\Session\damages.html" />
+    <Content Include="appStaff\Customer\Session\issues.html" />
+    <Content Include="appStaff\Customer\Session\makeReservation.html" />
+    <Content Include="appStaff\Customer\Session\rewardCatalog.html" />
+    <Content Include="appStaff\Customer\Session\pointsHistory.html" />
+    <Content Include="appStaff\Customer\Session\reservationHistory.html" />
+    <Content Include="appStaff\Customer\Session\vehicles.html" />
+    <Content Include="appStaff\Customer\Session\customerSession.html" />
+    <Content Include="appStaff\DefinedList\definedList.directive.html" />
+    <Content Include="appStaff\DefinedList\definedList.html" />
+    <Content Include="appStaff\Dispatch\dispatchFilter.directive.html" />
+    <Content Include="appStaff\Dispatch\closed.html" />
+    <Content Include="appStaff\Dispatch\closed.directive.html" />
+    <Content Include="appStaff\Dispatch\keysAndSlots.directive.html" />
+    <Content Include="appStaff\Dispatch\notClosed.html" />
+    <Content Include="appStaff\Dispatch\timelineTemplates\capturedItemTemplate.html" />
+    <Content Include="appStaff\Dispatch\timelineTemplates\allTemplate.html" />
+    <Content Include="appStaff\Employee\clockTime.directive.html" />
+    <Content Include="appStaff\Employee\employeeHome.html" />
+    <Content Include="appStaff\IssueManagement\singleIssue.html" />
+    <Content Include="appStaff\Communication\adHocSms.directive.html" />
+    <Content Include="appStaff\Communication\sendMessage.html" />
+    <Content Include="appStaff\Location\trackingMap.html" />
+    <Content Include="appStaff\Location\personAtLocation.html" />
+    <Content Include="appStaff\OperatingLocation\entranceMeetLocationZoneMapping\entranceMeetLocationZoneMapping.directive.html" />
+    <Content Include="appStaff\OperatingLocation\entranceMeetLocationZoneMapping\entranceMeetLocationZoneMapping.html" />
+    <Content Include="appStaff\OperatingLocation\singleOperatingLocation.html" />
+    <Content Include="appStaff\OperatingLocation\zone\zoneLots.directive.html" />
+    <Content Include="appStaff\OperatingLocation\zone\zoneLots.html" />
+    <Content Include="appStaff\Reports\dashboardReports.directive.html" />
+    <Content Include="appCommon\directives\search\searchResults.directive.html" />
+    <Content Include="appStaff\Search\search.directive.html" />
+    <Content Include="appStaff\Search\searchResults.html" />
+    <Content Include="appStaff\Security\rightsRoles.directive.html" />
+    <Content Include="appStaff\Security\rightsRoles.html" />
+    <Content Include="appStaff\Security\setUserRoles.directive.html" />
+    <Content Include="appStaff\Security\setUserRoles.html" />
+    <Content Include="appCommon\directives\ticket\billingDocument.html" />
+    <Content Include="appStaff\Ticket\Billing\addPromotion.directive.html" />
+    <Content Include="appStaff\Ticket\Billing\adjustment.directive.list.html" />
+    <Content Include="appStaff\Ticket\Billing\adjustment.directive.add.html" />
+    <Content Include="appStaff\Ticket\Billing\costBreakdown.directive.html" />
+    <Content Include="appStaff\Ticket\Billing\refund.directive.add.html" />
+    <Content Include="appStaff\Ticket\Billing\salesTaxExemptUpdate.directive.html" />
+    <Content Include="appStaff\Ticket\Billing\reward.directive.list.html" />
+    <Content Include="appStaff\Ticket\Billing\tip.directive.list.html" />
+    <Content Include="appStaff\Ticket\Billing\originalSummary.directive.html" />
+    <Content Include="appStaff\Ticket\Billing\refund.directive.list.html" />
+    <Content Include="appStaff\Ticket\Billing\tip.directive.add.html" />
+    <Content Include="appCommon\directives\ticket\meetLocationUpdate.directive.html" />
+    <Content Include="appStaff\Ticket\intakeOffsetUpdate.directive.html" />
+    <Content Include="appStaff\Ticket\meetLocationUpdateOffice.directive.html" />
+    <Content Include="appStaff\Ticket\accountNote.directive.html" />
+    <Content Include="appStaff\Ticket\noteToCustomerUpdate.directive.html" />
+    <Content Include="appStaff\Ticket\valetTransferCustody.directive.html" />
+    <Content Include="appStaff\Ticket\zoneUpdate.directive.html" />
+    <Content Include="appStaff\Ticket\valetSagaUpdate.directive.html" />
+    <Content Include="appStaff\Ticket\meetDateTimeUpdate.directive.html" />
+    <Content Include="appCommon\directives\definedListDropdown.directive.html" />
+    <Content Include="appCommon\base\kendoGrid.html" />
+    <Content Include="appCommon\directives\airport\airportMeetValidation.directive.html" />
+    <Content Include="appCommon\directives\ticket\reservationNoteUpdate.directive.html" />
+    <Content Include="appCustomer\Ticket\customerSingleTicket.html" />
+    <Content Include="appStaff\ServiceTask\serviceTaskFulFillment.directive.html" />
+    <Content Include="appStaff\IssueManagement\issues.directive.html" />
+    <Content Include="appStaff\IssueManagement\issues.html" />
+    <Content Include="appStaff\Dispatch\timelineCaptured.html" />
+    <Content Include="appCommon\directives\customer\makeReservation\2-payment\rewardAvailable.directive.html" />
+    <Content Include="appStaff\OperatingLocation\entrance\entrance.directive.html" />
+    <Content Include="appStaff\OperatingLocation\entrance\entrance.html" />
+    <Content Include="appStaff\Ticket\keyLocationUpdate.directive.html" />
+    <Content Include="appStaff\Ticket\officeNoteUpdate.directive.html" />
+    <Content Include="appStaff\Ticket\staffSingleTicket.html" />
+    <Content Include="appCommon\directives\airport\extendedFlightData.directive.html" />
+    <Content Include="appStaff\Ticket\slotUpdate.directive.html" />
+    <Content Include="appStaff\Timesheet\timesheet.directive.html" />
+    <Content Include="appCommon\login\logout.html" />
+    <Content Include="appCustomer\Account\accountPaymentMethods.html" />
+    <Content Include="appCommon\directives\customer\payment\paymentMethod\paymentMethod.directive.dropdown.html" />
+    <Content Include="appCommon\directives\customer\payment\paymentMethod\paymentMethod.directive.list.html" />
+    <Content Include="appCommon\directives\customer\accountVehicles.directive.html" />
+    <Content Include="appCustomer\navigation.html" />
+    <Content Include="appCommon\directives\customer\payment\newPaymentCard\newPaymentCard.add.modal.html" />
+    <Content Include="appCustomer\Account\changePassword.directive.html" />
+    <Content Include="appCustomer\Account\changePassword.html" />
+    <Content Include="appCustomer\Account\vehicles.html" />
+    <Content Include="appCommon\directives\customer\makeReservation\2-payment\splitPayment.directive.html" />
+    <Content Include="appCommon\directives\customer\makeReservation\2-payment\setTip.directive.html" />
+    <Content Include="appCommon\directives\customer\makeReservation\2-payment\setPromotion.directive.html" />
+    <Content Include="appCommon\directives\customer\makeReservation\2-payment\splitPayment.ReservedServices.directive.html" />
+    <Content Include="appCommon\directives\customer\reservationHistory.directive.html" />
+    <Content Include="appCustomer\Reservation\reservationHistory.html" />
+    <Content Include="appCommon\directives\customer\reward\displayPointsHistory.directive.html" />
+    <Content Include="appCustomer\Reward\pointsHistory.html" />
+    <Content Include="appCommon\directives\customer\reward\pointSummary.directive.html" />
+    <Content Include="appCommon\directives\customer\reward\rewardCatalog.directive.html" />
+    <Content Include="appCustomer\Reward\rewardCatalog.html" />
+    <Content Include="appStaff\Dispatch\timelineView.html" />
+    <Content Include="appStaff\OfferedService\offeredService.html" />
+    <Content Include="appStaff\Customer\customer.admin.html" />
+    <Content Include="appStaff\Customer\givePoints\givePoints.directive.html" />
+    <Content Include="appStaff\Customer\givePoints\givePoints.html" />
+    <Content Include="appStaff\Customer\giveReward\giveReward.directive.html" />
+    <Content Include="appStaff\Customer\giveReward\giveReward.html" />
+    <Content Include="appStaff\Dispatch\valetPlacement.html" />
+    <Content Include="appStaff\Dispatch\valetPlacement.directive.html" />
+    <Content Include="appStaff\Employee\employee.admin.directive.html" />
+    <Content Include="appStaff\Timesheet\timesheet.html" />
+    <Content Include="appStaff\DocumentBuilder\messageTemplate.directive.html" />
+    <Content Include="appStaff\DocumentBuilder\messageTemplate.html" />
+    <Content Include="appStaff\ServiceTask\serviceTask.html" />
+    <Content Include="appStaff\Reward\promotions.html" />
+    <Content Include="appStaff\Reward\reward.requests.html" />
+    <Content Include="appStaff\Reward\reward.admin.html" />
+    <Content Include="appStaff\OperatingLocation\operatingLocations.directive.html" />
+    <Content Include="appStaff\OperatingLocation\lot\lot.directive.html" />
+    <Content Include="appStaff\OperatingLocation\lot\lot.html" />
+    <Content Include="appStaff\navigation.html" />
+    <Content Include="appCommon\directives\airport\flightLookup.directive.html" />
+    <Content Include="appCommon\directives\customer\makeReservation\makeReservation.wizardStep1.html" />
+    <Content Include="appCommon\directives\customer\makeReservation\makeReservation.wizardStep2.html" />
+    <Content Include="appCommon\directives\customer\estimateReservation\estimate.directive.html" />
+    <Content Include="appCommon\directives\customer\makeReservation\makeReservation.wizardStep4.html" />
+    <Content Include="appCommon\directives\customer\makeReservation\makeReservation.directive.html" />
+    <Content Include="appCommon\directives\customer\makeReservation\thankYouReservation.html" />
+    <Content Include="appCustomer\Account\account.html" />
+    <Content Include="appCommon\login\login.html" />
+    <Content Include="appCommon\signup\signup.html" />
+    <Content Include="appCommon\directives\customer\profile\profile.edit.html" />
+    <Content Include="appCommon\directives\customer\profile\profile.html" />
+    <Content Include="appCommon\formPageHeader.html" />
+    <Content Include="appCommon\security\notAuthorized.html" />
+    <Content Include="appCommon\shell.html" />
+    <Content Include="appCommon\css\modules\_loader.less" />
+    <Content Include="appCommon\css\modules\_kendo-override.less" />
+    <Content Include="appCommon\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="appCommon\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="appCommon\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="appCommon\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="appCommon\fonts\lora-regular-webfont.woff" />
+    <Content Include="appCommon\fonts\lora-regular-webfont.woff2" />
+    <Content Include="appCommon\fonts\raleway-bold-webfont.woff" />
+    <Content Include="appCommon\fonts\raleway-bold-webfont.woff2" />
+    <Content Include="appCommon\fonts\raleway-regular-webfont.woff" />
+    <Content Include="appCommon\fonts\raleway-regular-webfont.woff2" />
+    <Content Include="appCommon\css\modules\_account-vehicles.less" />
+    <Content Include="appCommon\css\modules\_cg-busy.less" />
+    <Content Include="appCommon\css\modules\_customer-page.less" />
+    <Content Include="appCommon\css\modules\_events.less" />
+    <Content Include="appCommon\css\modules\_flight.less" />
+    <Content Include="appCommon\css\base\_fonts.less" />
+    <Content Include="appCommon\css\modules\_header.less" />
+    <Content Include="appCommon\css\modules\_login.less" />
+    <Content Include="appCommon\css\modules\_modals.less" />
+    <Content Include="appCommon\css\modules\_navbar-minimal.less" />
+    <Content Include="appCommon\css\modules\_reservation-table.less" />
+    <Content Include="appCommon\css\modules\_reservation.less" />
+    <Content Include="appCommon\css\modules\_side-nav.less" />
+    <Content Include="appCommon\css\modules\_splitpayment.less" />
+    <Content Include="appCommon\css\modules\_general.less" />
+    <Content Include="appCommon\css\modules\_k-grid.less" />
+    <Content Include="appCommon\css\modules\_payment.less" />
+    <Content Include="appCommon\css\modules\_profile-edit.less" />
+    <Content Include="appCommon\css\modules\_profile.less" />
+    <Content Include="appCommon\css\modules\_timeline.less" />
+    <Content Include="appCommon\css\modules\_utils.less" />
+    <Content Include="appCommon\css\_shame.less" />
+    <Content Include="appCommon\css\modules\_change-password.less" />
+    <Content Include="appCommon\css\modules\_checkbox.less" />
+    <Content Include="appCommon\css\modules\_ticket-details.less" />
+    <Content Include="appCommon\css\modules\_operating-locations.less" />
+    <Content Include="appCommon\css\modules\_zones.less" />
+    <Content Include="appCommon\css\modules\_point-tracker.less" />
+    <Content Include="appCommon\css\modules\_rewards.less" />
+    <Content Include="appCommon\css\modules\_points-history-table.less" />
+    <Content Include="appStaff\web.config" />
+    <Content Include="appCustomer\web.config" />
+    <Content Include="appCommon\css\modules\_dashboard.less" />
+    <Content Include="appCommon\css\modules\_sortable-column.less" />
+    <None Include="gulp.config.js" />
+    <None Include="gulpfile.js" />
+    <Content Include="appStaff\Employee\employee.admin.html" />
+    <Content Include="appStaff\OperatingLocation\zone\zone.directive.html" />
+    <Content Include="appStaff\OperatingLocation\zone\zone.html" />
+    <Content Include="appStaff\shell.html" />
+    <Content Include="appStaff\OperatingLocation\operatingLocations.html" />
+    <Content Include="html-template-source\index.appCommon.html" />
+    <Content Include="html-template-source\index.appStaff.html" />
+    <Content Include="html-template-source\index.appCustomer.html" />
+    <None Include="jsconfig.json" />
+    <Content Include="kendo\Bootstrap\editor.png" />
+    <Content Include="kendo\Bootstrap\imagebrowser.png" />
+    <Content Include="kendo\Bootstrap\indeterminate.gif" />
+    <Content Include="kendo\Bootstrap\loading-image.gif" />
+    <Content Include="kendo\Bootstrap\loading.gif" />
+    <Content Include="kendo\Bootstrap\loading_2x.gif" />
+    <Content Include="kendo\Bootstrap\markers.png" />
+    <Content Include="kendo\Bootstrap\markers_2x.png" />
+    <Content Include="kendo\Bootstrap\slider-h.gif" />
+    <Content Include="kendo\Bootstrap\slider-v.gif" />
+    <Content Include="kendo\Bootstrap\sprite.png" />
+    <Content Include="kendo\Bootstrap\sprite_2x.png" />
+    <Content Include="kendo\Bootstrap\sprite_kpi.png" />
+    <Content Include="kendo\Bootstrap\sprite_kpi_2x.png" />
+    <Content Include="kendo\fonts\DejaVu\LICENSE.txt" />
+    <Content Include="kendo\fonts\glyphs\KendoUIGlyphs.svg" />
+    <Content Include="kendo\kendo.all.min.js" />
+    <Content Include="kendo\kendo.bootstrap.min.css" />
+    <Content Include="kendo\kendo.common-bootstrap.core.min.css" />
+    <Content Include="kendo\kendo.common-bootstrap.min.css" />
+    <Content Include="kendo\kendo.all.min.js.map" />
+    <Content Include="kendo\kendo.bootstrap.min.css.map" />
+    <Content Include="kendo\kendo.common-bootstrap.core.min.css.map" />
+    <Content Include="kendo\kendo.common-bootstrap.min.css.map" />
+    <Content Include="kendo\fonts\DejaVu\DejaVuSans-Bold.ttf" />
+    <Content Include="kendo\fonts\DejaVu\DejaVuSans-BoldOblique.ttf" />
+    <Content Include="kendo\fonts\DejaVu\DejaVuSans-ExtraLight.ttf" />
+    <Content Include="kendo\fonts\DejaVu\DejaVuSans-Oblique.ttf" />
+    <Content Include="kendo\fonts\DejaVu\DejaVuSans.ttf" />
+    <Content Include="kendo\fonts\DejaVu\DejaVuSansMono-Bold.ttf" />
+    <Content Include="kendo\fonts\DejaVu\DejaVuSansMono-BoldOblique.ttf" />
+    <Content Include="kendo\fonts\DejaVu\DejaVuSansMono-Oblique.ttf" />
+    <Content Include="kendo\fonts\DejaVu\DejaVuSansMono.ttf" />
+    <Content Include="kendo\fonts\DejaVu\DejaVuSerif-Bold.ttf" />
+    <Content Include="kendo\fonts\DejaVu\DejaVuSerif-BoldItalic.ttf" />
+    <Content Include="kendo\fonts\DejaVu\DejaVuSerif-Italic.ttf" />
+    <Content Include="kendo\fonts\DejaVu\DejaVuSerif.ttf" />
+    <Content Include="kendo\fonts\glyphs\KendoUIGlyphs.eot" />
+    <Content Include="kendo\fonts\glyphs\KendoUIGlyphs.ttf" />
+    <Content Include="kendo\fonts\glyphs\KendoUIGlyphs.woff" />
+    <Content Include="kendo\kendo.custom.dataviz.json" />
+    <Content Include="kendo\kendo.custom.less" />
+    <None Include="package.json" />
+    <None Include=".bowerrc">
+      <DependentUpon>bower.json</DependentUpon>
+    </None>
+    <None Include="bower.json" />
+    <Content Include="appCommon\css\modules\_forms.less" />
+    <Content Include="appCommon\css\base\_mixins.less" />
+    <Content Include="appCommon\css\site.less" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+    <Content Include="appCommon\resources\CardIcon-Amex.png" />
+    <Content Include="appCommon\resources\CardIcon-Discover.png" />
+    <Content Include="appCommon\resources\CardIcon-Mastercard.png" />
+    <Content Include="appCommon\resources\CardIcon-Visa.png" />
+    <Content Include="appCommon\css\base\_brand.less" />
+    <Content Include="appCommon\css\modules\_bootstrap-override.less" />
+    <Content Include="kendo\kendo.custom.css" />
+    <Content Include="kendo\kendo.customer.min.js" />
+    <Content Include="parameters.xml" />
+    <Content Include="reports\Reports_Go_Here.html" />
+    <Content Include="tsconfig.json" />
+    <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\Release.pubxml" />
+    <None Include="Properties\PublishProfiles\StagingTAV1-Clean.pubxml" />
+    <None Include="Properties\PublishProfiles\StagingTAV1.pubxml" />
+    <Content Include="typings.json" />
+    <Content Include="typings\globals\angular-animate\typings.json" />
+    <Content Include="typings\globals\angular-resource\typings.json" />
+    <Content Include="typings\globals\angular-ui-bootstrap\typings.json" />
+    <Content Include="typings\globals\angular-ui-router\typings.json" />
+    <Content Include="typings\globals\angular-wizard\typings.json" />
+    <Content Include="typings\globals\angular\typings.json" />
+    <Content Include="typings\globals\jquery\typings.json" />
+    <Content Include="typings\globals\restangular\typings.json" />
+    <Content Include="typings\globals\lodash\typings.json" />
+    <Content Include="typings\globals\angular-signalr-hub\typings.json" />
+    <Content Include="typings\globals\signalr\typings.json" />
+    <Content Include="typings\globals\kendo\typings.json" />
+    <None Include="Properties\PublishProfiles\Production.pubxml" />
+    <None Include="Properties\PublishProfiles\ProductionDebug.pubxml" />
+    <None Include="Properties\PublishProfiles\RC1.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.RC.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.StagingTAV1.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="appCommon\theme\images\logo.png" />
+    <Content Include="typings\globals\angulartics\typings.json" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="appCommon\Admin.Contracts.ts" />
+    <TypeScriptCompile Include="appCommon\ASF.Contracts.ts" />
+    <TypeScriptCompile Include="appCommon\base\directive.base.ts" />
+    <TypeScriptCompile Include="appCommon\Common.Contracts.ts" />
+    <TypeScriptCompile Include="appCommon\Common.CQRS.ts" />
+    <TypeScriptCompile Include="appCommon\Common.Data.ts" />
+    <TypeScriptCompile Include="appCommon\Communication.Contracts.ts" />
+    <TypeScriptCompile Include="appCommon\DataGenerator.Contracts.ts" />
+    <TypeScriptCompile Include="appCommon\directives\agent\customerList.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\ticket\billingOriginalDocument.controller.ts" />
+    <TypeScriptCompile Include="appCommon\directives\ticket\meetLocationUpdate.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\backgroundImage.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\customer\accountVehicleImages.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\customer\makeReservation\2-payment\splitPayment.ReservedParkingDays.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\customer\makeReservation\makeReservation.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\imagePreview.modal.ts" />
+    <TypeScriptCompile Include="appCommon\directives\profileImage\profileImageCheck.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\profileImage\profileImageCropper.modal.ts" />
+    <TypeScriptCompile Include="appCommon\directives\profileImage\profileImageInput.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\getOperatingLocationData.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\dateFromTo.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\operatingLocationDropdown.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\ticket\billingRefundDocument.controller.ts" />
+    <TypeScriptCompile Include="appCommon\directives\ticket\keyTagUpdate.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\ticket\ccEmailsUpdate.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\ticket\emailAddressUpdate.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\ticket\returnIsCheckingBagsInfo.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\ticket\numberOfPeopleReturningInfo.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\ticket\useTollTagInfo.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\ticket\billingSummary.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\ticket\vehicleInfo.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\ticket\mobilePhoneUpdate.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\ticket\paymentMethodUpdate.directive.ts" />
+    <TypeScriptCompile Include="appCommon\DocumentBuilder.Contracts.ts" />
+    <TypeScriptCompile Include="appCommon\IssueManagement.Contracts.ts" />
+    <TypeScriptCompile Include="appCommon\Location.Contracts.ts" />
+    <TypeScriptCompile Include="appCommon\queries\customerTicket.query.ts" />
+    <TypeScriptCompile Include="appCommon\queries\splitPayment.query.ts" />
+    <TypeScriptCompile Include="appCommon\queries\tipAndSum.query.ts" />
+    <TypeScriptCompile Include="appCommon\queries\ticketTip.query.ts" />
+    <TypeScriptCompile Include="appCommon\queries\report.Query.ts" />
+    <TypeScriptCompile Include="appCommon\queries\serviceTask.query.ts" />
+    <TypeScriptCompile Include="appCommon\queries\billing.query.ts" />
+    <TypeScriptCompile Include="appCommon\queries\billingDocumentForTicket.query.ts" />
+    <TypeScriptCompile Include="appCommon\queries\receipt.query.ts" />
+    <TypeScriptCompile Include="appCommon\queries\issue.query.ts" />
+    <TypeScriptCompile Include="appCommon\queries\agent.query.ts" />
+    <TypeScriptCompile Include="appCommon\repositories\resourceLastKnownLocationForMap.repository.ts" />
+    <TypeScriptCompile Include="appCommon\repositories\map.repository.ts" />
+    <TypeScriptCompile Include="appCommon\repositories\rightsRolesRepository.ts" />
+    <TypeScriptCompile Include="appCommon\repositories\userRoleRepository.ts" />
+    <TypeScriptCompile Include="appCommon\repositories\rolesRepository.ts" />
+    <TypeScriptCompile Include="appCommon\Security.Contracts.ts" />
+    <TypeScriptCompile Include="appCommon\services\demo.service.ts" />
+    <TypeScriptCompile Include="appCommon\services\communication.service.ts" />
+    <TypeScriptCompile Include="appCommon\services\profileImage.service.ts" />
+    <TypeScriptCompile Include="appCommon\services\notifyCustomer.service.ts" />
+    <TypeScriptCompile Include="appCommon\services\billing.Command.ts" />
+    <TypeScriptCompile Include="appCommon\Timesheet.Contracts.ts" />
+    <TypeScriptCompile Include="appCommon\Valet.Contracts.ts" />
+    <TypeScriptCompile Include="appCommon\VehicleDamageService.Contracts.ts" />
+    <TypeScriptCompile Include="appCustomer\Agent\Session\agentSession.controller.ts" />
+    <TypeScriptCompile Include="appCustomer\Agent\Session\_configure.ts" />
+    <TypeScriptCompile Include="appCustomer\Agent\_configure.ts" />
+    <TypeScriptCompile Include="appCustomer\Dashboard\_configure.ts" />
+    <TypeScriptCompile Include="appCustomer\Ticket\serviceTasksForTicket.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Customer\Session\resetPasswordTo.controller.ts" />
+    <TypeScriptCompile Include="appStaff\Developer\debugEmployeeCommands.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Dispatch\cancelled.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Dispatch\notClosed.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Dispatch\timelineAll.controller.ts" />
+    <TypeScriptCompile Include="appStaff\Employee\valetTips.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Employee\valetLog.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Employee\sagaValetEvents.ts" />
+    <TypeScriptCompile Include="appStaff\PersonalManagement\changeStaffPassword.directive.ts" />
+    <TypeScriptCompile Include="appStaff\ServiceTask\serviceTaskEvent.ts" />
+    <TypeScriptCompile Include="appCommon\directives\ticket\serviceTaskStatus.directive.ts" />
+    <TypeScriptCompile Include="appStaff\ServiceTask\singleServiceTask.controller.ts" />
+    <TypeScriptCompile Include="appStaff\Communication\_configure.ts" />
+    <TypeScriptCompile Include="appStaff\Customer\Session\customerSession.controller.ts" />
+    <TypeScriptCompile Include="appStaff\Customer\Session\_configure.ts" />
+    <TypeScriptCompile Include="appStaff\DefinedList\definedList.directive.ts" />
+    <TypeScriptCompile Include="appStaff\DefinedList\_configure.ts" />
+    <TypeScriptCompile Include="appStaff\Dispatch\dispatchFilter.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Dispatch\closed.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Dispatch\keysAndSlots.directive.ts" />
+    <TypeScriptCompile Include="appStaff\DocumentBuilder\templateContentWithTemplate.repository.ts" />
+    <TypeScriptCompile Include="appStaff\DocumentBuilder\_configure.ts" />
+    <TypeScriptCompile Include="appStaff\Employee\clockTime.directive.ts" />
+    <TypeScriptCompile Include="appStaff\OperatingLocation\entranceMeetLocationZoneMapping\entranceMeetLocationZoneMapping.directive.ts" />
+    <TypeScriptCompile Include="appStaff\OperatingLocation\singleOperatingLocation.controller.ts" />
+    <TypeScriptCompile Include="appStaff\OperatingLocation\zone\zoneLots.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Reports\dashboardReports.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\search\searchResults.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Security\setUserRoles.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\ticket\billingDocument.controller.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\Billing\addPromotion.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\Billing\adjustment.directive.list.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\Billing\adjustment.directive.add.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\Billing\costBreakdown.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\Billing\originalSummary.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\Billing\refund.directive.add.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\Billing\refund.directive.list.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\Billing\salesTaxExemptUpdate.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\Billing\reward.directive.list.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\Billing\billingEvent.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\Billing\tip.directive.list.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\Billing\tip.directive.add.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\Billing\adjustment.service.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\Billing\refund.service.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\intakeOffsetUpdate.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\meetLocationUpdateOffice.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\accountNote.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\noteToCustomerUpdate.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\valetTransferCustody.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\zoneUpdate.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\valetSagaUpdate.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Timesheet\timesheetQuery.repository.ts" />
+    <TypeScriptCompile Include="appStaff\IssueManagement\issueManagementSupport.ts" />
+    <TypeScriptCompile Include="appStaff\IssueManagement\issueManagementEvent.ts" />
+    <TypeScriptCompile Include="appStaff\IssueManagement\singleIssue.controller.ts" />
+    <TypeScriptCompile Include="appStaff\Communication\sentMessages.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Communication\adHocSms.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Communication\sendMessage.controller.ts" />
+    <TypeScriptCompile Include="appStaff\Location\locationRepository.repository.ts" />
+    <TypeScriptCompile Include="appStaff\Location\personAtLocation.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Location\trackingMap.controller.ts" />
+    <TypeScriptCompile Include="appStaff\Location\_configure.ts" />
+    <TypeScriptCompile Include="appStaff\Search\search.directive.ts" />
+    <TypeScriptCompile Include="appCommon\services\omnisearch.ts" />
+    <TypeScriptCompile Include="appStaff\Search\_configure.ts" />
+    <TypeScriptCompile Include="appStaff\Security\rightsRoles.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Security\_configure.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\ticketEvent.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\meetDateTimeUpdate.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\displayCurrentDateTime.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\ticket\reservationNoteUpdate.directive.ts" />
+    <TypeScriptCompile Include="appCommon\queries\eventStore.repository.ts" />
+    <TypeScriptCompile Include="appCommon\queries\dispatcherAirportTicket.query.ts" />
+    <TypeScriptCompile Include="appCommon\services\systemConfiguration.service.ts" />
+    <TypeScriptCompile Include="appCommon\support\utilities.ts" />
+    <TypeScriptCompile Include="appCommon\services\valet.Command.ts" />
+    <TypeScriptCompile Include="appCommon\directives\airport\airportMeetValidation.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\customer\makeReservation\2-payment\rewardAvailable.directive.ts" />
+    <TypeScriptCompile Include="appCommon\base\kendoFunctions.ts" />
+    <TypeScriptCompile Include="appCommon\base\listview.directive.base.ts" />
+    <TypeScriptCompile Include="appCommon\directives\onFinishRender.ts" />
+    <TypeScriptCompile Include="appCommon\factories\kendoDataSourceFactory.ts" />
+    <TypeScriptCompile Include="appStaff\DocumentBuilder\template.repository.ts" />
+    <TypeScriptCompile Include="appCommon\repositories\kendoDataSource.service.ts" />
+    <TypeScriptCompile Include="appCommon\repositories\pointsAccounting.repository.ts" />
+    <TypeScriptCompile Include="appCommon\repositories\reward.repository.ts" />
+    <TypeScriptCompile Include="appCommon\repositories\promotion.repository.ts" />
+    <TypeScriptCompile Include="appCommon\repositories\entrance.repository.ts" />
+    <TypeScriptCompile Include="appCommon\repositories\lot.repository.ts" />
+    <TypeScriptCompile Include="appCommon\repositories\zone.repository.ts" />
+    <TypeScriptCompile Include="appCommon\services\reservationStatusChange.service.ts" />
+    <TypeScriptCompile Include="appCommon\signup\signup.controller.ts" />
+    <TypeScriptCompile Include="appCommon\signup\_configure.ts" />
+    <TypeScriptCompile Include="appCommon\directives\customer\accountVehicles.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\definedListDropdown.directive.ts" />
+    <TypeScriptCompile Include="appCommon\security\session.service.ts" />
+    <TypeScriptCompile Include="appCommon\directives\customer\payment\paymentMethod\paymentMethod.directive.ts" />
+    <TypeScriptCompile Include="appCustomer\Account\changePassword.directive.ts" />
+    <TypeScriptCompile Include="appCustomer\app.ts" />
+    <TypeScriptCompile Include="appCommon\directives\customer\estimateReservation\estimate.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\customer\estimateReservation\estimateForReservation.query.ts" />
+    <TypeScriptCompile Include="appCommon\repositories\account.repository.ts" />
+    <TypeScriptCompile Include="appCommon\directives\customer\makeReservation\2-payment\splitPayment.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\customer\makeReservation\2-payment\setPromotion.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\customer\makeReservation\2-payment\setTip.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\customer\makeReservation\2-payment\splitPayment.ReservedServices.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\customer\makeReservation\thankYouReservation.controller.ts" />
+    <TypeScriptCompile Include="appCommon\directives\customer\reservationHistory.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\customer\reward\displayPointsHistory.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\customer\reward\pointsEarnedHistory.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\customer\reward\pointSummary.directive.ts" />
+    <TypeScriptCompile Include="appCommon\directives\customer\reward\rewardCatalog.directive.ts" />
+    <TypeScriptCompile Include="appCustomer\Reward\_configure.ts" />
+    <TypeScriptCompile Include="appCustomer\Ticket\customerSingleTicket.controller.ts" />
+    <TypeScriptCompile Include="appCustomer\Ticket\_configure.ts" />
+    <TypeScriptCompile Include="appStaff\Customer\_configure.ts" />
+    <TypeScriptCompile Include="appStaff\ServiceTask\_configure.ts" />
+    <TypeScriptCompile Include="appStaff\IssueManagement\issueManagementCommand.ts" />
+    <TypeScriptCompile Include="appStaff\IssueManagement\issues.directive.ts" />
+    <TypeScriptCompile Include="appStaff\IssueManagement\_configure.ts" />
+    <TypeScriptCompile Include="appStaff\Dispatch\timelineCaptured.controller.ts" />
+    <TypeScriptCompile Include="appStaff\Dispatch\timelineView.controller.ts" />
+    <TypeScriptCompile Include="appStaff\Dispatch\_configure.ts" />
+    <TypeScriptCompile Include="appStaff\Employee\_configure.ts" />
+    <TypeScriptCompile Include="appStaff\OperatingLocation\entrance\entrance.directive.ts" />
+    <TypeScriptCompile Include="appCommon\services\serviceTask.Command.ts" />
+    <TypeScriptCompile Include="appStaff\Reward\_configure.ts" />
+    <TypeScriptCompile Include="appStaff\OfferedService\offeredService.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Customer\givePoints\givePoints.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Customer\giveReward\giveReward.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Dispatch\valetPlacement.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Employee\employee.admin.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Timesheet\timesheet.directive.ts" />
+    <TypeScriptCompile Include="appStaff\DocumentBuilder\messageTemplate.directive.ts" />
+    <TypeScriptCompile Include="appStaff\ServiceTask\serviceTaskFulFillment.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Reward\promotions.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Reward\reward.requests.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Reward\reward.admin.directive.ts" />
+    <TypeScriptCompile Include="appStaff\OperatingLocation\zone\orderedLot.directive.ts" />
+    <TypeScriptCompile Include="appStaff\OperatingLocation\operatingLocationParts\tieredRate.directive.ts" />
+    <TypeScriptCompile Include="appStaff\OperatingLocation\lot\lot.directive.ts" />
+    <TypeScriptCompile Include="appStaff\OperatingLocation\zone\zone.directive.ts" />
+    <TypeScriptCompile Include="appStaff\OperatingLocation\_configure.ts" />
+    <TypeScriptCompile Include="appCommon\repositories\offeredService.repository.ts" />
+    <TypeScriptCompile Include="appStaff\OperatingLocation\operatingLocations.directive.ts" />
+    <TypeScriptCompile Include="appCommon\repositories\operatingLocation.repository.ts" />
+    <TypeScriptCompile Include="appCommon\repositories\manufacture.repository.ts" />
+    <TypeScriptCompile Include="appCommon\repositories\newPaymentCard.repository.ts" />
+    <TypeScriptCompile Include="appCommon\repositories\paymentMethod.repository.ts" />
+    <TypeScriptCompile Include="appCommon\repositories\reservation.repository.ts" />
+    <TypeScriptCompile Include="appCommon\repositories\vehicle.repository.ts" />
+    <TypeScriptCompile Include="appCommon\base\controller.base.ts" />
+    <TypeScriptCompile Include="appCommon\base\restClient.base.ts" />
+    <TypeScriptCompile Include="appCommon\_configure.formMessages.ts" />
+    <TypeScriptCompile Include="appCommon\directives\customer\payment\newPaymentCard\newPaymentCard.add.controller.modal.ts" />
+    <TypeScriptCompile Include="appCustomer\Account\_configure.ts" />
+    <TypeScriptCompile Include="appCommon\login\_configure.ts" />
+    <TypeScriptCompile Include="appCommon\directives\airport\flightLookup.directive.ts" />
+    <TypeScriptCompile Include="appCustomer\Reservation\_configure.ts" />
+    <TypeScriptCompile Include="appCommon\security\auth.service.ts" />
+    <TypeScriptCompile Include="appCommon\navigation.controller.ts" />
+    <TypeScriptCompile Include="appCommon\pageHeader.controller.ts" />
+    <TypeScriptCompile Include="appCommon\_configure.busyIndicator.ts" />
+    <TypeScriptCompile Include="appCustomer\_configure.ts" />
+    <TypeScriptCompile Include="appCommon\repositories\employee.repository.ts" />
+    <TypeScriptCompile Include="appStaff\OfferedService\_configure.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\keyLocationUpdate.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\officeNoteUpdate.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\staffSingleTicket.controller.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\slotUpdate.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Ticket\_configure.ts" />
+    <TypeScriptCompile Include="appCommon\directives\airport\extendedFlightData.directive.ts" />
+    <TypeScriptCompile Include="appStaff\Timesheet\_configure.ts" />
+    <TypeScriptCompile Include="appStaff\_configure.ts" />
+    <TypeScriptCompile Include="deployment\debug.ts" />
+    <TypeScriptCompile Include="appCommon\base\repository.base.ts" />
+    <TypeScriptCompile Include="appCommon\repositories\definedList.repository.ts" />
+    <TypeScriptCompile Include="appCommon\externalDomain\flightStats.service.ts" />
+    <TypeScriptCompile Include="appCommon\directives\customer\makeReservation\makeReservation.controller.ts" />
+    <TypeScriptCompile Include="appCommon\services\guid.service.ts" />
+    <TypeScriptCompile Include="appCustomer\Account\account.controller.ts" />
+    <TypeScriptCompile Include="appCommon\directives\customer\payment\paymentMethod\paymentMethod.controller.ts" />
+    <TypeScriptCompile Include="appCommon\directives\customer\profile\profile.controller.ts" />
+    <TypeScriptCompile Include="appCommon\app.ts" />
+    <TypeScriptCompile Include="appCommon\mscorlib.ts" />
+    <TypeScriptCompile Include="appCommon\_configure.ts" />
+    <TypeScriptCompile Include="appCommon\login\login.controller.ts" />
+    <TypeScriptCompile Include="appCommon\services\errorHandling.service.ts" />
+    <TypeScriptCompile Include="appStaff\app.ts" />
+    <TypeScriptCompile Include="deployment\release.ts" />
+    <TypeScriptCompile Include="typings\globals\angular-animate\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\angular-resource\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\angular-signalr-hub\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\angular-ui-bootstrap\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\angular-ui-router\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\angular-wizard\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\angulartics\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\angular\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\jquery\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\kendo\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\lodash\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\restangular\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\signalr\index.d.ts" />
+    <TypeScriptCompile Include="typings\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'StagingTAV1|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RC|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'StagingTAV1|AnyCPU'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <TypeScriptTarget>Unknown</TypeScriptTarget>
+    <TypeScriptJSXEmit>-1</TypeScriptJSXEmit>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>False</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2353</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://app.valeta.local</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="BeforeBuild">
+    <ItemGroup>
+      <Content Include="index.html" />
+      <Content Include="appCustomer\index.html" />
+      <Content Include="appStaff\index.html" />
+      <Content Include="valeta-app.js" />
+      <Content Include="valeta-lib.js" />
+    </ItemGroup>
+  </Target>
+  <PropertyGroup>
+    <BuildDependsOn>
+      InstallNodeModules;
+	  GulpBuild;
+      $(BuildDependsOn);
+    </BuildDependsOn>
+    <CompileDependsOn>
+	  $(CompileDependsOn);
+    </CompileDependsOn>
+    <CleanDependsOn>
+      $(CleanDependsOn);
+	  InstallNodeModules;
+      GulpClean
+    </CleanDependsOn>
+    <CopyAllFilesToSingleFolderForPackageDependsOn>
+      $(CopyAllFilesToSingleFolderForPackageDependsOn);
+      CollectGulpOutput;
+    </CopyAllFilesToSingleFolderForPackageDependsOn>
+    <CopyAllFilesToSingleFolderForMsdeployDependsOn>
+      $(CopyAllFilesToSingleFolderForMsdeployDependsOn);
+      CollectGulpOutput;
+    </CopyAllFilesToSingleFolderForMsdeployDependsOn>
+  </PropertyGroup>
+  <Target Name="InstallNodeModules">
+    <Exec Command="npm install" />
+  </Target>
+  <Target Name="GulpBuild">
+    <Exec Command="gulp build --mode $(ConfigurationName)" />
+  </Target>
+  <Target Name="GulpClean">
+    <Exec Command="gulp clean" />
+  </Target>
+  <Target Name="CollectGulpOutput">
+    <ItemGroup>
+      <_CustomFilesForBuildFolder Include="build\**\*" />
+      <FilesForPackagingFromProject Include="%(_CustomFilesForBuildFolder.Identity)">
+        <DestinationRelativePath>build\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
+      </FilesForPackagingFromProject>
+    </ItemGroup>
+    <Message Text="CollectGulpOutput list: %(_CustomFilesForBuildFolder.Identity)" />
+  </Target>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\..\packages\BuildWebCompiler.1.11.320\build\BuildWebCompiler.targets" Condition="Exists('..\..\packages\BuildWebCompiler.1.11.320\build\BuildWebCompiler.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\BuildWebCompiler.1.11.320\build\BuildWebCompiler.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\BuildWebCompiler.1.11.320\build\BuildWebCompiler.targets'))" />
+  </Target>
+</Project>

@@ -1,0 +1,185 @@
+﻿<div class="payment" data-reload="true">
+    <span ng-show="showNoPaymentsMessage">
+        No credit cards available to select.
+    </span>
+    <kendo-list-view id="listView" class="payment_list"
+                     k-data-source="dataSource"
+                     k-selectable="true"
+                     k-on-change="onChange(dataItem)"
+                     k-on-save="onSave(kendoEvent)"
+                     k-on-edit="onEdit(kendoEvent)"
+                     k-on-cancel="onCancel(kendoEvent)"
+                     k-on-delete="onDelete(kendoEvent)">
+
+        <div k-template class="checkbox checkbox--wide" ng-class="{'checkbox--disabled': canSelect && (dataItem.PaymentGatewayPaymentID <= 0 || dataItem.IsExpired),'checkbox--no-checkbox': !(canSelect && !isInEditMode), 'k-state-selected': selectedPaymentMethodId === dataItem.ID}">
+            <div class="payment_view">
+                <input aria-hidden="true"
+                       ng-hide="dataItem.PaymentGatewayPaymentID <= 0 || dataItem.IsExpired"
+                       id="paymentMethod-{{dataItem.ID}}"
+                       name="paymentMethodSelect"
+                       ng-checked="selectedPaymentMethodId === dataItem.ID"
+                       ng-value="dataItem.ID"
+                       type="radio"
+                       ng-click="onClick(dataItem)"
+                       ng-if="canSelect && !isInEditMode" />
+                <label class="checkbox_label" for="paymentMethod-{{dataItem.ID}}">
+                    <span class="check-wrapper" ng-hide="dataItem.PaymentGatewayPaymentID <= 0 || dataItem.IsExpired">
+                        <span class="glyphicon check"></span>
+                    </span>
+                    <span class="checkbox_text-img">
+                        <img ng-src="/appCommon/resources/CardIcon-{{dataItem.Type}}.png" width="40" class="right-buffer5" />
+                    </span>
+                    <div class="checkbox_text-wrapper">
+                        <div class="checkbox_text">
+                            <div class="checkbox_header">
+                                {{dataItem.FriendlyName}}
+                            </div>
+                            <div class="checkbox_sub-header" ng-show="dataItem.PaymentGatewayPaymentID <= 0">
+                                <span class="payment_warning-icon glyphicon glyphicon-exclamation-sign"></span>
+                                <span class="payment_warning-text">MUST BE UPDATED</span>
+                            </div>
+
+                            <div class="checkbox_sub-header" ng-class="{'payment_is-error': dataItem.IsExpired}" ng-show="{{dataItem.PaymentGatewayPaymentID > 0}}">
+                                <span class="payment_warning-text" ng-hide="dataItem.IsExpired">Expires {{dataItem.PaymentGatewayFields.ExpirationMonth}} / {{dataItem.PaymentGatewayFields.ExpirationYear}}</span>
+                                <span ng-show="dataItem.IsExpired">
+                                    <span class="payment_warning-icon glyphicon glyphicon-exclamation-sign"></span>
+                                    <span class="payment_warning-text" ng-show="dataItem.IsExpired">EXPIRED {{dataItem.PaymentGatewayFields.ExpirationMonth}} / {{dataItem.PaymentGatewayFields.ExpirationYear}}</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </label>
+                <div class="checkbox_buttons-wrapper" ng-show="!isInEditMode">
+                    <button class="btn btn-primary k-edit-button" ng-show="canUpdate">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                    <button class="btn btn-cancel k-delete-button" ng-show="canDelete">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div k-edit-template>
+            <form id="editPaymentMethodForm" name="editPaymentMethodForm" novalidate style="padding: 20px">
+                <h3>Edit {{dataItem.FriendlyName}}</h3>
+
+                <div class="form-horizontal top-buffer15 bottom-buffer15" cg-busy="loadingPromise">
+                    <div id="cardSection" class="input-group input-group--multi form-row" style="width: 90%; margin: 15px 12px">
+                        <div class="form-group">
+                            <label class="form-col-withlabel-label control-label" for="expirationmonth-{{dataItem.ID}}">Expiration</label>
+                            <div class="form-col-withlabel-input form-inline">
+                                <div class="pull-left right-buffer15">
+                                    <select class="form-control" id="expirationmonth-{{dataItem.ID}}" name="Month" data-bind="value:PaymentGatewayFields.ExpirationMonth" required="required">
+                                        <option value="">Month</option>
+                                        <option value="1">01 - January</option>
+                                        <option value="2">02 - February</option>
+                                        <option value="3">03 - March</option>
+                                        <option value="4">04 - April</option>
+                                        <option value="5">05 - May</option>
+                                        <option value="6">06 - June</option>
+                                        <option value="7">07 - July</option>
+                                        <option value="8">08 - August</option>
+                                        <option value="9">09 - September</option>
+                                        <option value="10">10 - October</option>
+                                        <option value="11">11 - November</option>
+                                        <option value="12">12 - December</option>
+                                    </select>
+                                </div>
+                                <div class="pull-left">
+                                    <select class="form-control" id="expirationyear-{{dataItem.ID}}" name="Year" data-bind="value:PaymentGatewayFields.ExpirationYear" required="required">
+                                        <option value="">Year</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2021">2021</option>
+                                        <option value="2022">2022</option>
+                                        <option value="2023">2023</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2025">2025</option>
+                                        <option value="2026">2026</option>
+                                        <option value="2027">2027</option>
+                                        <option value="2028">2028</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-col-withlabel-label control-label" for="ccv-{{dataItem.ID}}">CCV</label>
+                            <div class="form-col-withlabel-input">
+                                <input class="form-control" placeholder="CCV" type="text" 
+                                       maxlength="4"
+                                       name="ccv" 
+                                       id="ccv-{{dataItem.ID}}" 
+                                       data-bind="value:newCCV" 
+                                       required data-required-msg="CCV is required"
+                                       pattern="\\d{3,4}$" data-pattern-msg="Valid CCV required" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-col-withlabel-label control-label" for="note">Nickname</label>
+                            <div class="form-col-withlabel-input">
+                                <input class="form-control" type="text" name="note" placeholder="e.g. Business" data-bind="value:Note" />
+                            </div>
+                        </div>
+
+                    </div>
+                        <div id="addressSection" class="input-group input-group--multi form-row" style="width: 90%; margin: 15px 12px">
+                            
+                            <div class="form-group" id="addressRowDescription" style="margin-top: 20px; padding-left: 4px; font-size: large;">
+                                Billing Address
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-col-withlabel-label control-label" for="addressLine1">{{formMessages.Label_Address_1}}</label>
+                                <div class="form-col-withlabel-input">
+                                    <input class="form-control" type="text" id="addressLine1" name="addressLine1" data-bind="value:BillingAddress.Line1" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-col-withlabel-label control-label" for="city">{{formMessages.Label_City}}</label>
+                                <div class="form-col-withlabel-input">
+                                    <input class="form-control" type="text" id="city" name="city" data-bind="value:BillingAddress.City" />
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="form-group">
+                                    <defined-list-dropdown list-type="State" 
+                                                           list-label="{{formMessages.Label_State}}" 
+                                                           id="state-{{dataItem.ID}}"
+                                                           name="State"
+                                                           required data-required-msg="State is required"
+                                                           selected-defined-list-value="dataItem.BillingAddress.State" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-col-withlabel-label control-label" for="zip">{{formMessages.Label_Zip}}</label>
+                                    <div class="form-col-withlabel-input">
+                                        <input class="form-control" type="text" id="zip" 
+                                               name="Zip" 
+                                               required data-required-msg="Zip is required"
+                                               data-bind="value:BillingAddress.PostalCode" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    <div class="form_buttons-wrapper">
+                        <button class="btn btn-primary k-update-button" ng-disabled="!editPaymentMethodForm.$valid">Save Payment Method</button>
+                        <button class="btn k-cancel-button">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </kendo-list-view>
+</div>
+
+<div class="form_buttons-wrapper align-left" ng-show="canCreate && !isInEditMode">
+    <button type="button" class="btn btn-primary btn-primary--plus" ng-click="onAdd()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New credit card</button>
+</div>

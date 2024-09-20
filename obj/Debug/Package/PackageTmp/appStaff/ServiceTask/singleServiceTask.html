@@ -1,0 +1,253 @@
+﻿<div class="container-fluid ticket-details" ng-controller="SingleServiceTaskController as vm">
+    <div ng-if="!!vm.serviceTask.ID">
+        <div class="page-controls-wrapper" ng-show="!!vm.serviceTask.TicketNumber">
+            <a class="link" ng-href="/appStaff/#/ticket/{{vm.serviceTask.TicketNumber}}" target="_self">Back to #{{vm.serviceTask.TicketNumber}}</a>
+        </div>
+        <div class="ticket-details_content">
+            <div id="viewForm" ng-hide="vm.isInEditMode">
+                <button ng-show="vm.canEdit" class="pull-left btn" ng-click="vm.onEdit()">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+
+                <div class="clearfix"></div>
+                <span class="row">
+                    <label class="form-col-withlabel-label no-top-padding">Ticket Number</label>
+                    <span class="form-col-withlabel-input">
+                        <a class="link" ng-href="/appStaff/#/ticket/{{vm.serviceTask.TicketNumber}}" target="_self">{{vm.serviceTask.TicketNumber}}</a>
+                    </span>
+                </span>
+                <span class="row">
+                    <label class="form-col-withlabel-label no-top-padding">Key Tag</label>
+                    <span class="form-col-withlabel-input">
+                        {{vm.serviceTask.KeyTag}}
+                    </span>
+                </span>
+                <span class="row">
+                    <label class="form-col-withlabel-label">Assigned to</label>
+                    <span class="form-col-withlabel-input">
+                        {{vm.serviceTask.EmployeeFriendlyID}}
+                    </span>
+                </span>
+                <span class="row">
+                    <label class="form-col-withlabel-label">Status</label>
+                    <span class="form-col-withlabel-input">
+                        {{vm.enumUtils.getNameForValueServiceTaskStatus(vm.serviceTask.ServiceTaskStatus)}}
+                    </span>
+                </span>
+                <span class="row">
+                    <label class="form-col-withlabel-label">Service Name</label>
+                    <span class="form-col-withlabel-input">
+                        {{vm.serviceTask.ServiceName}}
+                    </span>
+                </span>
+                <span class="row">
+                    <label class="form-col-withlabel-label">Category</label>
+                    <span class="form-col-withlabel-input">
+                        {{vm.serviceTask.Category}}
+                    </span>
+                </span>
+                <span class="row">
+                    <label class="form-col-withlabel-label">Service Task Note</label>
+                    <span class="form-col-withlabel-input">
+                        {{vm.serviceTask.ServiceTaskNote}}
+                    </span>
+                </span>
+                <span class="row">
+                    <label class="form-col-withlabel-label">Service Fee</label>
+                    <span class="form-col-withlabel-input">
+                        {{vm.serviceTask.ServiceFee | currency}}
+                    </span>
+                </span>
+                <span class="row">
+                    <label class="form-col-withlabel-label">Provider Charge</label>
+                    <span class="form-col-withlabel-input">
+                        {{vm.serviceTask.ProviderCharge | currency}}
+                    </span>
+                </span>
+                <span class="row">
+                    <label class="form-col-withlabel-label">Tax Rate</label>
+                    <span class="form-col-withlabel-input">
+                        {{vm.serviceTask.TaxRate}}%
+                    </span>
+                </span>
+                <span class="row">
+                    <label class="form-col-withlabel-label">Intake Date</label>
+                    <span class="form-col-withlabel-input">
+                        {{vm.serviceTask.ExpectedIntakeDateTime | date : 'short'}}
+                    </span>
+                </span>
+                <span class="row">
+                    <label class="form-col-withlabel-label">Give Back Date</label>
+                    <span class="form-col-withlabel-input">
+                        {{vm.serviceTask.ExpectedGiveBackDateTime | date : 'short'}}
+                    </span>
+                </span>
+
+                <span class="row">
+                    <label class="form-col-withlabel-label no-top-padding">Customer Name</label>
+                    <span class="form-col-withlabel-input">
+                        <a class="link" ng-href="/appStaff/#/account-profile/{{vm.serviceTask.CustomerID}}" target="_self">{{vm.serviceTask.CustomerName}}</a>
+                    </span>
+                </span>
+
+                <mobile-phone-update identifier="vm.serviceTask.ID"
+                                     context="vm.currentCommunicationContext"
+                                     text-data="vm.serviceTask.MobilePhone"
+                                     customer-name="vm.serviceTask.CustomerName"
+                                     can-contact="true">
+                </mobile-phone-update>
+
+                <email-address-update ticket-identifier="vm.ticketReferenceId"
+                                      text-data="vm.serviceTask.EmailAddress"
+                                      can-contact="true">
+                </email-address-update>
+
+                <span class="row">
+                    <label class="form-col-withlabel-label">Vehicle</label>
+                    <span class="form-col-withlabel-input">
+                        {{vm.serviceTask.VehicleFriendlyName}}
+                    </span>
+                </span>
+                <span class="row">
+                    <label class="form-col-withlabel-label">License Plate</label>
+                    <span class="form-col-withlabel-input">
+                        {{vm.serviceTask.VehicleLicensePlate}}
+                    </span>
+                </span>
+                <span class="row">
+                    <label class="form-col-withlabel-label">Reservation Note</label>
+                    <span class="form-col-withlabel-input">
+                        {{vm.serviceTask.ReservationNote}}
+                    </span>
+                </span>
+                <span class="row">
+                    <label class="form-col-withlabel-label">Slot</label>
+                    <span class="form-col-withlabel-input">
+                        {{vm.serviceTask.SlotCode}}
+                    </span>
+                </span>
+                <span class="row">
+                    <get-operating-location-data operating-location-identifier="vm.serviceTask.OperatingLocationID" operating-location-object="vm.operatingLocation"></get-operating-location-data>
+                    <label class="form-col-withlabel-label">Operating Location</label>
+                    <span class="form-col-withlabel-input">
+                        {{vm.operatingLocation.Name}}
+                    </span>
+                </span>
+            </div>
+
+            <div id="editForm" ng-show="!!vm.isInEditMode">
+                <form class="form-horizontal kendo-form" id="editServiceTaskForm" name="editServiceTaskForm">
+
+                    <div id="ticketNumberRow" class="form-group">
+                        <label class="form-col-withlabel-label" for="referenceNumber">Ticket #</label>
+                        <div class="form-col-withlabel-input">
+                            <input class="form-control" type="text" id="referenceNumber" name="referenceNumber" ng-model="vm.serviceTask.TicketNumber" ng-disabled="true"/>
+                        </div>
+                    </div>
+
+                    <div id="statusRow" class="form-group">
+                        <label class="form-col-withlabel-label" for="statusList">Status</label>
+                        <div class="form-col-withlabel-input">
+                            <select kendo-combo-box id="statusList"
+                                    k-min-length="2"
+                                    k-ng-model="vm.selectedStatus"
+                                    k-filter="'contains'"
+                                    k-data-source="vm.statusList"
+                                    k-data-text-field="'Description'"
+                                    k-data-value-field="'Value'"
+                                    k-suggest="true"></select>
+                        </div>
+                    </div>
+
+                    <div id="serviceNameRow" class="form-group">
+                        <label class="form-col-withlabel-label" for="serviceName">Service Name</label>
+                        <div class="form-col-withlabel-input">
+                            <input class="form-control width-full" type="text" id="serviceName" name="serviceName" required ng-model="vm.serviceTask.ServiceName"/>
+                        </div>
+                    </div>
+                    <div class="error-messages" ng-messages="editServiceTaskForm.serviceName.$error" ng-if="editServiceTaskForm.serviceName.$touched || editServiceTaskForm.$submitted">
+                        <div ng-message="required">Name is Required</div>
+                    </div>
+
+                    <div id="categoryRow" class="form-group">
+                        <label class="form-col-withlabel-label" for="categoryList">Category</label>
+                        <div class="form-col-withlabel-input">
+                            <select kendo-combo-box id="categoryList"
+                                    k-ng-model="vm.serviceTask.Category"
+                                    k-data-source="vm.categoryList"
+                                    k-data-text-field="'Description'"
+                                    k-value-primitive="true"
+                                    k-data-value-field="'Value'"></select>
+                        </div>
+                    </div>
+                    <div id="employeeRow" class="form-group">
+                        <label class="form-col-withlabel-label" for="employeeList">Assign to</label>
+                        <div class="form-col-withlabel-input">
+                            <select kendo-combo-box id="employeeList"
+                                    k-ng-model="vm.selectedEmployee"
+                                    k-data-source="vm.employeeList"
+                                    k-data-text-field="'FriendlyID'"
+                                    k-data-value-field="'ID'"></select>
+                        </div>
+                    </div>
+
+                    <div id="noteRow" class="form-group row">
+                        <label class="form-col-withlabel-label" for="taskNote">Service Task Note</label>
+                        <div class="form-col-withlabel-input">
+                            <input type="text" id="taskNote" name="taskNote" ng-model="vm.serviceTask.ServiceTaskNote" class="form-control"/>
+                        </div>
+                    </div>
+                    <div id="serviceFeeRow" class="form-group row">
+                        <label class="form-col-withlabel-label" for="serviceFee">Service Fee</label>
+                        <div class="form-col-withlabel-input">
+                            <input type="number" id="serviceFee" name="serviceFee" required ng-model="vm.serviceTask.ServiceFee" min="0" class="form-control"/>
+                        </div>
+                    </div>
+                    <div id="providerChargeRow" class="form-group row">
+                        <label class="form-col-withlabel-label" for="providerCharge">Provider Charge</label>
+                        <div class="form-col-withlabel-input">
+                            <input type="number" id="providerCharge" name="providerCharge" required ng-model="vm.serviceTask.ProviderCharge" min="0" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="text-center top-buffer15">
+                        <button class="btn btn-primary right-buffer15" ng-click="vm.onUpdate()" ng-disabled="!editServiceTaskForm.$valid">Save</button>
+                        <button class="btn" ng-click="vm.onCancel()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="bottom-buffer15" ng-hide="vm.serviceTask.ServiceTaskStatus == 11">
+                <button class="btn btn-primary" ng-click="vm.complete()">Complete Service Task</button>
+            </div>
+
+
+            <div kendo-tab-strip k-content-urls="[null, null]">
+                <ul>
+                    <li class="k-state-active">Events</li>
+                    <li>Communication</li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="events">
+                        <div class="events-event" ng-repeat="currentEvent in vm.currentObjectEvents">
+                            <div class="events-circle">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </div>
+                            <button class="btn btn-sm btn-info pull-right" ng-click="vm.toggleInfo($index)" style="margin-left: 60%;">
+                                <i class="glyphicon glyphicon-minus" ng-if="currentEvent.display == true"></i>
+                                <i class="glyphicon glyphicon-plus" ng-if="currentEvent.display == false"></i>
+                            </button>
+                            <div ng-bind-html="currentEvent.content"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="padding: 1em">
+                    <sent-messages context="vm.currentCommunicationContext" identifier="vm.serviceTask.ID"></sent-messages>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

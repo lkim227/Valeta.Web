@@ -1,0 +1,176 @@
+﻿<style>
+    .k-grid.valet-list {
+        font-size: 85%;
+        padding: 0 !important;
+    }
+
+    .k-grid td {
+        line-height: 85%;
+    }
+
+    .area-separator {
+        border-left: none;
+        border-top: thin solid #d3d3d3;
+        padding-top: 15px;
+        padding-left: 0;
+    }
+
+    #draggableRunnersList,
+    #ticketListViewWrapper {
+        overflow-y: scroll;
+    }
+
+    @media (min-width: 768px) {
+        .area-separator {
+            border-left: thin solid #d3d3d3;
+            padding-left: 30px;
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .left-area {
+            left: 0;
+            margin-right: 15px;
+        }
+
+        .right-area {
+            right: 0;
+        }
+
+        #draggableRunnersList,
+        #ticketListViewWrapper {
+            height: 450px;
+            max-height: 450px;
+        }
+    }
+
+    .k-listview.valet-list {
+        border: none !important;
+        padding: 0;
+    }
+
+    .valet-list {
+        min-height: 3.5em;
+        text-indent: 0.5em;
+    }
+
+    .valet-element.placeable:hover {
+        background: #ffd009;
+        cursor: move;
+    }
+
+    .valet-element.disabled {
+        color: lightgrey;
+    }
+
+    .make-valet-available:hover {
+        color: lightgrey;
+    }
+
+    .make-valet-available.disabled {
+        color: lightgrey;
+    }
+
+    .start-valet-shift:hover {
+        color: lightgrey;
+    }
+
+    .start-valet-shift.disabled {
+        color: lightgrey;
+    }
+
+    .dragging {
+        background: #ffd009;
+        color: white;
+        padding: 0px 5px 0px 5px;
+    }
+
+    .dropzone-hover {
+        background: lightgray;
+        cursor: move;
+    }
+</style>
+
+<div class="timeline timeline--captured container-fluid" ng-controller="TimelineCapturedController as vm">
+    <div cg-busy="vm.loadingPromise">
+        <script type="text/javascript">
+            function getGroupHeaderDisplayText(rawValue) {
+                if (!!rawValue) {
+                    return rawValue.substring(5, 7) + '/' + rawValue.substring(8, 10) + ' ' + rawValue.substring(14);
+                } else {
+                    return "Missing Time";
+                }
+            }
+        </script>
+
+        <script id="headertemplate" type="text/x-kendo-template">
+            <div class="timeline_header">
+                <div class="captured_alt-title">
+                    Toll Tag:&nbsp;&nbsp;<label>#:aggregates.UseTollTagSingleTicketCount.sum - 0#</label>
+                </div>
+                <div class="captured_title">
+                    Ticket:&nbsp;&nbsp;<label>#:aggregates.ID.count - aggregates.UseTollTagSingleTicketCount.sum#</label>
+                </div>
+                <div class="timeline_time">#=getGroupHeaderDisplayText(value)#</div>
+            </div>
+        </script>
+
+        <script id="itemtemplate" type="text/x-kendo-template">
+            <div ng-include="'./Dispatch/timelineTemplates/capturedItemTemplate.html'"></div>
+        </script>
+
+
+        <span id="notification"></span>
+
+        <div class="page-controls-wrapper">
+            <operating-location-dropdown operating-location-changed-callback="vm.onChangeOperatingLocation(newOperatingLocation)"></operating-location-dropdown>
+
+            <div class="btn-wrapper" ng-show="vm.selectedOperatingLocation">
+                <button class="btn btn-default" ng-click="vm.refreshData()"><span class="glyphicon glyphicon-refresh" title="Refresh"></span></button>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        Captured <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a ui-sref="timeline-view({'reload':true})">Current</a></li>
+                        <li><a ui-sref="timeline-all({'reload':true})">ALL</a></li>
+                        <li><a ui-sref="keys-slots({'reload':true})">Keys & Slots</a></li>
+                        <li><a ui-sref="not-closed({'reload':true})">Not Closed</a></li>
+                        <li><a ui-sref="cancelled({'reload':true})">Cancelled</a></li>
+                        <li><a ui-sref="closed({'reload':true})">Closed</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div ng-show="vm.selectedOperatingLocation" class="container-fluid" ng-init="runnersFeatureEnabled=true">
+            <div ng-show="runnersFeatureEnabled" class="left-area col-sm-3" id="draggableRunnersList">
+                <h5>Available Runners</h5>
+                <div kendo-list-view
+                     id="runnerListView"
+                     k-data-source="runnerDataSource"
+                     class="valet-list">
+                    <div ng-class="{'draggable': vm.placementEnabled}" k-template>
+                        <div id="runnerListViewItem-{{dataItem.ID}}"
+                             class="valet-element width-full"
+                             ng-class="{'placeable': vm.placementEnabled}"
+                             style="font-size: larger;">
+                            <span class="right-buffer5">{{dataItem.ExtendedFriendlyID}}</span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-area">
+                <div class="row" id="ticketListViewWrapper">
+                    <kendo-mobile-list-view id="ticketListView"
+                                            k-options="vm.ticketListOptions"
+                                            class="timeline-listview timeline-listview--captured">
+                    </kendo-mobile-list-view>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

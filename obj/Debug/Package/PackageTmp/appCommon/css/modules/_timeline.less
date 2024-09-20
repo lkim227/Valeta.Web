@@ -1,0 +1,194 @@
+@departure-color:       #b3bfe6;
+@return-color:          #94b8b8;
+@captured-color:        #d975fb;
+@captured-special-color:  @brand-primary;
+
+.timeline {
+    &_header {
+        .clearfix();
+        text-align: center;
+        font-family: @brand-font-family-bold;
+        color: @white;
+        background-color: @brand-accent;
+
+        label {
+            margin-bottom: 0;
+        }
+    }
+
+    &_time {
+        display: inline-block;
+        padding: .5em;
+    }
+
+    &_departure-title,
+    &_return-title,
+    .captured_title,
+    .captured_alt-title {
+        float: left;
+        padding: .6em 1em;
+    }
+
+    &_return-title {
+        float: right;
+    }
+
+    .captured_title {
+        background-color: @captured-color;
+        color: @font-color;
+    }
+    .captured_alt-title {
+        background-color: @brand-primary;
+        color: @font-color;
+    }
+
+    &-item {
+        .clearfix();
+        padding: .5em;
+        background-color: @gray-xlight;
+        border-bottom: 1px solid @gray-light;
+        width: 51%;
+    }
+
+    .IsDeparture {
+        margin-right: 49%;
+        border-right: 1px solid @departure-color;
+    }
+
+    .IsReturn {
+        margin-left: 49%;
+        border-left: 1px solid @return-color;
+    }
+
+    &.timeline--captured {
+        .IsDeparture,
+        .IsReturn {
+            margin-right: 0;
+            margin-left: 0;
+        }
+        .timeline-item {
+            width: 100%;
+            padding: .5em 1em;
+        }
+    }
+
+    .IsCaptured{
+        background-color: @gray-xlight;
+        border-bottom: 1px solid @form-fields-border-color;
+        border-left: 1px solid @captured-color;
+    }
+
+    .IsCapturedSpecial{
+        background-color: @gray-xlight;
+        /*margin-right: 49%;*/
+        border-bottom: 1px solid @form-fields-border-color;
+        border-left: 10px solid @brand-primary;
+    }
+
+    &-listview {
+        padding-left: 0;
+    }
+
+    li {
+        list-style-type: none;
+    }
+
+    .km-list {
+        padding: 0 !important;
+    }
+
+    .showBookmark {
+        display: none;
+    }
+
+    .IsDeparture:hover .showBookmark,
+    .IsReturn:hover .showBookmark {
+        display: block;
+    }
+
+    .icon {
+        width: 1em;
+    }
+    .alert-success {
+        font-size: .9em;
+        padding: .15em .3em;
+    }
+
+    .row-1-wrapper {
+        /*padding-bottom: .8em;*/
+    }
+
+    .row-1-wrapper,
+    .row-2-wrapper {
+        position: relative;
+        width: 100%;
+        min-height: 2.4em;
+        padding-top: .4em;
+        padding-right: 14em;
+
+        .item {
+            margin-right: .1em;
+        }
+            .item--md-margin {
+                margin-right: .4em;
+            }
+            .item--lg-margin {
+                margin-right: 1em;
+            }
+    }
+
+    .greeter-wrapper,
+    .runner-wrapper {
+        position: absolute;
+        right: 0;
+        top: 0;
+        min-height: 2em;
+
+        .btn {
+            margin-bottom: .2em;
+            width: auto;
+            max-width: 18em;
+            white-space: initial;
+        }
+        .btn-primary {
+            min-width: 7em;
+        }
+        .btn-cancel {
+            margin-left: .2em;
+        }
+
+        .k-combobox {
+            font-size: .8em;
+            margin-bottom: .2em;
+            max-width: 100%;
+        }
+    }
+}
+
+.departure {
+    background-color: @departure-color;
+}
+.departure-text-color {
+    color: @font-color;
+}
+
+.captured {
+    background-color: @captured-color;
+}
+.captured-text-color {
+    color: @font-color;
+}
+
+.captured-special {
+    background-color: @captured-special-color;
+}
+.captured-special-text-color {
+    color: @font-color;
+}
+
+.return {
+    background-color: @return-color;
+}
+.return-text-color {
+    color: @font-color;
+}

@@ -1,0 +1,33 @@
+﻿<div class="top-buffer15" ng-show="directiveInitialized">
+    <div class="row bottom-buffer15" ng-show="!!catchAllTips && catchAllTips.length> 0">
+        <label>Tip Recipients on {{catchAllCard}}:</label>
+        <div ng-repeat="caTip in catchAllTips | orderBy: 'caTip.ForGreeterFriendlyID'">
+            <div class="row row--editable">
+                <div class="pull-left top-padding8">
+                    <span ng-show="caTip.IsFromReservation">From Reservation</span>
+                    <span ng-hide="caTip.IsPercentage">$</span>{{caTip.Amount}}<span ng-show="caTip.IsPercentage">%</span> 
+                    {{caTip.Description}} {{caTip.ForGreeterFriendlyID}}
+                </div>
+                <div class="pull-right" ng-show="isTicketActive">
+                    <button class="btn btn-cancel btn-sm" ng-click="onDelete(caTip, true)"><span class="glyphicon glyphicon-trash"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row bottom-buffer15" ng-show="showCards && !!allowanceTips && allowanceTips.length > 0">
+        <label>Tip Recipients on {{allowanceCard}}:</label>
+        <div class="text-center" ng-repeat="aTip in allowanceTips">
+            <div class="row row--editable">
+                <div class="pull-left top-padding8">
+                    <span ng-show="aTip.IsFromReservation">From Reservation</span>
+                    <span ng-hide="aTip.IsPercentage">$</span>{{aTip.Amount}}<span ng-show="aTip.IsPercentage">%</span>
+                    {{aTip.Description}} {{aTip.ForGreeterFriendlyID}}
+                </div>
+                <div class="pull-right" ng-show="isTicketActive">
+                    <button class="btn btn-cancel btn-sm" ng-click="onDelete(aTip, false)"><span class="glyphicon glyphicon-trash"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

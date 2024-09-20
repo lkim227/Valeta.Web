@@ -1,0 +1,52 @@
+﻿// vendor imports
+@import "../../lib/bootstrap-less-only/less/bootstrap";
+@import "../../lib/bootswatch/cosmo/variables.less";
+@import "../../lib/bootswatch/cosmo/bootswatch.less";
+@import "../../lib/bootstrap-less-only/less/utilities";
+@import "../../kendo/kendo.common-bootstrap.min.css";
+@import "../../kendo/kendo.custom.css";
+
+// base imports
+@import "base/_mixins";
+@import "base/_brand";
+@import "base/_fonts";
+
+// modules
+@import "modules/_general"; // general is first, so it's are easy to override
+@import "modules/_account-vehicles";
+@import "modules/_bootstrap-override";
+@import "modules/_change-password";
+@import "modules/_checkbox";
+@import "modules/_forms";
+@import "modules/_loader";
+@import "modules/_cg-busy";
+@import "modules/_customer-page";
+@import "modules/_dashboard.less";
+@import "modules/_events";
+@import "modules/_flight";
+@import "modules/_header";
+@import "modules/_k-grid";
+@import "modules/_login";
+@import "modules/_modals";
+@import "modules/_navbar-minimal";
+@import "modules/_operating-locations";
+@import "modules/_payment";
+@import "modules/_point-tracker";
+@import "modules/_points-history-table";
+@import "modules/_profile";
+@import "modules/_profile-edit";
+@import "modules/_reservation";
+@import "modules/_reservation-table";
+@import "modules/_rewards";
+@import "modules/_side-nav";
+@import "modules/_sortable-column";
+@import "modules/_splitpayment";
+@import "modules/_ticket-details";
+@import "modules/_timeline";
+@import "modules/_utils";
+@import "modules/_zones";
+@import "modules/_kendo-override";
+
+// Imports only in this file!
+// If you need to add a quick fix, use the _shame file...
+@import "_shame";

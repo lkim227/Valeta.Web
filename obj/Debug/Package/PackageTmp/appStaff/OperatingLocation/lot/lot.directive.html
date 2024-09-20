@@ -1,0 +1,41 @@
+﻿<style>
+    /* override kendo cell value selector box */
+    div.k-animation-container {
+        width: 100px !important;
+    }
+</style>
+
+<div ng-show="!!operatingLocationIdParam">
+    <div class="page-controls-wrapper">
+        <get-operating-location-data operating-location-identifier="operatingLocationIdParam" operating-location-object="operatingLocation"></get-operating-location-data>
+        <a ui-sref="setup-operatinglocations" class="link">Back to {{operatingLocation.Name}}</a>
+
+        <button class="k-button btn btn-primary left-buffer30 k-state-disabled" id="save" ng-if="canCreate && canUpdate && canDelete" ng-click="onSave()">Save Changes</button>
+        <label class="alert alert-info hidden" id="save-message" ng-if="canCreate && canUpdate && canDelete">Spreadsheet has unsaved changes</label>
+        <label class="alert alert-danger" ng-show="emptyLotNameError === true">One or more rows contain an empty LotName value. Please update spreadsheet.</label>
+        <label class="alert alert-danger" ng-show="emptySlotCodeError === true">One or more rows contain an empty SlotCode value. Please update spreadsheet.</label>
+
+        <div class="fullrow left-buffer40" ng-show="attributeList.length > 0">
+            <br />
+            Slot attributes must be delimited by a comma.<br />
+            Slot's attributes can be:
+            <span ng-repeat="attr in attributeList">
+                <code>{{attr.Description}}</code>
+            </span>
+        </div>
+        <div class="fullrow left-buffer40" ng-show="invalidSlotAttributes.length > 0">
+            <br />
+            <label class="alert alert-info">The following attributes are invalid. Please update spreadsheet or add to a list of valid attributes, and click Save Changes again.</label>
+            <div ng-repeat="attribute in invalidSlotAttributes | orderBy: 'toString()'">
+                <label class="form-col-withlabel-label control-label">{{ attribute }}</label>
+                <button class="btn btn-sm bottom-buffer15" id="insertNewAttribute" ng-click="insertNewAttribute(attribute, $index)">Add to Slot Attributes</button>
+            </div>
+        </div>
+
+        <span class="left-buffer5">After editing a cell, click outside of it and then click Save Changes button.</span>
+    </div>
+    
+    <div class="fullrow">
+        <kendo-spreadsheet class="width-full" id="spreadsheet" k-options="sheetOptions"></kendo-spreadsheet>
+    </div>
+</div>

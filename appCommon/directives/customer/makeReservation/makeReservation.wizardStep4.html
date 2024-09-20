@@ -1,0 +1,62 @@
+﻿<div id="estimationStatus" class="row bottom-buffer15">
+    <h3 class="top-buffer15 left-buffer-relative5" ng-hide="makeReservationVm.isEstimateGenerated || makeReservationVm.isEstimateFailed">Your estimate is being generated...</h3>
+    
+    <div class="pull-left">
+        <span class="black-box">Reservation Not Complete</span>
+    </div>
+    <div class="pull-right">
+        <button aria-hidden="true"
+                analytics-category="MakeReservation"
+                analytics-event="MakeReservation-4-Submit"
+                analytics-on="click"
+                class="text-right btn btn-primary--mainaction pull-right"
+                ng-disabled="!makeReservationVm.isEstimateGenerated || makeReservationVm.isSubmitReservationRequested"
+                ng-click="makeReservationVm.finalizeReservation()"
+                type="button">
+            Submit Reservation
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </button>
+    </div>
+    <div class="alert alert-danger" style="display: inline-block; width: 100%; text-align: center; margin: 12px 0px" ng-show="makeReservationVm.authorizationErrorMessage.length > 0">{{makeReservationVm.authorizationErrorMessage}}</div>
+</div>
+
+<estimate reservation-and-billing="makeReservationVm.reservationAndBilling" 
+          is-estimate-generated="makeReservationVm.isEstimateGenerated"
+          is-estimate-failed="makeReservationVm.isEstimateFailed"></estimate>
+
+<!-- wizard navigation -->
+<div id="wizardNav" class="reservation-nav row top-buffer-relative5 clearfix">
+    <div class="reservation-nav_prev">
+        <button aria-hidden="true"
+                analytics-category="MakeReservation"
+                analytics-event="MakeReservation-3-Payment"
+                analytics-on="click"
+                class="btn btn-cancel"
+                ng-click="$previousStep()"
+                type="button">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            Change Payment Information
+        </button>
+    </div>
+
+    <div class="reservation-nav_page">
+        <strong ng-bind-template="{{$getActiveIndex()}} / {{$getSteps().length}}"></strong>
+    </div>
+
+    <div class="reservation-nav_next">
+        <button aria-hidden="true"
+                analytics-category="MakeReservation"
+                analytics-event="MakeReservation-4-Submit"
+                analytics-on="click"
+                class="text-right btn btn-primary--mainaction"
+                ng-disabled="!makeReservationVm.isEstimateGenerated || makeReservationVm.isSubmitReservationRequested"
+                ng-click="makeReservationVm.finalizeReservation()"
+                type="button">
+            Submit Reservation
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </button>
+    </div>
+    
+    <div class="alert alert-danger" style="display: inline-block; width: 100%; text-align: center; margin: 12px 0px" ng-show="makeReservationVm.authorizationErrorMessage.length > 0">{{makeReservationVm.authorizationErrorMessage}}</div>
+
+</div>

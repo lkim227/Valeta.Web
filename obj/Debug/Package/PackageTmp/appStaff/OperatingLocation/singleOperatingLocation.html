@@ -1,0 +1,274 @@
+﻿<div class="container single-operating-location" ng-controller="SingleOperatingLocationController as vm">
+
+    <div ng-if="!!vm.operatingLocationIdParam">
+        <get-operating-location-data operating-location-identifier="vm.operatingLocationIdParam" operating-location-object="vm.operatingLocation"></get-operating-location-data>
+    </div>
+
+    <div>
+        <form id="editOperatingLocationForm" name="editOperatingLocationForm" novalidate ng-submit="vm.onSave()">
+            <div class="form_content">
+                <div class="form-group row">
+                    <label class="form-col-withlabel-label control-label" for="name">Name</label>
+                    <div class="input-group form-col-withlabel-input">
+                        <input class="form-control" type="text" id="name" name="name" ng-model="vm.operatingLocation.Name" required />
+                    </div>
+                    <div class="error-messages" ng-messages="editOperatingLocationForm.name.$error" ng-if="editOperatingLocationForm.name.$touched || editOperatingLocationForm.$submitted">
+                        <div ng-message="required">Operating Location's name is required.</div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="form-col-withlabel-label control-label" for="airportcode">Airport Code</label>
+                    <div class="input-group form-col-withlabel-input">
+                        <input class="form-control" type="text" id="airportcode" name="airportcode" ng-model="vm.operatingLocation.AirportCode" />
+                    </div>
+                </div>
+                <div class="form-group row" ng-hide="true">
+                    <label class="form-col-withlabel-label control-label" for="customercode">Customer Code</label>
+                    <div class="input-group form-col-withlabel-input">
+                        <input class="form-control" type="text" id="customercode" name="customercode" ng-model="vm.operatingLocation.CustomerCode" required />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="form-col-withlabel-label control-label" for="tax">Tax rate</label>
+                    <div class="input-group form-col-withlabel-input">
+                        <input class="form-control" type="number" min="0" id="tax" name="tax" ng-model="vm.operatingLocation.FinancialConfiguration.TaxRatePercentage" />
+                        <span class="input-group-addon">%</span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="form-col-withlabel-label control-label" for="fee">Fee rate</label>
+                    <div class="input-group form-col-withlabel-input">
+                        <input class="form-control" type="number" min="0" id="fee" name="fee" ng-model="vm.operatingLocation.FinancialConfiguration.FeePercentage" />
+                        <span class="input-group-addon">%</span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="form-col-withlabel-label control-label" for="feeName">Fee name</label>
+                    <div class="input-group form-col-withlabel-input">
+                        <input class="form-control" type="text" id="feeName" name="feeName" ng-model="vm.operatingLocation.FinancialConfiguration.FeeName" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="form-col-withlabel-label control-label" for="chargeName">Company name on customer's credit card</label>
+                    <div class="input-group form-col-withlabel-input">
+                        <input class="form-control" type="text" id="chargeName" name="chargeName" ng-model="vm.operatingLocation.FinancialConfiguration.ChargeName" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="form-col-withlabel-label control-label" for="serviceTermsLink">Link to Service Terms</label>
+                    <div class="input-group form-col-withlabel-input">
+                        <input class="form-control" type="text" id="serviceTermsLink" name="serviceTermsLink" ng-model="vm.operatingLocation.ServiceTermsLink" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="form-col-withlabel-label control-label" for="claimCheckLegalDisclaimer">Claim Check Legal Disclaimer</label>
+                    <div class="input-group form-col-withlabel-input">
+                        <textarea class="form-control" type="text" id="claimCheckLegalDisclaimer" name="claimCheckLegalDisclaimer" ng-model="vm.operatingLocation.ClaimCheckLegalDisclaimer"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form_tabs">
+                <div class="panel with-nav-tabs">
+                    <div class="panel-heading">
+                        <ul class="nav nav-tabs">
+                            <li ng-class="{ 'active': vm.tab == 1 }"><a href="" ng-click="vm.tab = 1">Rates</a></li>
+                            <li ng-class="{ 'active': vm.tab == 2 }"><a href="" ng-click="vm.tab = 2">Valet App Settings</a></li>
+                            <li ng-class="{ 'active': vm.tab == 3 }"><a href="" ng-click="vm.tab = 3">Heading</a></li>
+                            <li ng-class="{ 'active': vm.tab == 4 }"><a href="" ng-click="vm.tab = 4">Time Intervals</a></li>
+                        </ul>
+                    </div>
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="tab1default" ng-show="vm.tab == 1">
+                                <div id="tieredRateRow" class="row">
+                                    <div class="form-group row">
+                                        <label class="form-col-withlabel-label control-label" for="formula">* Number of parking days</label>
+                                        <div class="form-col-withlabel-input group--inline">
+                                            <select
+                                                id="formula"
+                                                name="formula"
+                                                class="form-control form-control--inline"
+                                                ng-options="c.value as c.name for c in vm.calculationFormulaTypeList"
+                                                ng-model="vm.operatingLocation.FinancialConfiguration.CalculationFormulaType"
+                                                ng-change="vm.onChangeFormula()"
+                                                required
+                                            >
+                                                <option value="">--Please Select--</option>
+                                            </select>
+
+                                            <div
+                                                ng-hide="vm.operatingLocation.FinancialConfiguration.CalculationFormulaType == 2"
+                                                class="group--inline">
+                                                <span class="right-buffer15 left-buffer15" for="hours">based on</span>
+                                                <div class="input-group" style="width: 180px;">
+                                                    <input class="form-control" type="number" min="0" id="hours" name="hours" ng-model="vm.operatingLocation.FinancialConfiguration.ProrateDayBaseInHours" />
+                                                    <span class="input-group-addon" style="width: 70px">hours</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="error-messages" ng-messages="editOperatingLocationForm.formula.$error" ng-if="editOperatingLocationForm.formula.$touched || editOperatingLocationForm.$submitted" style="display: flex;">
+                                            <div ng-message="required">Number of parking days is required.</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="form-col-withlabel-label control-label" for="tiers">Rate Tiers</label>
+                                        <div class="input-group">
+                                            <span style="color: #ff3333" ng-show="vm.operatingLocation.FinancialConfiguration.TieredRates.length < 1"><i><b>* You must have at least 1 (one) rate tier.  Rate tiers must be unique.</b></i></span>
+                                            <tiered-rate operating-location-identifier="vm.operatingLocation.ID" tiered-rates="vm.operatingLocation.FinancialConfiguration.TieredRates"></tiered-rate>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade in active" id="tab2default" ng-show="vm.tab == 2">
+                                <div id="appSettingsRow" class="row">
+                                    <div class="form-group row">
+                                        <label class="form-col-withlabel-label control-label" for="isCustomerName">Require Customer name?</label>
+                                        <div class="form-col-withlabel-input">
+                                            <div class="btn-group" id="isCustomerName" name="isCustomerName">
+                                                <label class="btn" ng-model="vm.operatingLocation.AppSetting.RequireCustomerName" ng-value="true" uib-btn-radio="true" id="requireCustomerNameYes" name="requireCustomerNameYes">Yes</label>
+                                                <label class="btn" ng-model="vm.operatingLocation.AppSetting.RequireCustomerName" ng-value="false" uib-btn-radio="false" id="requireCustomerNameNo" name="requireCustomerNameNo">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="form-col-withlabel-label control-label" for="isVehicle">Require Vehicle data?</label>
+                                        <div class="form-col-withlabel-input">
+                                            <div class="btn-group" id="isVehicle" name="isVehicle">
+                                                <label class="btn" ng-model="vm.operatingLocation.AppSetting.RequireVehicle" ng-value="true" uib-btn-radio="true" id="vehicleYes" name="vehicleYes">Yes</label>
+                                                <label class="btn" ng-model="vm.operatingLocation.AppSetting.RequireVehicle" ng-value="false" uib-btn-radio="false" id="vehicleNo" name="vehicleNo">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="form-col-withlabel-label control-label" for="requireReturnToCustomerDate">Require Date when customer picks up vehicle?</label>
+                                        <div class="form-col-withlabel-input">
+                                            <div class="btn-group" id="requireReturnToCustomerDate" name="requireReturnToCustomerDate">
+                                                <label class="btn" ng-model="vm.operatingLocation.AppSetting.RequireReturnToCustomerDate" ng-value="true" uib-btn-radio="true" id="requireReturnToCustomerDateYes" name="requireReturnToCustomerDateYes">Yes</label>
+                                                <label class="btn" ng-model="vm.operatingLocation.AppSetting.RequireReturnToCustomerDate" ng-value="false" uib-btn-radio="false" id="requireReturnToCustomerDateNo" name="requireReturnToCustomerDateNo">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="form-col-withlabel-label control-label" for="requireReturnFlight">Require Flight when customer picks up vehicle?</label>
+                                        <div class="form-col-withlabel-input">
+                                            <div class="btn-group" id="requireReturnFlight" name="requireReturnFlight">
+                                                <label class="btn" ng-model="vm.operatingLocation.AppSetting.RequireReturnFlight" ng-value="true" uib-btn-radio="true" id="requireReturnFlightYes" name="requireReturnFlightYes">Yes</label>
+                                                <label class="btn" ng-model="vm.operatingLocation.AppSetting.RequireReturnFlight" ng-value="false" uib-btn-radio="false" id="requireReturnFlightNo" name="requireReturnFlightNo">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="form-col-withlabel-label control-label" for="isRequireKeyTag">Require key tag?</label>
+                                        <div class="form-col-withlabel-input">
+                                            <div class="btn-group" id="isRequireKeyTag" name="isRequireKeyTag">
+                                                <label class="btn" ng-model="vm.operatingLocation.AppSetting.RequireKeyTag" ng-value="true" uib-btn-radio="true" id="requireKeyTagYes" name="requireKeyTagYes">Yes</label>
+                                                <label class="btn" ng-model="vm.operatingLocation.AppSetting.RequireKeyTag" ng-value="false" uib-btn-radio="false" id="requireKeyTagNo" name="requireKeyTagNo">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="form-col-withlabel-label control-label" for="isRequireDamagePicturesByGreeter">Require damage pictures by Greeter?</label>
+                                        <div class="form-col-withlabel-input">
+                                            <div class="btn-group" id="isRequireDamagePicturesByGreeter" name="isRequireDamagePicturesByGreeter">
+                                                <label class="btn" ng-model="vm.operatingLocation.AppSetting.RequireDamagePicturesByGreeter" ng-value="true" uib-btn-radio="true" id="requireDamagePicturesByGreeterYes" name="requireDamagePicturesByGreeterYes">Yes</label>
+                                                <label class="btn" ng-model="vm.operatingLocation.AppSetting.RequireDamagePicturesByGreeter" ng-value="false" uib-btn-radio="false" id="requireDamagePicturesByGreeterNo" name="requireDamagePicturesByGreeterNo">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="form-col-withlabel-label control-label" for="isRequireDamagePicturesByRunner">Require damage pictures by Runner?</label>
+                                        <div class="form-col-withlabel-input">
+                                            <div class="btn-group" id="isRequireDamagePicturesByRunner" name="isRequireDamagePicturesByRunner">
+                                                <label class="btn" ng-model="vm.operatingLocation.AppSetting.RequireDamagePicturesByRunner" ng-value="true" uib-btn-radio="true" id="requireDamagePicturesByRunnerYes" name="requireDamagePicturesByRunnerYes">Yes</label>
+                                                <label class="btn" ng-model="vm.operatingLocation.AppSetting.RequireDamagePicturesByRunner" ng-value="false" uib-btn-radio="false" id="requireDamagePicturesByRunnerNo" name="requireDamagePicturesByRunnerNo">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="form-col-withlabel-label control-label" for="takeDriveUpCustomers">Take drive-up customers?</label>
+                                        <div class="form-col-withlabel-input">
+                                            <div class="btn-group" id="takeDriveUpCustomers" name="takeDriveUpCustomers">
+                                                <label class="btn" ng-model="vm.operatingLocation.AppSetting.TakeDriveUpCustomers" ng-value="true" uib-btn-radio="true" id="takeDriveUpCustomersYes" name="takeDriveUpCustomersYes">Yes</label>
+                                                <label class="btn" ng-model="vm.operatingLocation.AppSetting.TakeDriveUpCustomers" ng-value="false" uib-btn-radio="false" id="takeDriveUpCustomersNo" name="takeDriveUpCustomersNo">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="form-col-withlabel-label control-label" for="takeReservations">Take reservations?</label>
+                                        <div class="form-col-withlabel-input">
+                                            <div class="btn-group" id="takeReservations" name="takeReservations">
+                                                <label class="btn" ng-model="vm.operatingLocation.AppSetting.TakeReservations" ng-value="true" uib-btn-radio="true" id="takeReservationsYes" name="takeReservationsYes">Yes</label>
+                                                <label class="btn" ng-model="vm.operatingLocation.AppSetting.TakeReservations" ng-value="false" uib-btn-radio="false" id="takeReservationsNo" name="takeReservationsNo">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="form-col-withlabel-label control-label" for="greeterCanDispatchRunners">Greeters can dispatch runners?</label>
+                                        <div class="form-col-withlabel-input">
+                                            <div class="btn-group" id="greeterCanDispatchRunners" name="greeterCanDispatchRunners">
+                                                <label class="btn" ng-model="vm.operatingLocation.AppSetting.GreeterCanDispatchRunners" ng-value="true" uib-btn-radio="true" id="greeterCanDispatchRunnersYes" name="greeterCanDispatchRunnersYes">Yes</label>
+                                                <label class="btn" ng-model="vm.operatingLocation.AppSetting.GreeterCanDispatchRunners" ng-value="false" uib-btn-radio="false" id="greeterCanDispatchRunnersNo" name="greeterCanDispatchRunnersNo">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade in active" id="tab3default" ng-show="vm.tab == 3">
+                                <div id="wordingRow" class="row">
+                                    <div class="form-group row">
+                                        <label class="form-col-withlabel-label control-label" for="dropoffname">When customer drops off vehicle:</label>
+                                        <div class="form-col-withlabel-input">
+                                            <input class="form-control" type="text" id="dropoffname" name="dropoffname" ng-model="vm.operatingLocation.LanguageSetting.IntakeName" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="form-col-withlabel-label control-label" for="pickupname">When customer picks up vehicle:</label>
+                                        <div class="form-col-withlabel-input">
+                                            <input class="form-control" type="text" id="pickupname" name="pickupname" ng-model="vm.operatingLocation.LanguageSetting.GiveBackName" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade in active" id="tab5default" ng-show="vm.tab == 4">
+                                <div id="timeIntervalsRow" class="row">
+                                    <div class="form-group row">
+                                        <label class="form-col-withlabel-label control-label" for="hoursBeforeIntakeCustomerCanCancelReservation">Time (in hours) prior to meet time when customer can cancel reservation:</label>
+                                        <div class="form-col-withlabel-input">
+                                            <input class="form-control" type="number" id="hoursBeforeIntakeCustomerCanCancelReservation" name="hoursBeforeIntakeCustomerCanCancelReservation" ng-model="vm.operatingLocation.TimeIntervalSetting.HoursBeforeIntakeCustomerCanCancelReservation" />
+                                        </div>
+                                    </div>
+                                    Communication will not happen for any setting where value is "0"
+                                    <div class="form-group row">
+                                        <label class="form-col-withlabel-label control-label" for="minutesToCommunicateWithCustomerBeforeIntake">Time (in minutes) prior to intake when we communicate with customer:</label>
+                                        <div class="form-col-withlabel-input">
+                                            <input class="form-control" type="number" id="minutesToCommunicateWithCustomerBeforeIntake" name="minutesToCommunicateWithCustomerBeforeIntake" ng-model="vm.operatingLocation.TimeIntervalSetting.MinutesToStartDispatchOnIntake" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="form-col-withlabel-label control-label" for="minutesToCommunicateWithCustomerBeforeGivingVehicleBack">Time (in minutes) prior to give back when we communicate with customer:</label>
+                                        <div class="form-col-withlabel-input">
+                                            <input class="form-control" type="number" id="minutesToCommunicateWithCustomerBeforeGivingVehicleBack" name="minutesToCommunicateWithCustomerBeforeGivingVehicleBack" ng-model="vm.operatingLocation.TimeIntervalSetting.MinutesToStartDispatchOnGiveBack" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="form-col-withlabel-label control-label" for="minutesRunnerAssignerShouldLookAhead">Time (in minutes) prior to give back when automatic runner assignment will start:</label>
+                                        <div class="form-col-withlabel-input">
+                                            <input class="form-control" type="number" id="minutesRunnerAssignerShouldLookAhead" name="minutesRunnerAssignerShouldLookAhead" ng-model="vm.operatingLocation.TimeIntervalSetting.MinutesRunnerAssignerShouldLookAhead" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form_buttons-wrapper">
+                <button type="submit" class="btn btn-primary" ng-disabled="editOperatingLocationForm.$invalid || vm.operatingLocation.FinancialConfiguration.TieredRates.length < 1">Save Operating Location</button>
+                <button class="btn btn-cancel" ng-click="vm.onCancel()">Cancel</button>
+            </div>
+        </form>
+      </div>
+<hr />
+</div>

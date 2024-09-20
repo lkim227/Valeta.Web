@@ -1,0 +1,30 @@
+﻿<div ng-controller="ThankYouReservationController as thankYouReservationVm">
+    <div class="container" style="min-height: 400px;">
+        <div class="panel centered">
+
+            <div class="panel-body container-fluid" style="position: relative;">
+
+                <h4 class="success">
+                    Your reservation
+                    <a href="" class="link-color" ng-click="thankYouReservationVm.viewTicket(thankYouReservationVm.reservation.ReservationNumber)">#{{thankYouReservationVm.reservation.ReservationNumber}}</a>
+                    for {{thankYouReservationVm.reservation.ReservedAirportMeet.IntakeSpecifications.DateUsedToCalculateMeetTime | date : shortDate}} has been placed!
+                </h4>
+
+                <span>
+                    An email confirmation has been sent to your email.
+                </span>
+
+                <div class="top-buffer30">
+                    <a class="link" ng-show="thankYouReservationVm.isReserved" ng-click="thankYouReservationVm.viewTicket(thankYouReservationVm.reservation.ReservationNumber)">Edit your reservation</a>
+                    <br/>
+                    <a class="link top-buffer30" ng-click="thankYouReservationVm.viewBillingDocument(thankYouReservationVm.reservation.ID)">View estimate</a>
+                </div>
+                
+                <h4>
+                    <br />
+                    Thank you for choosing Valeta at DFW
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>

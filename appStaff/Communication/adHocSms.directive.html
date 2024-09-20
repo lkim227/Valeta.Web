@@ -1,0 +1,74 @@
+﻿<form class="small-form" role="form" name="sendMessageForm" novalidate>
+    <div class="form-horizontal top-buffer15 bottom-buffer15">
+        <div class="form-group row">
+            <label class="form-col-withlabel-label control-label" for="customer"></label>
+            <div class="form-col-withlabel-input">
+                {{customerName}}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="form-col-withlabel-label control-label" for="mobileNumber">Phone</label>
+            <div class="form-col-withlabel-input">
+                <!--<input type="text" id="licensePlate" name="licensePlate" required data-bind="value:mobileNumber" />-->
+                <input class="form-control"
+                       name="mobilenumber"
+                       ng-change=""
+                       ng-model-options="{ debounce: 1000 }"
+                       ng-model="mobileNumber"
+                       mask="(999) 999-9999"
+                       required />
+
+                <div class="error-messages" ng-messages="mobileNumber.$error" ng-if="mobileNumber.$touched || sendMessageForm.$submitted">
+                    <div ng-message="required">Phone number is required</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="form-col-withlabel-label control-label" for="messageContent">Message</label>
+            <div class="form-col-withlabel-input">
+                <textarea class="form-control"
+                          name="smscontent"
+                          ng-change=""
+                          ng-focus="smsErrorMsg=''"
+                          ng-model-options="{ debounce: 1000 }"
+                          ng-model="smsContent"
+                          required />
+
+                <div class="error-messages" ng-messages="messageContent.$error" ng-if="messageContent.$touched || sendMessageForm.$submitted">
+                    <div ng-message="required">Message content is required</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="form-col-withlabel-label control-label" for="mobileNumber2">CC Phone</label>
+            <div class="form-col-withlabel-input">
+                <!--<input type="text" id="licensePlate" name="licensePlate" required data-bind="value:mobileNumber" />-->
+                <input class="form-control"
+                       name="mobilenumber2"
+                       ng-change=""
+                       ng-model-options="{ debounce: 1000 }"
+                       ng-model="mobileNumber2"
+                       mask="(999) 999-9999" />
+                <div class="error-messages" ng-messages="mobileNumber2.$error" ng-if="mobileNumber2.$touched || sendMessageForm.$submitted">
+                    <div ng-message="pattern">Must have 10 digits</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="form-item_no-label">
+                <button class="btn btn-primary right-buffer15" ng-click="onSend()" ng-disabled="!sendMessageForm.$valid">Send</button>
+            </div>
+        </div>
+
+        <div class="form-group row" ng-show="!!smsStatusMsg">
+            <h4>
+                <span class="col-sm-offset-3 col-sm-6 top-buffer15 alert alert-warning">{{smsStatusMsg}}</span>
+            </h4>
+        </div>
+    </div>
+
+</form>

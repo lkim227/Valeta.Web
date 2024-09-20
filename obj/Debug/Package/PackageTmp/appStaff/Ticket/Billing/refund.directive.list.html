@@ -1,0 +1,38 @@
+﻿<div ng-show="directiveInitialized">
+       <!-- <button class="btn btn-primary bottom-buffer15" ng-show="canUpdate" ng-click="onEdit()">
+            Add Refund
+        </button> -->
+
+        <div class="row bottom-buffer15" ng-show="!!catchAllRefunds && catchAllRefunds.length> 0">
+            <label>Refunds on {{catchAllCard}}:</label>
+            <div ng-repeat="caRefund in catchAllRefunds">
+                <div class="row row--editable">
+                    <span class="pull-left">
+                        <span title="{{caRefund.Amount | currency}} + {{caRefund.TaxAmount | currency }} + {{caRefund.FeeAmount | currency}}">
+                            {{caRefund.Description}} {{caRefund.AmountWithFeeAndTax | currency}}
+                        </span>
+                        , TransactionID: {{caRefund.TransactionID}}
+                    </span>
+                    <span class="pull-left left-buffer15">
+                        <a class="link" ng-click="goToRefundReceiptURL(caRefund)">Receipt</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row bottom-buffer15" ng-show="!!allowanceRefunds && allowanceRefunds.length > 0">
+            <label>Refunds on {{allowanceCard}}:</label>
+            <div ng-repeat="aRefund in allowanceRefunds">
+                <div class="row row--editable">
+                    <span class="pull-left">
+                        <span title="{{aRefund.Amount | currency}} + {{aRefund.TaxAmount | currency}} + {{aRefund.FeeAmount | currency}}">
+                            {{aRefund.Description}} {{aRefund.AmountWithFeeAndTax | currency}}
+                        </span>
+                        , TransactionID: {{aRefund.TransactionID}}
+                    </span>
+                    <span class="pull-left left-buffer15">
+                        <a class="link" ng-click="goToRefundReceiptURL(aRefund)">Receipt</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+</div>

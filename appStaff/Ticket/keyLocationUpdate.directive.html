@@ -1,0 +1,23 @@
+﻿<span ng-show="directiveInitialized" class="row row--editable">
+    <label class="form-col-withlabel-label" ng-class="{'no-top-padding': !isInEditMode}">Keys Location</label>
+    <span ng-show="!isInEditMode" class="form-col-withlabel-input">
+        <span>{{textData}}</span>
+        <button ng-show="canUpdate" class="btn btn-primary btn-icon-only btn--edit" ng-click="onEdit()">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+    </span>
+    <span ng-show="!!isInEditMode" class="form-col-withlabel-input">
+        <input class="form-control"
+                name="keysLocation"
+                ng-change="updateTextData();"
+                ng-model-options="{ debounce: 1000 }"
+                ng-model="textData"
+                required
+                type="text"
+                style="width: 80px;" />
+        <div class="form_single-input-buttons">
+            <button class="btn btn-primary" ng-click="onUpdate()">Save</button>
+            <button class="btn btn-cancel" ng-click="onCancel()">Cancel</button>
+        </div>
+    </span>
+</span>

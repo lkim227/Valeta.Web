@@ -1,0 +1,224 @@
+﻿<div class="container-fluid ticket-details" ng-controller="SingleIssueController as vm">
+
+    <div id="addNewNoteWindow" kendo-window="addNewNoteWindow" k-title="'Add New Note'" k-modal="true" k-width="600" k-position="{ top: 50, left: 50 }" k-on-open="win1visible = true" k-on-close="win1visible = false" k-visible="false">
+        <form class="form-horizontal kendo-form" id="addNoteForm" name="addNoteForm">
+            <div class="form-group">
+                <label class="right-buffer15" for="newNote">Issue</label>{{vm.issue.Name}}
+            </div>
+            <div id="newNoteRow" class="form-group">
+                <label class="form-col-withlabel-label" for="newNote">Note</label>
+                <div class="form-col-withlabel-input">
+                    <textarea class="form-control width-full" id="newNote" name="newNote" ng-model="vm.newNote" rows="10" cols="10"></textarea>
+                </div>
+            </div>
+            <div class="error-messages" ng-messages="addNoteForm.newNote.$error" ng-if="addNoteForm.newNote.$touched || addNoteForm.$submitted">
+                <div ng-message="required">Required</div>
+            </div>
+
+            <div class="text-center top-buffer15">
+                <input type="button" ng-click="vm.addNewNote();" class="btn btn-primary top-buffer15" ng-disabled="!addNoteForm.$valid" value="Add Note" />
+                <input type="button" class="btn top-buffer15 left-buffer30" title="Cancel" ng-click="vm.cancelNewNote();" value="Cancel" />
+            </div>
+        </form>
+    </div>
+
+    <div ng-if="!!vm.issue.ID">
+        <div class="page-controls-wrapper" ng-show="!!vm.issue.ReferenceNumber">
+            <a class="link" ng-href="/appStaff/#/ticket/{{vm.issue.ReferenceNumber}}" target="_self">Back to #{{vm.issue.ReferenceNumber}}</a>
+        </div>
+        <div class="ticket-details_content">
+            <div id="viewForm" ng-hide="vm.isInEditMode">
+                <span class="row">
+                    <span class="col-sm-3">Reference / Ticket #</span>
+                    <span class="col-sm-6">{{vm.issue.ReferenceNumber}}</span>
+                </span>
+                <customer-info ticket-identifier="vm.issue.ID"
+                               customer-name="vm.issue.CustomerName"
+                               mobile-phone="vm.issue.MobilePhone"
+                               email-address="vm.issue.EmailAddress">
+                </customer-info>
+                <span class="row">
+                    <span class="col-sm-3">Issue</span>
+                    <span class="col-sm-6">{{vm.issue.Name}}</span>
+                </span>
+                <span class="row">
+                    <span class="col-sm-3">Description</span>
+                    <span class="col-sm-6">{{vm.issue.Description}}</span>
+                </span>
+                <span class="row">
+                    <span class="col-sm-3">Category</span>
+                    <span class="col-sm-6">{{vm.issue.Category}}</span>
+                </span>
+                <span class="row">
+                    <span class="col-sm-3">Assigned To</span>
+                    <span class="col-sm-6">{{vm.issue.AssignedEmployeeFriendlyID}}</span>
+                </span>
+                <span class="row">
+                    <span class="col-sm-3">Status</span>
+                    <span class="col-sm-6">{{vm.enumUtils.issueStatusToTitle(vm.issue.Status)}}</span>
+                </span>
+                <span class="row">
+                    <get-operating-location-data operating-location-identifier="vm.issue.OperatingLocationID" operating-location-object="vm.operatingLocation"></get-operating-location-data>
+                    <span class="col-sm-3">Operating Location</span>
+                    <span class="col-sm-6">{{vm.operatingLocation.Name}}</span>
+                </span>
+
+                <div class="clearfix"></div>
+
+                <button class="btn btn-primary" ng-click="vm.onEdit()">
+                    <span class="glyphicon glyphicon-pencil"></span> Edit
+                </button>
+            </div>
+            <div id="editForm" ng-show="!!vm.isInEditMode">
+                <form class="form-horizontal kendo-form" id="addIssueForm" name="addIssueForm">
+
+                    <div id="ticketNumberRow" class="form-group">
+                        <label class="form-col-withlabel-label" for="referenceNumber">Reference / Ticket #</label>
+                        <div class="form-col-withlabel-input">
+                            <input class="form-control" type="text" id="referenceNumber" name="referenceNumber" ng-model="vm.issue.ReferenceNumber"/>
+                        </div>
+                    </div>
+
+                    <div id="nameRow" class="form-group">
+                        <label class="form-col-withlabel-label" for="customerName">Customer</label>
+                        <div class="form-col-withlabel-input">
+                            <input class="form-control width-full bottom-buffer5" type="text" id="customerName" name="customerName" required ng-model="vm.issue.CustomerName" placeholder="Name"/><br/>
+                            <input class="form-control bottom-buffer5" type="tel"
+                                   ng-model="vm.issue.MobilePhone"
+                                   id="mobilePhone" name="mobilePhone"
+                                   placeholder="{{vm.formMessages.Placeholder_MobilePhone}}"
+                                   ng-pattern="/^\(?\d{3}\)?-? *\d{3}-? *-?\d{4}/"
+                                   mask="(999) 999-9999"
+                                   required/>
+                            <input type="email"
+                                   ng-model="vm.issue.EmailAddress"
+                                   id="emailAddress" name="emailAddress"
+                                   placeholder="{{vm.formMessages.Placeholder_Email}}"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="error-messages" ng-messages="addIssueForm.customerName.$error" ng-if="addIssueForm.customerName.$touched || addIssueForm.$submitted">
+                        <div ng-message="required">Customer Name is Required</div>
+                    </div>
+                    <div class="error-messages" ng-messages="addIssueForm.mobilePhone.$error" ng-if="addIssueForm.mobilePhone.$touched || addIssueForm.$submitted">
+                        <div ng-message="required">Mobile Phone is Required</div>
+                        <div ng-message="pattern">{{vm.formMessages.Format_Phone}}</div>
+                    </div>
+                    <div class="error-messages" ng-messages="addIssueForm.emailAddress.$error" ng-if="(addIssueForm.emailAddress.$touched && addIssueForm.emailAddress.$dirty) || addIssueForm.$submitted">
+                        <div ng-message="required">{{vm.formMessages.Required_Email}}</div>
+                        <div ng-message="email">{{vm.formMessages.Format_Email}}</div>
+                    </div>
+
+                    <div id="issueNameRow" class="form-group">
+                        <label class="form-col-withlabel-label" for="issueName">Issue</label>
+                        <div class="form-col-withlabel-input">
+                            <input class="form-control width-full" type="text" id="issueName" name="issueName" required ng-model="vm.issue.Name"/>
+                        </div>
+                    </div>
+                    <div class="error-messages" ng-messages="addIssueForm.issueName.$error" ng-if="addIssueForm.issueName.$touched || addIssueForm.$submitted">
+                        <div ng-message="required">Issue Name is Required</div>
+                    </div>
+
+                    <div id="noteRow" class="form-group">
+                        <label class="form-col-withlabel-label" for="issueDescription">Description</label>
+                        <div class="form-col-withlabel-input">
+                            <textarea class="form-control width-full" id="issueDescription" name="issueDescription" ng-model="vm.issue.Description" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div id="categoryRow" class="form-group">
+                        <label class="form-col-withlabel-label" for="issueCategoryList">Category</label>
+                        <div class="form-col-withlabel-input">
+                            <select kendo-combo-box id="issueCategoryList"
+                                    k-min-length="2"
+                                    k-ng-model="vm.selectedCategory"
+                                    k-filter="'contains'"
+                                    k-data-source="vm.issueCategoryList"
+                                    k-auto-bind="true"
+                                    k-data-text-field="'Description'"
+                                    k-data-value-field="'Value'"
+                                    k-suggest="true"></select>
+                        </div>
+                    </div>
+                    <div id="employeeRow" class="form-group">
+                        <label class="form-col-withlabel-label" for="employeeList">Assign to</label>
+                        <div class="form-col-withlabel-input">
+                            <select kendo-combo-box id="employeeList"
+                                    k-min-length="2"
+                                    k-ng-model="vm.selectedEmployee"
+                                    k-filter="'contains'"
+                                    k-data-source="vm.employeeList"
+                                    k-auto-bind="true"
+                                    k-data-text-field="'FriendlyID'"
+                                    k-data-value-field="'ID'"
+                                    k-suggest="true"></select>
+                        </div>
+                    </div>
+                    <div id="statusRow" class="form-group">
+                        <label class="form-col-withlabel-label" for="statusList">Status</label>
+                        <div class="form-col-withlabel-input">
+                            <select kendo-combo-box id="statusList"
+                                    k-min-length="2"
+                                    k-ng-model="vm.selectedStatus"
+                                    k-filter="'contains'"
+                                    k-data-source="vm.statusList"
+                                    k-data-text-field="'Description'"
+                                    k-data-value-field="'Value'"
+                                    k-suggest="true"></select>
+                        </div>
+                    </div>
+
+                    <div class="text-center top-buffer15">
+                        <button class="btn btn-primary right-buffer15" ng-click="vm.onUpdate()" ng-disabled="!addIssueForm.$valid">Save</button>
+                        <button class="btn" ng-click="vm.onCancel()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <hr/>
+
+            <div class="bottom-buffer15">
+                <button class="btn btn-primary right-buffer15" ng-click="vm.recordCustomerCalled()">Customer Called</button>
+                <button class="btn btn-primary" ng-click="vm.complete()">Complete Issue</button>
+            </div>
+
+            <div kendo-tab-strip k-content-urls="[null, null]">
+                <!-- tab list -->
+                <ul>
+                    <li class="k-state-active">Notes</li>
+                    <li>Events</li>
+                    <li>Communication</li>
+                </ul>
+
+                <div style="padding: 1em">
+                    <button class="btn bottom-buffer5" ng-click="addNewNoteWindow.open()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Note</button>
+
+                    <div class="form-group" ng-repeat="note in vm.issue.IssueNotes">
+                        <hr/>
+                        {{note.Note}}
+                    </div>
+                </div>
+
+                <div class="tab-content">
+                    <div class="events">
+                        <div class="events-event" ng-repeat="currentEvent in vm.currentObjectEvents">
+                            <div class="events-circle">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </div>
+                            <button class="btn btn-sm btn-info pull-right" ng-click="vm.toggleInfo($index)" style="margin-left: 60%;">
+                                <i class="glyphicon glyphicon-minus" ng-if="currentEvent.display == true"></i>
+                                <i class="glyphicon glyphicon-plus" ng-if="currentEvent.display == false"></i>
+                            </button>
+                            <div ng-bind-html="currentEvent.content"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="padding: 1em">
+                    <sent-messages context="vm.currentCommunicationContext" identifier="vm.issue.ID"></sent-messages>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

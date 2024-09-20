@@ -1,0 +1,80 @@
+﻿.rewards {
+
+  h4 {
+    margin-top: 0;
+  }
+
+  .order-points {
+    .xs-max({
+      margin-bottom: 1em;
+    });
+  }
+
+  &-list {
+    padding: 0 1em;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .text-wrapper {
+    padding-top: .5em;
+  }
+
+  &-item {
+    margin-top: 1em;
+
+
+    .btn {
+        width: 100%;
+        margin-top: .5em;
+        font-size: .9em;
+
+      .xs({
+        width: auto;
+        margin-top: 0;
+      })
+    }
+
+    .quantity-input {
+      .xs({
+        width: 70px;
+      });
+    }
+
+    &_details {
+      .sm({
+        width: 55%;
+      });
+      .md({
+        width: 65%;
+      });
+    }
+
+    &_controls {
+      padding-top: .5em;
+      text-align: left;
+
+      .xs({
+        padding-top: 0;
+        text-align: right;
+      });
+      .sm({
+        width: 45%;
+      });
+      .md({
+        width: 35%;
+      });
+    }
+  }
+
+  .form-inline {
+    label,
+    input,
+    button {
+      display: inline-block;
+      vertical-align: middle;
+      margin-bottom: 0;
+      margin-right: .3em;
+    }
+  }
+}

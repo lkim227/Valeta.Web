@@ -1,0 +1,29 @@
+﻿<div class="top-buffer15" ng-show="directiveInitialized">
+        <div class="row bottom-buffer15" ng-show="!!catchAllAdjustments && catchAllAdjustments.length> 0">
+            <label>Adjustments on {{catchAllCard}}:</label>
+            <div ng-repeat="caAdjustment in catchAllAdjustments">
+                <div class="row row--editable">
+                    <div class="pull-left top-padding8">
+                        <span>{{caAdjustment.Amount | currency }} {{caAdjustment.Description}}</span>
+                    </div>
+                    <div class="pull-right">
+                        <button class="btn btn-cancel btn-sm" ng-click="onDelete(caAdjustment, true)"><span class="glyphicon glyphicon-trash"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row bottom-buffer15" ng-show="showCards && !!allowanceAdjustments && allowanceAdjustments.length > 0">
+            <label>Adjustments on {{allowanceCard}}:</label>
+            <div class="text-center" ng-repeat="aAdjustment in allowanceAdjustments">
+                <div class="row row--editable">
+                    <div class="pull-left top-padding8">
+                        <span>{{aAdjustment.Amount | currency }} {{aAdjustment.Description}}</span>
+                    </div>
+                    <div class="pull-right">
+                        <button class="btn btn-cancel btn-sm" ng-click="onDelete(aAdjustment, false)"><span class="glyphicon glyphicon-trash"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

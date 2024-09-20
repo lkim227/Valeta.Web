@@ -1,0 +1,21 @@
+﻿<style>
+
+
+</style>
+<div ui-view="navigation"></div>
+
+<div ui-view="formPageHeader"></div>
+
+<div class="body-content--staff">
+    <div id="pageErrorArea"></div>
+    <div ui-view></div>
+</div>
+
+<footer class="footer">
+    <p class="text-center top-padding8">
+        &copy;
+        <span id="copyright">
+            <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        </span> Valeta
+    </p>
+</footer>

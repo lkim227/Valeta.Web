@@ -1,0 +1,79 @@
+<div id="currentTicket"
+     class="timeline-item"
+     ng-class="{'IsReturn': isReturn, 'IsDeparture': isDeparture}"
+     ng-init="isDeparture = dataItem.TravelDirection == 0; isReturn = dataItem.TravelDirection == 1;">
+    <span ng-if="vm.ticketUtils.isTicketClosed(dataItem.TicketStatus)"
+          class="icon glyphicon glyphicon-usd green-txt" title="Closed"></span>
+    <div>
+        <div class="row-1-wrapper">
+            <span class="item item--lg-margin">
+                {{dataItem.DateTimeCustomerMeetsValet | date:'h:mm a'}}
+            </span>
+            <span class="item item--md-margin">
+                <span class="icon glyphicon glyphicon-plane"
+                      title="{{dataItem.FlightSpecifications.AirlineCode}} {{dataItem.FlightSpecifications.FlightNumber}} Status: {{vm.flightUtils.flightStatusCodeToTitle(dataItem.FlightStatus.StatusCode)}}&#10; - {{dataItem.Schedule.ScheduleDateTime | date : 'short'}} Scheduled {{vm.flightUtils.flightDirectionToString(dataItem.FlightSpecifications.FlightDirection)}}&#10; - {{dataItem.FlightStatus.FlightTime | date : 'short'}} {{vm.flightUtils.flightTimeSourceToFriendly(dataItem.FlightStatus.FlightTimeSource, dataItem.FlightSpecifications.FlightDirection)}}">
+                </span>
+                <span>{{dataItem.FlightStatus.TerminalGate}}</span>
+                <span ng-show="isDeparture" class="italic">
+                    {{dataItem.RelativeMeetLocation}}
+                </span>
+                <span class="item glyphicon glyphicon-briefcase"
+                      ng-style="isReturn && dataItem.GiveBackIsCheckingBags? {'display': 'inline-block'} : {'display' : 'none'}"
+                      title="{{dataItem.FlightStatus.BaggageClaim}}">
+                </span>
+            </span>
+            <!--<span ng-style="(isDeparture ? {'display': 'inline-block'} : {'display' : 'none'})">{{dataItem.RelativeMeetLocation}}</span>-->
+            <span class="item item--md-margin truncate">{{dataItem.ZoneCode}}</span>
+            <span class="item item--md-margin icon glyphicon glyphicon-exclamation-sign alert-info"
+                  ng-style="(dataItem.ZoneWarningMessage.length > 0 ? {'display': 'inline-block'} : {'display' : 'none'})"
+                  title="{{dataItem.ZoneWarningMessage}}">
+            </span>
+            <span class="item item--md-margin alert-success truncate"
+                  ng-style="(isReturn && vm.flightStatusCodeToTitle(dataItem.FlightStatus.StatusCode)==='Landed' ? {'display': 'inline-block'} : {'display' : 'none'})">
+                {{vm.flightStatusCodeToTitle(dataItem.FlightStatus.StatusCode)}}
+            </span>
+            <span class="item item--md-margin icon glyphicon glyphicon-exclamation-sign alert-info"
+                  ng-style="(dataItem.MeetTimeWarningMessage.length > 0 ? {'display': 'inline-block'} : {'display' : 'none'})"
+                  title="{{dataItem.MeetTimeWarningMessage}}">
+            </span>
+            <span class="item item--md-margin icon glyphicon glyphicon-exclamation-sign alert-info"
+                  ng-style="(dataItem.GeneralWarningMessage.length > 0 ? {'display': 'inline-block'} : {'display' : 'none'})"
+                  title="{{dataItem.GeneralWarningMessage}}">
+            </span>
+
+            <!--Use ng-if so tooltip doesn't render before its value is set-->
+            <span class="item item--lg-margin" ng-if="isReturn && !!vm.ticketServicesTooltip[dataItem.TicketNumber]">
+                <span kendo-tooltip k-content="vm.ticketServicesTooltip[dataItem.TicketNumber]" class="k-group">
+                    <img ng-src="/appCommon/resources/services-red-icon.png" ng-show="!!vm.ticketWarningServices[dataItem.TicketNumber]" width="18" style="margin-top: -10px" />
+                    <img ng-src="/appCommon/resources/services-green-icon.png" ng-hide="!!vm.ticketWarningServices[dataItem.TicketNumber]" width="18" style="margin-top: -10px" />
+                </span>
+            </span>
+
+            <!--Use ng-if so tooltip doesn't render before its value is set-->
+            <span class="item item--lg-margin red-txt" ng-if="!!vm.ticketPendingIssues[dataItem.TicketNumber]">
+                <span kendo-tooltip k-content="vm.ticketPendingIssues[dataItem.TicketNumber]" class="k-group">
+                    <img ng-src="/appCommon/resources/openissues-red-icon.png" width="18" style="margin-top: -10px" />
+                </span>
+            </span>
+
+        </div>
+        <div class="row-2-wrapper">
+            <span class="item item--lg-margin">
+                <a class="link" ng-href="/appStaff/#/ticket/{{dataItem.TicketNumber}}" target="_self">#{{dataItem.TicketNumber}}</a>
+                <span class="item glyphicon glyphicon-file"
+                      ng-style="dataItem.ReservationNote.length > 0? {'display': 'inline-block'} : {'display' : 'none'}"
+                      title="{{dataItem.ReservationNote}}"></span>
+                <span class="item glyphicon glyphicon-dashboard" title="{{dataItem.Vehicle.FriendlyName}}&#10;{{dataItem.Vehicle.Attributes}}"></span>
+                <span ng-if="!!dataItem.KeyTag" class="text-nowrap">{{dataItem.KeyTag}}<span class="glyphicon glyphicon-pushpin"></span></span>
+            </span>
+            <span class="item item--lg-margin">
+                <span>{{dataItem.MobilePhone | tel}}</span>
+                <a class="link" ng-href="{{vm.adHocCommunicationUrl}}/{{dataItem.ID}}/{{dataItem.MobilePhone}}/{{dataItem.CustomerName}}" target="_self">SMS</a>
+            </span>
+            <span class="item truncate">{{dataItem.CustomerName}}</span>
+        </div>
+    </div>
+    <div id="alerts">
+        <span class="ticketlistview-warning"></span>
+    </div>
+</div>

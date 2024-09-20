@@ -1,0 +1,124 @@
+﻿<div class="page-controls-wrapper">
+    <span ng-hide="onSelectedTicket">
+        <operating-location-dropdown operating-location-changed-callback="onChangeOperatingLocation(newOperatingLocation)"></operating-location-dropdown>
+    </span>
+    <button class="btn btn-primary" ng-show="canCreate && hasEditAccess" ng-click="openAddTask()">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        New Task
+    </button>
+    <!--<button class="btn btn-primary" ng-click="refreshData()">
+        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+        Refresh
+    </button>-->
+    <button class="btn btn-default pull-right" ng-hide="cancelled" ng-click="toggleShowCompleted()" ng-show="selectedOperatingLocationID">
+        {{(showCompleted) ? 'Hide' : 'Show'}} Completed
+    </button>
+    <button class="btn btn-default pull-right" ng-click="toggleShowDeleted()" ng-show="selectedOperatingLocationID">
+        {{(showDeleted) ? 'Hide' : 'Show'}} Deleted
+    </button>
+</div>
+
+<div class="myGrid" ng-show="selectedOperatingLocationID">
+    <kendo-grid options="gridOptions" id="asfGrid"></kendo-grid>
+</div>
+
+<script type="text/ng-template" id="addTaskModalContent">
+    <div class="modal-header">
+        <button type="button"
+                class="close"
+                aria-label="Close"
+                ng-click="cancelAddTask()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Add New Task</h4>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal kendo-form" id="addTaskForm" name="addTaskForm" novalidate>
+
+            <div id="ticketNumberRow" class="form-group">
+                <label class="form-col-withlabel-label" for="ticketNumber">Ticket #</label>
+                <div class="form-col-withlabel-input">
+                    <input type="text" id="ticketNumber" name="ticketNumber" required ng-model="newTask.TicketNumber" ng-disabled="showForm"  class="form-control"/>
+                    <div class="info-messages" ng-show="showNotFoundTicketMessage && !addTaskForm.ticketNumber.$error.required">
+                        Ticket was not found. 
+                    </div>
+                    <div class="error-messages" ng-messages="addTaskForm.ticketNumber.$error" ng-if="addTaskForm.ticketNumber.$touched || addTaskForm.$submitted">
+                        <div ng-message="required">Please enter a Ticket Number</div>
+                    </div>
+                    <div class="btn-wrapper" ng-hide="showForm">
+                        <button ng-click="findTicketInfo()" class="btn btn-primary" ng-disabled="newTask.TicketNumber.length<=0">
+                            Find
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="showForm">
+                <div id="nameRow" class="form-group row">
+                    <label class="form-col-withlabel-label" for="customerName">Customer</label>
+                    <div class="form-col-withlabel-input">
+                        Name: {{newTask.CustomerName}}<br />
+                        Phone: {{newTask.MobilePhone}}<br />
+                        Email: {{newTask.EmailAddress}}<br />
+                    </div>
+                </div>
+                <div class="error-messages" ng-messages="addTaskForm.customerName.$error" ng-if="addTaskForm.customerName.$touched || addTaskForm.$submitted">
+                    <div ng-message="required">Required</div>
+                </div>
+                <div class="error-messages" ng-messages="addTaskForm.mobilePhone.$error" ng-if="addTaskForm.mobilePhone.$touched || addTaskForm.$submitted">
+                    <div ng-message="required">Required</div>
+                </div>
+
+                <div id="taskNameRow" class="form-group row">
+                    <label class="form-col-withlabel-label" for="taskName">Service Name</label>
+                    <div class="form-col-withlabel-input">
+                        <input type="text" id="taskName" name="taskName" required ng-model="newTask.ServiceName" class="form-control" />
+                    </div>
+                </div>
+                <div id="noteRow" class="form-group row">
+                    <label class="form-col-withlabel-label" for="taskNote">Service Task Note</label>
+                    <div class="form-col-withlabel-input">
+                        <input type="text" id="taskNote" name="taskNote" ng-model="newTask.ServiceTaskNote" class="form-control" />
+                    </div>
+                </div>
+                <div id="serviceFeeRow" class="form-group row">
+                    <label class="form-col-withlabel-label" for="serviceFee">Service Fee</label>
+                    <div class="form-col-withlabel-input">
+                        <input type="number" id="serviceFee" name="serviceFee" required ng-model="newTask.ServiceFee" min="0" class="form-control" />
+                    </div>
+                </div>
+                <div id="providerChargeRow" class="form-group row">
+                    <label class="form-col-withlabel-label" for="providerCharge">Provider Charge</label>
+                    <div class="form-col-withlabel-input">
+                        <input type="number" id="providerCharge" name="providerCharge" required ng-model="newTask.ProviderCharge" min="0" class="form-control" />
+                    </div>
+                </div>
+                <div id="providerChargeRow" class="form-group row">
+                    <label class="form-col-withlabel-label" for="taxRate">Tax Rate</label>
+                    <div class="form-col-withlabel-input">
+                        <input type="number" id="taxRate" name="taxRate" required ng-model="newTask.TaxRate" min="0" class="form-control" />
+                    </div>
+                </div>
+                <div id="categoryRow" class="form-group row">
+                    <label class="form-col-withlabel-label" for="taskCategoryList">Category</label>
+                    <div class="form-col-withlabel-input">
+                        <select kendo-combo-box id="taskCategoryList"
+                                k-min-length="2"
+                                k-ng-model="newTask.Category"
+                                k-filter="'contains'"
+                                k-value-primitive="true"
+                                k-data-source="categoryList"
+                                k-data-text-field="'Description'"
+                                k-data-value-field="'Value'"
+                                k-suggest="true"></select>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button ng-show="showForm" type="button" ng-click="addNewTask()" class="btn btn-primary" ng-disabled="!addTaskForm.$valid">Add Task</button>
+        <button type="button" class="btn btn-cancel" title="Cancel" ng-click="cancelAddTask()">Cancel</button>
+    </div>
+</script>

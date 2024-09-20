@@ -1,0 +1,40 @@
+{
+  "name": "valeta-web",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "3.3.5",
+    "bootstrap-less-only": "3.3.5",
+    "jquery": "2.1.1",
+    "jquery-validation": "1.14.0",
+    "jquery-validation-unobtrusive": "3.2.4",
+    "angular": "1.4.14",
+    "bootswatch": "3.3.6+1",
+    "angular-ui-router": "0.2.18",
+    "angular-resource": "1.4.14",
+    "angular-animate": "1.4.14",
+    "angular-touch": "1.4.14",
+    "angular-messages": "1.4.14",
+    "angular-sanitize": "1.4.14",
+    "angular-ui-select": "0.16.1",
+    "angular-bootstrap": "2.5.0",
+    "angular-confirm-modal": "1.2.3",
+    "angular-busy": "4.1.4",
+    "angular-card": "0.3.11",
+    "angular-recaptcha": "4.1.0",
+    "angulartics-google-analytics": "0.4.0",
+    "lodash": "4.17.4",
+    "restangular": "1.6.1",
+    "angular-multi-step-form": "1.3.0",
+    "signalr": "2.2.2",
+    "angular-signalr-hub": "1.6.3",
+    "ngMask": "angular-mask#3.1.0",
+    "angular-timeline": "^1.7.0",
+    "ng-img-crop": "ngImgCrop#^0.3.2",
+    "ngLinkedIn": "^0.1.4"
+  },
+  "resolutions": {
+    "bootstrap": "~3.3.6",
+    "angular": "^1.0.8",
+    "angular-animate": "~1.5.5"
+  }
+}

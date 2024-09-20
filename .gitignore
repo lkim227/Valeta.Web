@@ -1,0 +1,6 @@
+lib/**
+/index.html
+*.map
+*.js
+!gulp*.js
+typings/**

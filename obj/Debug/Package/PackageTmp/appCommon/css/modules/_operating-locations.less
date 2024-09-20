@@ -1,0 +1,54 @@
+﻿.operating-locations {
+  padding-left: 0;
+}
+
+.operating-location {
+  .clearfix();
+  padding: .5em 1em;
+
+  &:hover {
+    background-color: @brand-content-background-color2;
+  }
+
+  &_title {
+    float: left;
+    width: 20%;
+    padding-top: .9em;
+    padding-right: 1em;
+    font-family: @brand-font-family-bold;
+  }
+
+  &_choices {
+    float: right;
+    /*width: 65%;*/
+
+    .btn {
+      margin-right: .3em;
+    }
+  }
+
+  &_controls {
+    float: left;
+    width: 115px;
+  }
+}
+
+.single-operating-location {
+  .form_content {
+    max-width: 960px;
+    margin: 0 auto 2em auto;
+  }
+  .form_tabs {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .form-control--inline {
+    width: auto;
+  }
+
+  .group--inline {
+    display: inline-flex;
+    align-items: center;
+  }
+}

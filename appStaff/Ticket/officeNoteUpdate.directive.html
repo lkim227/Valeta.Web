@@ -1,0 +1,26 @@
+﻿<div ng-show="directiveInitialized" class="row row--editable">
+    <label class="form-col-withlabel-label" ng-class="{'no-top-padding': !isInEditMode}">Office Note</label>
+    <div ng-show="!isInEditMode" class="form-col-withlabel-input">
+        <span>
+            <span class="glyphicon glyphicon-exclamation-sign alert-info right-buffer5"
+                  ng-style="(alertFlag ? {'display': 'inline-block'} : {'display' : 'none'})">
+            </span>
+            {{textData}}
+        </span>
+        <button ng-show="canUpdate" class="pull-right btn btn-primary btn-icon-only btn--edit" ng-click="onEdit()">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+    </div>
+    <div ng-show="!!isInEditMode" class="form-col-withlabel-input">
+        <textarea class="form-control"
+                    name="officeNote"
+                    ng-change="updateTextData();"
+                    ng-model-options="{ debounce: 1000 }"
+                    ng-model="textData"
+                    required />
+        <div class="form_single-input-buttons">
+            <button class="btn btn-primary" ng-click="onUpdate()">Save</button>
+            <button class="btn btn-cancel" ng-click="onCancel()">Cancel</button>
+        </div>
+    </div>
+</div>

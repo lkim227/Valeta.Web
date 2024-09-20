@@ -1,0 +1,99 @@
+﻿<div class="form-group row">
+    <label class="form-col-withlabel-label control-label">
+        <a class="btn btn-primary" ng-click="cancelSplitPayment();">Cancel Split Payment</a>
+    </label>
+</div>        
+
+<div class="form-group row">
+    <div data-reload="true" class="splitpayment-wrapper">
+
+        <div id="allowance" class="splitpaymentbox">
+            <label>Charges for:</label>
+            <div id="rowPaymentMethod" class="split-section">
+                <payment-method can-select
+                                fetch-payment-methods="false"
+                                payment-methods="paymentMethods"
+                                selected-payment-method-id="billing.ReservationAllowanceOrder.PaymentMethodID"
+                                selected-payment-method-friendly-name="billing.ReservationAllowanceOrder.PaymentMethodFriendlyName"
+                                selected-payment-method-is-authorized="billing.ReservationAllowanceOrder.IsPaymentAuthorized"
+                                template="/appCommon/directives/customer/payment/paymentMethod/paymentMethod.directive.dropdown.html"></payment-method>
+            </div>
+        
+            <div ng-if="!!billing.ReservationAllowanceOrder.PaymentMethodID">
+                <div id="rowParkingDayRate" class="split-section">
+                    <div class="form-inline">
+                        <div class="pull-left top-padding8">
+                            <span>Daily parking limit:</span>
+                        </div>
+                        <div class="input-group pull-right" >
+                            <span class="input-group-addon">$</span>
+                            <input class="text-right form-control" style="width: 82px"
+                                   id="valetParkingRateInput"
+                                   name="valetParkingRateInput"
+                                   ng-model="billing.ReservationAllowanceOrder.ParkingDayRateAllowance"
+                                   ng-change="applyNewDailyLimit()"
+                                   type="text"
+                                   ng-pattern="/^\d+\.?\d?/"
+                                   required="required"/>
+                        </div>
+                        <!--<div class="limit-button right-buffer5" style="float: right;">
+                            <button class="btn btn-primary" ng-click="applyNewDailyLimit()">Set</button>
+                        </div>-->
+                    </div>
+                    <div ng-show="showErrorOninitialMaxDailyRate">
+                        <span class="alert-warning">Daily limit must be less or equal to {{initialMaxDailyRate | currency}}</span>
+                    </div>
+                </div>
+
+                <div id="rowDays" class="split-section no-margin">
+                    <split-payment-reserved-parking-days is-allowance-order="true"
+                                                         allowance-rate="billing.ReservationAllowanceOrder.ParkingDayRateAllowance"
+                                                         reserved-days="billing.ReservationAllowanceOrder.ReservedParkingDays"
+                                                         other-order-reserved-days="billing.ReservationCatchAllOrder.ReservedParkingDays" />
+                </div>
+
+                <div id="rowAdditionalServices" class="split-section no-margin">
+                    <split-payment-reserved-services reserved-services="billing.ReservationAllowanceOrder.ReservedServices"
+                                                     other-order-reserved-services="billing.ReservationCatchAllOrder.ReservedServices" />
+                </div>
+
+                <div id="rowTip" class="split-section">
+                    <set-tip tip="billing.ReservationAllowanceOrder.TipBreakdown[0]" identifier="ReservationAllowanceOrder"></set-tip>
+                </div>
+            </div>
+        </div>
+        <div id="catchAll" class="splitpaymentbox  last">
+            <label>Charges for:</label>
+
+            <div id="rowPaymentMethod2" class="split-section">
+                <payment-method can-select
+                                fetch-payment-methods="false"
+                                payment-methods="paymentMethods"
+                                selected-payment-method-id="billing.ReservationCatchAllOrder.PaymentMethodID"
+                                selected-payment-method-friendly-name="billing.ReservationCatchAllOrder.PaymentMethodFriendlyName"
+                                selected-payment-method-is-authorized="billing.ReservationCatchAllOrder.IsPaymentAuthorized"
+                                template="/appCommon/directives/customer/payment/paymentMethod/paymentMethod.directive.dropdown.html"></payment-method>
+            </div>
+
+            <div class="top-buffer45 hidden-sm hidden-xs">&nbsp;</div>
+
+            <div ng-if="!!billing.ReservationCatchAllOrder.PaymentMethodID">
+                <div id="rowDays2" class="split-section no-margin">
+                    <split-payment-reserved-parking-days is-allowance-order="false"
+                                                         allowance-rate="billing.ReservationAllowanceOrder.ParkingDayRateAllowance"
+                                                         reserved-days="billing.ReservationCatchAllOrder.ReservedParkingDays"
+                                                         other-order-reserved-days="billing.ReservationAllowanceOrder.ReservedParkingDays" />
+                </div>
+
+                <div id="rowAdditionalServices2" class="split-section no-margin">
+                    <split-payment-reserved-services reserved-services="billing.ReservationCatchAllOrder.ReservedServices"
+                                                     other-order-reserved-services="billing.ReservationAllowanceOrder.ReservedServices" />
+                </div>
+
+                <div id="rowTip2" class="split-section">
+                    <set-tip tip="billing.ReservationCatchAllOrder.TipBreakdown[0]" identifier="ReservationCatchAllOrder"></set-tip>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

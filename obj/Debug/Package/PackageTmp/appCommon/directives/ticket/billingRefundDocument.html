@@ -1,0 +1,17 @@
+﻿<div class="container-fluid" ng-controller="BillingRefundDocumentController as vm">
+    <div class="page-controls-wrapper">
+        <a class="btn link" ng-click="vm.goBack()">Back</a>
+    </div>
+
+    <div ng-hide="vm.isBillingDocumentGenerated">
+        <div class="loader">Loading...</div>
+    </div>
+
+    <div class="top-buffer30" ng-show="vm.isBillingDocumentGenerated">
+        <button class="btn btn-primary" ng-click="vm.printReport()"><span class="glyphicon glyphicon-print"></span> Print</button>
+    </div>
+
+    <div ng-show="vm.isBillingDocumentGenerated" id="billingRefundDocumentReport">
+        <!--Document rendered here-->
+    </div>
+</div>

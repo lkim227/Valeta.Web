@@ -1,0 +1,8 @@
+﻿<div cg-busy="loadingPromise">
+    <div class="form-group" ng-show="pointsAccountingHistory.length > 0">
+        <br />Rewards redeemed on this reservation:
+        <div ng-repeat="points in pointsAccountingHistory">
+            <span>{{points.RewardName}} ({{0-points.Points}} points)</span>
+        </div>
+    </div>
+</div>
