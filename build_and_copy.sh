@@ -30,21 +30,3 @@ docker_command="for file in ${files_to_copy[@]}; do \
 done"
 
 docker run -it --rm -v "$PROJECT_DIR:/usr/src/host" angular-app /bin/bash -c "$docker_command"
-
-# Step 4: Check if all files were copied successfully
-all_copied=true
-for file in "${files_to_copy[@]}"; do
-  filename=$(basename "$file")  # Extract just the filename
-  if [[ ! -f "$PROJECT_DIR/$filename" ]]; then
-    all_copied=false
-    echo "Error: $filename was not copied."
-  fi
-done
-
-# Final success message if all files are copied
-if [[ "$all_copied" == true ]]; then
-    echo "All files copied successfully!"
-    echo "You can find them in: $PROJECT_DIR"
-else
-    echo "Some files were not copied. Please check for issues."
-fi
