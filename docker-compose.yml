@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  valeta-web:
+    build:
+      context: .  # Root of the project (Valeta.Web directory)
+      dockerfile: Dockerfile  # Dockerfile is in the root
+    ports:
+      - "8080:80"  # Map container's port 80 to host port 8080
+    volumes:
+      - .:/app  # Optional: Mount project folder into container for development purposes
+    environment:
+      - NODE_ENV=production

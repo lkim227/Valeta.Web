@@ -1,9 +1,0 @@
-﻿<span ng-if="!!dldId">
-    <label ng-if="showListLabel" class="form-col-withlabel-label control-label" ng-class="{'no-top-padding': viewOnly}">{{listLabel}}</label>
-    <span ng-if="!viewOnly" ng-class="{'form-col-withlabel-input': showListLabel}">
-        <input id="{{dldId}}" name="{{listType}}" required="required" />
-    </span>
-    <span ng-if="viewOnly" ng-class="{'form-col-withlabel-input': showListLabel}">
-        <span>{{selectedDefinedListDescription}}</span>
-    </span>
-</span>
