@@ -4,3 +4,4 @@ lib/**
 *.js
 !gulp*.js
 typings/**
+node_modules/

@@ -2,9 +2,15 @@
   "compileOnSave": true,
   "compilerOptions": {
     "target": "ES5",
-    "sourceMap": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "types": ["angular", "jquery", "lodash", "angular-ui-router", "signalr"],
+    "typeRoots": ["./node_modules/@types"],
+    "esModuleInterop": true
   },
+  "include": [
+    "appCommon/**/*",
+    "lib/**/*"
+  ],
   "exclude": [
     "node_modules"
   ]
