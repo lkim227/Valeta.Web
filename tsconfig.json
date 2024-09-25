@@ -1,17 +1,15 @@
 ﻿{
   "compileOnSave": true,
   "compilerOptions": {
-    "target": "ES5",  // Target ES5 for AngularJS compatibility
-    "sourceMap": true,
+    "target": "ES5",
     "moduleResolution": "node",
-    "types": ["angular"], 
-    "typeRoots": ["./node_modules/@types", "./lib"],  // Include both node_modules and Bower lib folder
-    "esModuleInterop": true  // Allow ES module compatibility with CommonJS modules
+    "types": ["angular", "jquery", "lodash", "angular-ui-router", "signalr"],
+    "typeRoots": ["./node_modules/@types"],
+    "esModuleInterop": true
   },
   "include": [
-    "appCommon/**/*", // Include your source files
-    "Components/**/*",
-    "lib/**/*" // Include the Bower lib folder
+    "appCommon/**/*",
+    "lib/**/*"
   ],
   "exclude": [
     "node_modules"
