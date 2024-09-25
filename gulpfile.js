@@ -193,7 +193,7 @@ gulp.task("installTypings", function () {
 
 gulp.task("installTyping-Kendo",
     function() {
-        var stream = gulp.src("./kendo/kendo.all.d.ts")
+        var stream = gulp.src("./kendo.all.d.ts")
             .pipe(gulp.dest("./typings"));
         return stream;
     });

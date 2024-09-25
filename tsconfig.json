@@ -1,10 +1,18 @@
 ﻿{
   "compileOnSave": true,
   "compilerOptions": {
-    "target": "ES5",
+    "target": "ES5",  // Target ES5 for AngularJS compatibility
     "sourceMap": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "types": ["angular"], 
+    "typeRoots": ["./node_modules/@types", "./lib"],  // Include both node_modules and Bower lib folder
+    "esModuleInterop": true  // Allow ES module compatibility with CommonJS modules
   },
+  "include": [
+    "appCommon/**/*", // Include your source files
+    "Components/**/*",
+    "lib/**/*" // Include the Bower lib folder
+  ],
   "exclude": [
     "node_modules"
   ]
